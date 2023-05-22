@@ -29,8 +29,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::prefix('admin')->group(function(){
+    Route::prefix('login')->group(function(){
+        Route::get('/', [AccountController::class, 'formLogin']);
+        Route::post('/', [AccountController::class, 'submitLogin']);
+    });
+});
+
+Route::prefix('admin')->middleware('session.check')->group(function(){
     Route::prefix('account')->group(function(){
         Route::get('/', function() {
             return view('admin.account.home');
@@ -45,10 +51,6 @@ Route::prefix('admin')->group(function(){
         Route::post('absen', [AbsensiController::class, 'insertAbsen']);
     });
 
-    Route::prefix('login')->group(function(){
-        Route::get('/', [AccountController::class, 'formLogin']);
-        Route::post('/', [AccountController::class, 'submitLogin']);
-    });
 
     Route::get('logout', [AccountController::class, 'logout']);
 

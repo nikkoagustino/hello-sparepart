@@ -12,7 +12,22 @@
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
+    <style>
+        
+        .btn-danger{
+            background:#950101 !important;
+            color: white !important;
+            box-shadow: 0 0 5px grey;
+        }
+        .btn-danger:hover {
+            color: black;
+            background-color: transparent;
+            border: 2px solid #950101 !important;
+        }
+        body {
+            background-color: #f4f6f6;
+        }
+    </style>
 </head>
 <body>
 
@@ -41,16 +56,33 @@
   
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col"></div>
+            <div class="col-4 mt-5">
+                <img src="{{ url('assets/img/logo.png') }}" style="max-width: 100%" alt="">
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-3">
                 <form action="{{ url('admin/login') }}" method="POST">
                     @csrf
-                    <span>Username</span>
-                    <input type="text" name="username" placeholder="Username" class="form-control mb-2" minlength="6">
-                    <span>Password</span>
-                    <input type="password" name="password" placeholder="Password" class="form-control mb-2" minlength="8">
-                    <button class="btn btn-success">Login</button>
+                    <div class="input-group mt-5">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" name="username" placeholder="Username" class="form-control" minlength="6">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" name="password" placeholder="Password" class="form-control" minlength="6">
+                    </div>
+                    <button class="btn btn-danger form-control mt-3">Login</button>
                 </form>
             </div>
+            <div class="col"></div>
         </div>
     </div>
 </body>

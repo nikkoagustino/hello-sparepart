@@ -1,12 +1,15 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Pembelian - {{ env('APP_NAME') }}</title>
+<title>Invoice - {{ env('APP_NAME') }}</title>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Pembelian
+<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
+    <i class="fa-solid fa-boxes"></i> &nbsp; Dashboard
+</a>
+<a href="{{ url('admin/dashboard/invoice') }}" class="btn btn-danger">
+    <i class="fa-solid fa-store"></i> &nbsp; Invoice
 </a>
 @endsection
 

@@ -171,10 +171,14 @@
             aspect-ratio: 1/1;
         }
         .bg-danger,
+        .btn-danger,
         .btn-selection {
             background:#950101 !important;
+            border: 2px solid#950101 !important;
             color: white !important;
+            box-shadow: 0 0 5px grey;
         }
+        .btn-danger:hover,
         .btn-selection:hover {
             color: black;
             background-color: transparent;
