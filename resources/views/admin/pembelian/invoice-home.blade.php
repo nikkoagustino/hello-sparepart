@@ -20,17 +20,19 @@
             <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/invoice/new') }}" class="btn btn-selection btn-purple">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-circle-plus"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt="">
                     Invoice Baru
                 </a>
             </div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/invoice/detail') }}" class="btn btn-selection btn-blue">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-receipt"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt="">
                     List Invoice
                 </a>
             </div>

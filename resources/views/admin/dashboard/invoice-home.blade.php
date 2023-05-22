@@ -17,17 +17,19 @@
             <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/penjualan/invoice/list') }}" class="btn btn-selection btn-pink">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-download"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/penjualan.svg') }}" class="icon-lg" alt="">
                     Penjualan
                 </a>
             </div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/invoice/list') }}" class="btn btn-selection btn-blue">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-upload"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/pembelian.svg') }}" class="icon-lg" alt="">
                     Pembelian
                 </a>
             </div>

@@ -15,9 +15,10 @@
         <div class="row mb-4">
             <div class="col-4">
                 <a href="{{ url('admin/account/sales') }}" class="btn btn-selection btn-purple">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-headset"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/sales.svg') }}" class="icon-lg" alt="">
                     Sales
                 </a>
             </div>

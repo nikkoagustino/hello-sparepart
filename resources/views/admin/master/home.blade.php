@@ -15,25 +15,28 @@
         <div class="row mb-4">
             <div class="col">
                 <a href="{{ url('admin/master/product') }}" class="btn btn-selection btn-purple">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-screwdriver-wrench"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/produk.svg') }}" class="icon-lg" alt="">
                     Produk
                 </a>
             </div>
             <div class="col">
                 <a href="{{ url('admin/master/supplier') }}" class="btn btn-selection btn-pink">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-truck-fast"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/supplier.svg') }}" class="icon-lg" alt="">
                     Supplier
                 </a>
             </div>
             <div class="col">
                 <a href="{{ url('admin/master/customer') }}" class="btn btn-selection btn-blue">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-network-wired"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/customer.svg') }}" class="icon-lg" alt="">
                     Customer
                 </a>
             </div>
@@ -41,25 +44,28 @@
         <div class="row mb-5">
             <div class="col">
                 <a href="{{ url('admin/master/sales') }}" class="btn btn-selection btn-yellow">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-headset"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/sales.svg') }}" class="icon-lg" alt="">
                     Sales
                 </a>
             </div>
             <div class="col">
                 <a href="{{ url('admin/master/product-type') }}" class="btn btn-selection btn-red">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-barcode"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/jenis-barang.svg') }}" class="icon-lg" alt="">
                     Jenis Barang
                 </a>
             </div>
             <div class="col">
                 <a href="{{ url('admin/master/vbelt') }}" class="btn btn-selection btn-green">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-infinity"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/vbelt.svg') }}" class="icon-lg" alt="">
                     V-Belt
                 </a>
             </div>

@@ -99,25 +99,28 @@
         <div class="row mb-4">
             <div class="col">
                 <a href="{{ url('admin/laporan/penjualan') }}" class="btn btn-selection btn-purple">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-download"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/penjualan.svg') }}" class="icon-lg" alt="">
                     Penjualan
                 </a>
             </div>
             <div class="col">
                 <a href="{{ url('admin/laporan/pembelian') }}" class="btn btn-selection btn-blue">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-upload"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/pembelian.svg') }}" class="icon-lg" alt="">
                     Pembelian
                 </a>
             </div>
             <div class="col">
                 <a href="{{ url('admin/laporan/laba-rugi') }}" class="btn btn-selection btn-yellow">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-chart-pie"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/laba-rugi.svg') }}" class="icon-lg" alt="">
                     Laba Rugi
                 </a>
             </div>

@@ -59,7 +59,7 @@
             margin-right: auto;
             margin-bottom: 10px;
         }
-        .btn-purple {
+        /*.btn-purple {
             background-color: orchid;
         }
         .btn-pink {
@@ -76,7 +76,7 @@
         }
         .btn-green {
             background-color: lightgreen;
-        }
+        }*/
         .table {
             border: 2px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
         }
@@ -97,6 +97,7 @@
         .breadcrumb .btn {
             margin-right: 5px;
             border-radius: 50px;
+            background-color: #950101;
         }
         tr.selected td {
             color: rgba(var(--bs-danger-rgb),1) !important;
@@ -163,6 +164,36 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 0 20px grey;
         }
+
+        .icon-lg {
+            filter: brightness(0) invert(1);
+            width: 50%;
+            aspect-ratio: 1/1;
+        }
+        .bg-danger,
+        .btn-selection {
+            background:#950101 !important;
+            color: white !important;
+        }
+        .btn-selection:hover {
+            color: black;
+            background-color: transparent;
+            border: 2px solid #950101 !important;
+        }
+        .btn-selection:hover .icon-lg {
+            filter: brightness(0);
+        }
+        #sidebar .btn {
+            background-color: transparent !important;
+            border: none !important;
+            color: white !important;
+            font-weight: bold;
+            border-radius: 0 !important;
+        }
+        #sidebar .btn:hover,
+        #sidebar .btn.active {
+            background-color: black !important;
+        }
     </style>
 
 </head>
@@ -185,46 +216,44 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <div class="container-fluid no-print">
-        <div class="row" style="border-bottom: 2px solid darkred;">
-            <div class="col-6">
-                <img src="https://via.placeholder.com/200x80" alt="">
-            </div>
-            <div class="col-6">
-                <span class="fs-1">Welcome {{ Session::get('userdata')->username ?? '' }}</span>
-            </div>
-        </div>
-    </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="no-print col-3 min-vh-100 bg-danger" id="sidebar">
-                <a href="{{ url('admin/dashboard') }}" class="btn btn-dark form-control mt-5">
+            <div class="no-print col-2 min-vh-100 p-0 pt-4 bg-danger" id="sidebar">
+                <a href="{{ url('admin/dashboard') }}" class="btn form-control mt-5 {{ ((Request::path() == 'admin/dashboard') ? 'active' : '') }}">
                     <i class="fa-solid fa-cubes"></i> Dashboard
                 </a>
-                <a href="{{ url('admin/master') }}" class="btn btn-dark form-control mt-2">
+                <a href="{{ url('admin/master') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/master') ? 'active' : '') }}">
                     <i class="fa-solid fa-gear"></i> Master
                 </a>
-                <a href="{{ url('admin/account') }}" class="btn btn-dark form-control mt-2">
+                <a href="{{ url('admin/account') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/account') ? 'active' : '') }}">
                     <i class="fa-solid fa-users"></i> Account
                 </a>
-                <a href="{{ url('admin/penjualan') }}" class="btn btn-dark form-control mt-2">
+                <a href="{{ url('admin/penjualan') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/penjualan') ? 'active' : '') }}">
                     <i class="fa-solid fa-hand-holding-dollar"></i> Penjualan
                 </a>
-                <a href="{{ url('admin/pembelian') }}" class="btn btn-dark form-control mt-2">
+                <a href="{{ url('admin/pembelian') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/pembelian') ? 'active' : '') }}">
                     <i class="fa-solid fa-store"></i> Pembelian
                 </a>
-                <a href="{{ url('admin/laporan') }}" class="btn btn-dark form-control mt-2">
+                <a href="{{ url('admin/laporan') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/laporan') ? 'active' : '') }}">
                     <i class="fa-solid fa-chart-line"></i> Laporan
                 </a>
                 <div class="mt-5"></div>
-                <a href="{{ url('admin/logout') }}" class="btn btn-dark px-3 mt-5">
+                <a href="{{ url('admin/logout') }}" class="btn px-3 mt-5">
                     <center>
                     <i class="fa-solid fa-door-open"></i><br>Logout
                     </center>
                 </a>
             </div>
 
-            <div class="col-9 col-print-12 min-vh-100 bg-light">
+            <div class="col col-print-12 min-vh-100 bg-light">
+                <div class="row no-print" style="border-bottom: 2px solid darkred;">
+                    <div class="col-6 pt-2">
+                        <span class="fs-2">Welcome {{ Session::get('userdata')->username ?? '' }}</span>
+                    </div>
+                    <div class="col-6 text-end">
+                        <img src="{{ url('assets/img/logo.png') }}" style="height: 70px" alt="">
+                    </div>
+                </div>
                 <div class="breadcrumb">
                     <div class="row pt-3">
                         <div class="col">

@@ -16,25 +16,28 @@
         <div class="row mb-4">
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/invoice') }}" class="btn btn-selection btn-purple">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-file-invoice-dollar"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt="">
                     Invoice
                 </a>
             </div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-selection btn-yellow">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/hutang.svg') }}" class="icon-lg" alt="">
                     Hutang
                 </a>
             </div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-selection btn-red">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/pembayaran.svg') }}" class="icon-lg" alt="">
                     Pembayaran
                 </a>
             </div>
@@ -43,17 +46,19 @@
             <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/transaksi') }}" class="btn btn-selection btn-blue">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-cash-register"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/transaksi.svg') }}" class="icon-lg" alt="">
                     Transaksi
                 </a>
             </div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/retur') }}" class="btn btn-selection btn-pink">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/icon/retur.svg') }}" class="icon-lg" alt="">
                     Retur
                 </a>
             </div>
