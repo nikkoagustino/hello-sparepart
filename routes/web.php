@@ -12,6 +12,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\AbsensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,9 @@ Route::prefix('admin')->group(function(){
         });
         Route::get('admin', [AccountController::class, 'showAccount']);
         Route::post('admin', [AccountController::class, 'createAccount']);
+
+        Route::get('absen', [AbsensiController::class, 'getAbsen']);
+        Route::post('absen', [AbsensiController::class, 'insertAbsen']);
     });
 
     Route::prefix('login')->group(function(){

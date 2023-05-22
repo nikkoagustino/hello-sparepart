@@ -13,7 +13,6 @@
 <div class="row mt-5">
     <div class="col-9 mx-5 px-5">
         <div class="row mb-4">
-            <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/account/sales') }}" class="btn btn-selection btn-purple">
                     <span class="display-1">
@@ -30,7 +29,14 @@
                     Admin
                 </a>
             </div>
-            <div class="col"></div>
+            <div class="col-4">
+                <a href="{{ url('admin/account/absen') }}" class="btn btn-selection btn-yellow">
+                    <span class="display-1">
+                        <i class="fa-solid fa-clock"></i>
+                    </span>
+                    Absen
+                </a>
+            </div>
         </div>
     </div>
 </div>
