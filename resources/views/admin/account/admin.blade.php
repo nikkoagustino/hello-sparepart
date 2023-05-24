@@ -37,6 +37,8 @@
             <span>Password</span>
             <input type="password" required="required" placeholder="Password" name="password" class="form-control mb-2" minlength="8">
             <input type="password" required="required" placeholder="Confirm Password" name="confirm_password" class="form-control mb-2" minlength="8">
+            <span>Master PIN</span>
+            <input type="text" required="required" name="master_pin" placeholder="6 digit Master PIN" class="form-control mb-2" minlength="6" maxlength="6">
             <button class="btn btn-success"><i class="fa-solid fa-save"></i> Simpan</button>
         </form>
     </div>

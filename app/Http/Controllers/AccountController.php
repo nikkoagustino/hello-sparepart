@@ -17,6 +17,7 @@ class AccountController extends Controller
             'password' => 'required|string|min:8',
             'confirm_password' => 'required|string|min:8',
             'email' => 'required|email',
+            'master_pin' => 'required|numeric',
         ]);
 
         if ($request->password != $request->confirm_password) {

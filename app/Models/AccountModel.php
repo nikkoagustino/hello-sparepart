@@ -30,6 +30,7 @@ class AccountModel extends Model
                         'username' => $request->username,
                         'email' => $request->email,
                         'password' => Hash::make($request->password),
+                        'master_pin' => $request->master_pin,
                     ]);
         return $insert;
     }
