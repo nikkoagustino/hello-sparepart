@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Hash;
 use DB;
+use Session;
 
 class AccountModel extends Model
 {
@@ -31,5 +32,14 @@ class AccountModel extends Model
                         'password' => Hash::make($request->password),
                     ]);
         return $insert;
+    }
+
+    static function save2FASecret($secret_key) {
+        $update = DB::table('tb_account')
+                    ->where('username', Session::get('userdata')->username)
+                    ->update([
+                        'two_fa_secret' => $secret_key
+                    ]);
+        return $update;
     }
 }

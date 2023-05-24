@@ -26,13 +26,15 @@ use App\Http\Controllers\AbsensiController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('admin/dashboard');
 });
 
 Route::prefix('admin')->group(function(){
     Route::prefix('login')->group(function(){
         Route::get('/', [AccountController::class, 'formLogin']);
         Route::post('/', [AccountController::class, 'submitLogin']);
+        Route::get('otp', [AccountController::class, 'showOTPForm']);
+        Route::post('otp', [AccountController::class, 'verifyOTP']);
     });
 });
 
@@ -49,6 +51,9 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::get('absen', [AbsensiController::class, 'getAbsen']);
         Route::post('absen', [AbsensiController::class, 'insertAbsen']);
+
+        Route::get('2fa-setup', [AccountController::class, 'show2FASetup']);
+        Route::post('2fa-setup', [AccountController::class, 'submit2FASetup']);
     });
 
 
