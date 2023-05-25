@@ -42,7 +42,10 @@
             font-size: 2.5rem;
             display: block;
         }
-
+        .btn-form {
+            border-radius: 0 !important;
+            box-shadow: none;
+        }
         .btn-selection {
             font-weight: bold;
             text-align: center;

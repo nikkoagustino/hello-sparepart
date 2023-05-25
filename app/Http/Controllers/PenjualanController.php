@@ -191,4 +191,19 @@ class PenjualanController extends Controller
         $transactions = PenjualanModel::filterTransaksi($request);
         return response()->json($transactions);
     }
+
+    function generateInvoiceNumber() {
+        $number_generated = false;
+        $x = 1;
+        while (!$number_generated) {
+            $invoice_no = "INV-CUST-".date('ym-').str_pad($x, 3, "0", STR_PAD_LEFT);
+            if (PenjualanModel::getInvoice($invoice_no)) {
+                $number_generated = false;
+                $x++;
+            } else {
+                $number_generated = true;
+            }
+        }
+        echo $invoice_no;
+    }
 }

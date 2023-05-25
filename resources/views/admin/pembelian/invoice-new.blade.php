@@ -26,7 +26,12 @@
                     No. Invoice
                 </div>
                 <div class="col-8">
-                    <input name="invoice_no" required="required" type="text" class="form-control">
+                    <div class="input-group">
+                        <button class="btn btn-danger btn-form" type="button" id="generateInvoiceNo">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <input name="invoice_no" required="required" type="text" class="form-control">
+                    </div>
                 </div>
             </div>
             <div class="row mb-2">
@@ -260,6 +265,18 @@
         selected_product_code = $(this).data('code');
         $('input[name=product_code]').text(selected_product_code);
         selectProduct(selected_product_code);
+    });
+
+    $('#generateInvoiceNo').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '{{ url('api/invoice/pembelian/generate') }}',
+            type: 'GET',
+            dataType: 'html',
+        })
+        .done(function(result) {
+            $('input[name=invoice_no]').val(result).change();
+        });
     });
 </script>
 @endsection
