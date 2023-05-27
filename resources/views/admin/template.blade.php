@@ -15,6 +15,7 @@
         img {
             max-width: 100%;
         }
+        .input-group-text,
         .form-control {
             border: 2px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
             border-radius: 0;
