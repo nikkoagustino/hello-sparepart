@@ -13,6 +13,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\KomisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,11 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('/', function() {
             return view('admin.account.home');
         });
-        Route::get('sales', function(){
-            return view('admin.account.sales-home');
+        Route::prefix('sales')->group(function(){
+            Route::get('/', function(){
+                return view('admin.account.sales-home');
+            });
+            Route::get('komisi', [KomisiController::class, 'showKomisiForm']);
         });
         Route::get('admin', [AccountController::class, 'showAccount']);
         Route::post('admin', [AccountController::class, 'createAccount']);

@@ -45,3 +45,4 @@ Route::get('invoice/pembelian/generate', [PembelianController::class, 'generateI
 Route::get('invoice/penjualan/generate', [PenjualanController::class, 'generateInvoiceNumber']);
 
 Route::get('komisi', [KomisiController::class, 'getKomisiViewTable']);
+Route::post('komisi/save', [KomisiController::class, 'updateKomisi']);

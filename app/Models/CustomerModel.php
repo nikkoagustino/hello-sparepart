@@ -17,7 +17,9 @@ class CustomerModel extends Model
     }
 
     static function getAll() {
-        $result = DB::table('tb_customer')->get();
+        $result = DB::table('tb_customer')
+                    ->orderBy('customer_code', 'ASC')
+                    ->get();
         return $result;
     }
 

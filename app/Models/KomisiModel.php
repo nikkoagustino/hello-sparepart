@@ -29,4 +29,31 @@ class KomisiModel extends Model
             return 0;
         }
     }
+
+    static function upsertKomisi($request) {
+        $result = DB::table('tb_komisi_sales')
+                    ->where('sales_code', $request->sales_code)
+                    ->where('year', $request->year)
+                    ->where('month', $request->month)
+                    ->first();
+        if ($result) {
+            $update = DB::table('tb_komisi_sales')
+                    ->where('sales_code', $request->sales_code)
+                    ->where('year', $request->year)
+                    ->where('month', $request->month)
+                    ->update([
+                        'persen_komisi' => $request->persen_komisi,
+                    ]);
+            return $update;
+        } else {
+            $insert = DB::table('tb_komisi_sales')
+                    ->insert([
+                        'sales_code' => $request->sales_code,
+                        'year' => $request->year,
+                        'month' => $request->month,
+                        'persen_komisi' => $request->persen_komisi,
+                    ]);
+            return $insert;
+        }
+    }
 }

@@ -17,7 +17,9 @@ class SalesModel extends Model
     }
 
     static function getAll() {
-        $result = DB::table('tb_sales')->get();
+        $result = DB::table('tb_sales')
+                    ->orderBy('sales_code', 'ASC')
+                    ->get();
         return $result;
     }
 

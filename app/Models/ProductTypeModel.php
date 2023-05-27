@@ -17,7 +17,9 @@ class ProductTypeModel extends Model
     }
 
     static function getAll() {
-        $result = DB::table('tb_product_type')->get();
+        $result = DB::table('tb_product_type')
+                    ->orderBy('type_code', 'ASC')
+                    ->get();
         return $result;
     }
 
