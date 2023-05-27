@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\KomisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,5 @@ Route::get('laporan-tx', [LaporanController::class, 'getLaporanTransaksiV2']);
 Route::get('data-laba-rugi', [LaporanController::class, 'getLabaRugi']);
 Route::get('invoice/pembelian/generate', [PembelianController::class, 'generateInvoiceNumber']);
 Route::get('invoice/penjualan/generate', [PenjualanController::class, 'generateInvoiceNumber']);
+
+Route::get('komisi', [KomisiController::class, 'getKomisiViewTable']);
