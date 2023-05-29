@@ -14,6 +14,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\KomisiController;
+use App\Http\Controllers\SalesTransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,11 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
                 return view('admin.account.sales-home');
             });
             Route::get('komisi', [KomisiController::class, 'showKomisiForm']);
+            Route::prefix('transaksi')->group(function() {
+                Route::get('/', [SalesTransaksiController::class, 'showTransactionForm']);
+                Route::get('new', [SalesTransaksiController::class, 'showNewTransactionForm']);
+                Route::post('new', [SalesTransaksiController::class, 'submitNewTransaction']);
+            });
         });
         Route::get('admin', [AccountController::class, 'showAccount']);
         Route::post('admin', [AccountController::class, 'createAccount']);

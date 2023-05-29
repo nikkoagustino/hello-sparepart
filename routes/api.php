@@ -8,6 +8,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KomisiController;
+use App\Http\Controllers\SalesTransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,5 @@ Route::get('invoice/penjualan/generate', [PenjualanController::class, 'generateI
 
 Route::get('komisi', [KomisiController::class, 'getKomisiViewTable']);
 Route::post('komisi/save', [KomisiController::class, 'updateKomisi']);
+Route::get('transaksi', [SalesTransaksiController::class, 'getSalesTransaction']);
+Route::post('transaksi/save', [SalesTransaksiController::class, 'insertTx']);

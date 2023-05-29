@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Komisi Sales - {{ env('APP_NAME') }}</title>
+<title>Transaksi Sales - {{ env('APP_NAME') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -11,8 +11,8 @@
 <a href="{{ url('admin/account/sales') }}" class="btn btn-danger">
     <i class="fa-solid fa-headset"></i> &nbsp; Sales
 </a>
-<a href="{{ url('admin/account/sales/komisi') }}" class="btn btn-danger">
-    <i class="fa-solid fa-dollar-sign"></i> &nbsp; Komisi
+<a href="{{ url('admin/account/sales/transaksi') }}" class="btn btn-danger">
+    <i class="fa-solid fa-cash-register"></i> &nbsp; Transaksi
 </a>
 @endsection
 @section('content')
@@ -61,6 +61,10 @@
         </div>
     </div>
     <div class="col-4 text-end">
+        <a href="javascript:void(0)" onclick="newButton()" class="btn btn-danger btn-icon-lg">
+            <i class="fa-solid fa-plus-circle"></i>
+            New
+        </a>
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
@@ -76,10 +80,9 @@
         <table class="table table-striped" id="invoice_table">
             <thead>
                 <tr>
-                    <th>No. Invoice</th>
-                    <th>Tgl. Invoice</th>
-                    <th>Tgl. Pembayaran</th>
-                    <th>Nama Toko / Customer</th>
+                    <th>Kode Sales</th>
+                    <th>Nama Sales</th>
+                    <th>Tanggal</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -99,25 +102,6 @@
         </button>
     </div>
     <div class="col-4">
-        <div class="row">
-            <div class="col-4">
-                Profit
-            </div>
-            <div class="col">
-                <input type="text" data-type="number" name="profit" readonly="readonly" class="form-control">
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-4">
-                Komisi
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <input type="number" step="0.1" name="komisi_persen" readonly="readonly" class="form-control">
-                    <span class="input-group-text">%</span>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="col-4">
         <div class="row">
@@ -128,19 +112,20 @@
                 <input type="text" data-type="number" name="total_invoice" readonly="readonly" class="form-control">
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-4">
-                Total Komisi
-            </div>
-            <div class="col">
-                <input type="text" data-type="number" name="total_komisi" readonly="readonly" class="form-control">
-            </div>
-        </div>
     </div>
 </div>
 @endsection
 @section('script')
 <script>
+    function newButton() {
+        var sales_code = $('select[name=sales_code]').val();
+        if (!sales_code) {
+            alert('Pilih sales terlebih dahulu');
+            return;
+        }
+        window.location.href = "{{ url('admin/account/sales/transaksi/new') }}?sales_code="+sales_code; 
+    }
+
     $('select').on('change', function(){
         refreshData();
     });
@@ -154,7 +139,7 @@
         var month = $('select[name=month]').val();
         if (sales_code && year && month) {
             $.ajax({
-                url: '{{ url('api/komisi') }}',
+                url: '{{ url('api/transaksi') }}',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -171,68 +156,25 @@
         }
     }
 
-    var komisi_persen = 0;
-    var total_komisi = 0;
-    var total_invoice_price = 0;
 
     function processData(result) {
-        total_invoice_price = 0;
-        total_komisi = 0;
+        var total_invoice_price = 0;
         var table_row = '';
-        $.each(result.invoices, function(index, row) {
+        $.each(result, function(index, row) {
             table_row += '<tr data-id="'+index+'">' +
-                '<td>'+row.invoice_no+'</td>' +
-                '<td>'+row.invoice_date+'</td>' +
-                '<td>'+row.payment_date+'</td>' +
-                '<td>'+row.customer_name+'</td>' +
-                '<td>'+$.number(row.paid_amount, 0)+'</td>' +
+                '<td>'+row.sales_code+'</td>' +
+                '<td>'+row.sales_name+'</td>' +
+                '<td>'+row.tx_date+'</td>' +
+                '<td>'+$.number(row.amount, 0)+'</td>' +
                 '</tr>';
-                total_invoice_price = total_invoice_price + parseInt(row.paid_amount);
+                total_invoice_price = total_invoice_price + parseInt(row.amount);
         });
         $('#invoice_table tbody').html(table_row);
         $('input[name=total_invoice]').val(total_invoice_price).change();
-        komisi_persen = parseFloat(result.percent_komisi);
-        total_komisi = Math.ceil(total_invoice_price * (komisi_persen / 100));
-        $('input[name=komisi_persen]').val(komisi_persen);
-        $('input[name=total_komisi]').val(total_komisi).change();
     }
 
     function enableEdit() {
-        $('input[name=komisi_persen]').removeAttr('readonly');
+        // $('input[name=komisi_persen]').removeAttr('readonly');
     }
-
-    $('input[name=komisi_persen]').on('change paste keyup', function(){
-        komisi_persen = parseFloat($(this).val());
-        total_komisi = Math.ceil(total_invoice_price * (komisi_persen / 100));
-        $('input[name=komisi_persen]').val(komisi_persen);
-        $('input[name=total_komisi]').val(total_komisi).change();
-    });
-
-    $('#saveButton').on('click', function(){
-        var sales_code = $('select[name=sales_code]').val();
-        var year = $('input[name=year]').val();
-        var month = $('select[name=month]').val();
-        var new_komisi_persen = $('input[name=komisi_persen]').val();
-        console.log([sales_code, year, month, new_komisi_persen]);
-        $.ajax({
-            url: '{{ url('api/komisi/save') }}',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                sales_code: sales_code,
-                year: parseInt(year),
-                month: parseInt(month),
-                persen_komisi: parseFloat(new_komisi_persen)
-            },
-        })
-        .done(function(result) {
-            if (result.success) {
-                $('input[name=komisi_persen]').attr('readonly', 'readonly');
-                $('#editButton').show();
-                $('#saveButton').hide();
-            }
-            alert(result.message);
-        });
-    });
 </script>
 @endsection
