@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>List Piutang - {{ env('APP_NAME') }}</title>
+<title>List Penjualan - {{ env('APP_NAME') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -93,7 +93,9 @@
                     <th>Tgl Invoice</th>
                     <th>Kode Cust</th>
                     <th>Nama Cust</th>
-                    <th>Total Harga</th>
+                    <th>Total Invoice</th>
+                    <th>Total Pembayaran</th>
+                    <th>Sisa Piutang</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +104,12 @@
                 <tr>
                     <td colspan="4">Total</td>
                     <td class="total_invoice_price">
+                    0
+                    </td>
+                    <td class="total_pembayaran">
+                    0
+                    </td>
+                    <td class="total_piutang">
                     0
                     </td>
                 </tr>
@@ -163,6 +171,8 @@
         .done(function(result) {
             $('#itemsTable tbody').html('');
             var total_invoice_price = 0;
+            var total_pembayaran = 0;
+            var total_piutang = 0;
             $.each(result, function(index, val) {
                 $('#itemsTable tbody').append('<tr data-id="'+val.invoice_no+'">' +
                     '<td>'+val.invoice_no+'</td>' +
@@ -170,10 +180,16 @@
                     '<td>'+val.customer_code+'</td>' +
                     '<td>'+val.customer_name+'</td>' +
                     '<td>'+$.number(val.total_price, 0)+'</td>' +
+                    '<td>'+$.number(val.total_paid_amount, 0)+'</td>' +
+                    '<td>'+$.number(val.piutang, 0)+'</td>' +
                     '</tr>');
                     total_invoice_price = total_invoice_price + parseInt(val.total_price);
+                    total_pembayaran = total_pembayaran + parseInt(val.total_paid_amount);
+                    total_piutang = total_piutang + parseInt(val.piutang);
             });
             $('.total_invoice_price').text($.number(total_invoice_price, 0));
+            $('.total_pembayaran').text($.number(total_pembayaran, 0));
+            $('.total_hutang').text($.number(total_hutang, 0));
         })
         .fail(function() {
         })

@@ -11,7 +11,7 @@
 @endsection
 @section('content')
 <div class="row mt-5">
-    <div class="col-9 mx-5 px-5">
+    <div class="col-8 mx-5 px-5">
         <div class="row mb-4">
             <div class="col">
                 <a href="{{ url('admin/master/product') }}" class="btn btn-selection btn-purple">

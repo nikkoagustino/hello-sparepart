@@ -183,7 +183,8 @@ class PembelianModel extends Model
 
     static function filterTransaksi($request) {
         $query = DB::table('view_invoice_pembelian_detail AS inv')
-                    ->leftJoin('tb_pembelian_invoice_items AS itm', 'inv.invoice_no', '=', 'itm.invoice_no');
+                    ->leftJoin('tb_pembelian_invoice_items AS itm', 'inv.invoice_no', '=', 'itm.invoice_no')
+                    ->leftJoin('view_hutang_pembelian AS hut', 'inv.invoice_no', '=', 'hut.invoice_no');
 
         if ($request->date_start) {
             $query->where('inv.invoice_date', '>=', $request->date_start);

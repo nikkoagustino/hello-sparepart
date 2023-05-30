@@ -145,7 +145,8 @@ class PenjualanModel extends Model
 
     static function filterTransaksi($request) {
         $query = DB::table('view_invoice_penjualan_detail AS inv')
-                    ->leftJoin('tb_penjualan_invoice_items AS itm', 'inv.invoice_no', '=', 'itm.invoice_no');
+                    ->leftJoin('tb_penjualan_invoice_items AS itm', 'inv.invoice_no', '=', 'itm.invoice_no')
+                    ->leftJoin('view_piutang_penjualan AS hut', 'inv.invoice_no', '=', 'hut.invoice_no');
 
         if ($request->date_start) {
             $query->where('inv.invoice_date', '>=', $request->date_start);

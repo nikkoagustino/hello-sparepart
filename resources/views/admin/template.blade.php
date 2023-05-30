@@ -63,7 +63,7 @@
             margin-right: auto;
             margin-bottom: 10px;
         }
-        /*.btn-purple {
+        .btn-purple {
             background-color: orchid;
         }
         .btn-pink {
@@ -80,7 +80,7 @@
         }
         .btn-green {
             background-color: lightgreen;
-        }*/
+        }
         .table {
             border: 2px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
         }
@@ -170,11 +170,11 @@
         }
 
         .icon-lg {
-            filter: brightness(0) invert(1);
+            filter: brightness(0);
             width: 50%;
             aspect-ratio: 1/1;
         }
-        .bg-danger,
+        /*.bg-danger,
         .btn-danger,
         .btn-selection {
             background:#950101 !important;
@@ -187,7 +187,7 @@
             color: black;
             background-color: transparent;
             border: 2px solid #950101 !important;
-        }
+        }*/
         .btn-selection:hover .icon-lg {
             filter: brightness(0);
         }
@@ -256,7 +256,7 @@
             <div class="col col-print-12 min-vh-100 bg-light">
                 <div class="row no-print" style="border-bottom: 2px solid darkred;">
                     <div class="col-6 pt-2">
-                        <span class="fs-2">Welcome {{ Session::get('userdata')->username ?? '' }}</span>
+                        <span class="fs-2">Welcome <b>{{ Session::get('userdata')->username ?? '' }}</b></span>
                     </div>
                     <div class="col-6 text-end">
                         <img src="{{ url('assets/img/logo.png') }}" style="height: 70px" alt="">
@@ -269,7 +269,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="container px-2">
                 @yield('content')
+                </div>
             </div>
 
         </div>

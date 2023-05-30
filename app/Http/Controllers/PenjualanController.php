@@ -137,7 +137,10 @@ class PenjualanController extends Controller
 
             $img = Image::make($file)
                         ->encode('webp', 80)
-                        ->fit(800, 800)
+                        ->resize(800, 800, function($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        })
                         ->stream();
             $upload = Storage::put($file_path.'/'.$file_name, $img);
             $upload_path = $file_path.'/'.$file_name;

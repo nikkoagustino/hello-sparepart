@@ -51,8 +51,8 @@
     </div>
     <div class="col text-end">
         <button id="payButton" class="btn btn-danger btn-icon-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">
-            <i class="fa-solid fa-circle-dollar-to-slot"></i>
-            Bayar
+            <i class="fa-solid fa-arrow-pointer"></i>
+            Detail
         </button>
         <button type="back" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-rotate-left"></i>

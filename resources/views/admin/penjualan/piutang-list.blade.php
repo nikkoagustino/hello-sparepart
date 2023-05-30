@@ -9,7 +9,7 @@
     <i class="fa-solid fa-store"></i> &nbsp; Penjualan
 </a>
 <a href="{{ url('admin/penjualan/pembayaran') }}" class="btn btn-danger">
-    <i class="fa-solid fa-circle-dollar-to-slot"></i> &nbsp; Pembayaran
+    <i class="fa-solid fa-arrow-up-from-bracket"></i> &nbsp; Piutang
 </a>
 @endsection
 

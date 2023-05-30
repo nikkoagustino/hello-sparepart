@@ -91,10 +91,14 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2">Total</td>
+                    <td colspan="2">Total Pembayaran</td>
                     <td>
                         {{ number_format($total_paid_amount, 0) }}
                     </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Sisa Piutang</td>
+                    <td>{{ number_format($invoice->total_price - $total_paid_amount, 0) }}</td>
                 </tr>
             </tfoot>
         </table>
