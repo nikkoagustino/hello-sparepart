@@ -51,4 +51,26 @@ class SalesTransaksiController extends Controller
             return back()->withErrors('Gagal menyimpan transaksi');
         }
     }
+
+    public function showEditForm(Request $request) {
+        $data = [
+            'tx_data' => SalesTransaksiModel::getTxById($request->id),
+        ];
+        return view('admin/account/sales-transaksi-edit')->with($data);
+    }
+
+    public function submitEditForm(Request $request) {
+        $request->validate([
+            'id' => 'required|integer',
+            'tx_date' => 'required|date',
+            'amount' => 'required|integer',
+            'description' => 'required|string',
+        ]);
+
+        if (SalesTransaksiModel::updateTx($request)) {
+            return redirect('admin/account/sales/transaksi')->withSuccess('Berhasil menyimpan transaksi');
+        } else {
+            return back()->withErrors('Gagal menyimpan transaksi');
+        }
+    }
 }

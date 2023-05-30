@@ -77,7 +77,7 @@
 </div>
 <div class="row mt-4">
     <div class="col">
-        <table class="table table-striped" id="invoice_table">
+        <table class="table table-striped selectable" id="invoice_table">
             <thead>
                 <tr>
                     <th>Kode Sales</th>
@@ -161,7 +161,7 @@
         var total_invoice_price = 0;
         var table_row = '';
         $.each(result, function(index, row) {
-            table_row += '<tr data-id="'+index+'">' +
+            table_row += '<tr data-id="'+row.id+'">' +
                 '<td>'+row.sales_code+'</td>' +
                 '<td>'+row.sales_name+'</td>' +
                 '<td>'+row.tx_date+'</td>' +
@@ -174,7 +174,7 @@
     }
 
     function enableEdit() {
-        // $('input[name=komisi_persen]').removeAttr('readonly');
+        window.location.href = "{{ url('admin/account/sales/transaksi/edit') }}/"+selected_row;
     }
 </script>
 @endsection

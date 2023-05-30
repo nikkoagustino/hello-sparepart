@@ -49,11 +49,15 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('/', function(){
                 return view('admin.account.sales-home');
             });
+
             Route::get('komisi', [KomisiController::class, 'showKomisiForm']);
+
             Route::prefix('transaksi')->group(function() {
                 Route::get('/', [SalesTransaksiController::class, 'showTransactionForm']);
                 Route::get('new', [SalesTransaksiController::class, 'showNewTransactionForm']);
                 Route::post('new', [SalesTransaksiController::class, 'submitNewTransaction']);
+                Route::get('edit/{id}', [SalesTransaksiController::class, 'showEditForm']);
+                Route::post('edit', [SalesTransaksiController::class, 'submitEditForm']);
             });
         });
         Route::get('admin', [AccountController::class, 'showAccount']);
