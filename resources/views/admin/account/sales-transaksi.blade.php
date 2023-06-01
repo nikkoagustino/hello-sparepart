@@ -83,6 +83,7 @@
                     <th>Kode Sales</th>
                     <th>Nama Sales</th>
                     <th>Tanggal</th>
+                    <th>Jenis</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -165,6 +166,7 @@
                 '<td>'+row.sales_code+'</td>' +
                 '<td>'+row.sales_name+'</td>' +
                 '<td>'+row.tx_date+'</td>' +
+                '<td>'+row.expense_type+'</td>' +
                 '<td>'+$.number(row.amount, 0)+'</td>' +
                 '</tr>';
                 total_invoice_price = total_invoice_price + parseInt(row.amount);

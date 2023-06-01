@@ -21,10 +21,10 @@
 <div class="row">
     <div class="col-8">
         <div class="row">
-            <div class="col-2 pt-2">
+            <div class="col-3 pt-2">
                 Kode Sales
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <input type="text" name="sales_code" value="{{ $sales->sales_code }}" class="form-control" readonly="readonly">
             </div>
             <div class="col-5">
@@ -32,26 +32,37 @@
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-2 pt-2">
+            <div class="col-3 pt-2">
                 Tanggal
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <input type="date" name="tx_date" value="{{ date('Y-m-d') }}" required="required" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-2 pt-2">
+            <div class="col-3 pt-2">
                 Total
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <input type="text" name="amount" data-type="number" required="required" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-2 pt-2">
+            <div class="col-3 pt-2">
+                Jenis Pengeluaran
+            </div>
+            <div class="col-4">
+                <select name="expense_type" class="form-select form-control">
+                    <option value="beban_ops">Beban Operasional</option>
+                    <option value="gaji">Gaji</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3 pt-2">
                 Keterangan
             </div>
-            <div class="col-10">
+            <div class="col-9">
                 <textarea name="description" rows="7" class="form-control"></textarea>
             </div>
         </div>

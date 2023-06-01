@@ -26,6 +26,7 @@ class SalesTransaksiModel extends Model
                         'sales_code' => $request->sales_code,
                         'tx_date' => $request->tx_date,
                         'amount' => $request->amount,
+                        'expense_type' => $request->expense_type,
                         'description' => $request->description,
                     ]);
         return $insert;
@@ -46,6 +47,7 @@ class SalesTransaksiModel extends Model
                     ->update([
                         'tx_date' => $request->tx_date,
                         'amount' => $request->amount,
+                        'expense_type' => $request->expense_type,
                         'description' => $request->description,
                     ]);
         return $update;
