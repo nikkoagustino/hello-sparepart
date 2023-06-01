@@ -23,6 +23,13 @@
         .btn.form-control {
             border-radius: 50px !important;
         }
+        #sidebar {
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            padding-top: 80px !important;
+            padding-left: 40px !important;
+            padding-right: 40px !important;
+        }
         #sidebar .btn {
             text-align: left !important;
             padding: .6rem 2rem;
@@ -101,7 +108,21 @@
         .breadcrumb .btn {
             margin-right: 5px;
             border-radius: 50px;
-            background-color: #950101;
+            background: rgba(var(--bs-danger-rgb),1) !important;
+            border-color: rgba(var(--bs-danger-rgb),1) !important;
+        }
+        .breadcrumb .btn:hover {
+            background-color: transparent !important;
+            color: rgba(var(--bs-danger-rgb),1) !important;
+            border-color: rgba(var(--bs-danger-rgb),1) !important;
+        }
+        .btn-danger {
+            background: rgba(var(--bs-danger-rgb),1) !important;
+            border-color: rgba(var(--bs-danger-rgb),1) !important;
+        }
+        .btn-danger:hover {
+            color: rgba(var(--bs-danger-rgb),1) !important;
+            border-color: rgba(var(--bs-danger-rgb),1) !important;
         }
         tr.selected td {
             color: rgba(var(--bs-danger-rgb),1) !important;
@@ -111,7 +132,7 @@
             font-weight: bold;
         }
         [readonly] {
-            background-color: #eee !important;
+            background-color: #fef6e9 !important;
         }
         select[readonly] {
             pointer-events: none;
@@ -174,38 +195,35 @@
             width: 50%;
             aspect-ratio: 1/1;
         }
-        /*.bg-danger,
-        .btn-danger,
-        .btn-selection {
-            background:#950101 !important;
-            border: 2px solid#950101 !important;
-            color: white !important;
-            box-shadow: 0 0 5px grey;
-        }
-        .btn-danger:hover,
-        .btn-selection:hover {
-            color: black;
-            background-color: transparent;
-            border: 2px solid #950101 !important;
-        }*/
-        .btn-selection:hover .icon-lg {
-            filter: brightness(0);
-        }
         #sidebar .btn {
-            background-color: transparent !important;
+            background-color: #211d1e !important;
             border: none !important;
             color: white !important;
             font-weight: bold;
-            border-radius: 0 !important;
+            position: relative;
         }
         #sidebar .btn:hover,
         #sidebar .btn.active {
-            background-color: black !important;
+            background-color: rgba(var(--bs-light-rgb),1) !important;
+            color: rgba(var(--bs-danger-rgb),1) !important;
+        }
+        #sidebar .btn.active:after {
+            display: block;
+            position: absolute;
+            right: -40px;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            background-color: rgba(var(--bs-light-rgb),1) !important;
+            content: ' ';
+        }
+        :root {
+          --bs-danger-rgb: 170,30,36;
         }
     </style>
 
 </head>
-<body>
+<body class="bg-light">
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show no-print" role="alert">
             <ul>
@@ -225,24 +243,35 @@
         </div>
     @endif
     <div class="container-fluid">
+
+        <div class="row no-print" style="border-bottom: 2px solid darkred;
+    border-bottom-right-radius: 100px; background-color: white !important">
+            <div class="col-3">
+                <img src="{{ url('assets/img/logo.png') }}" style="height: 70px" alt="">
+            </div>
+            <div class="col-9 pt-2 text-center">
+                <span class="fs-2">Welcome <b>{{ Session::get('userdata')->username ?? '' }}</b></span>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="no-print col-2 min-vh-100 p-0 pt-4 bg-danger" id="sidebar">
-                <a href="{{ url('admin/dashboard') }}" class="btn form-control mt-5 {{ ((Request::path() == 'admin/dashboard') ? 'active' : '') }}">
+            <div class="no-print col-3 min-vh-100 p-0 bg-danger" id="sidebar">
+                <a href="{{ url('admin/dashboard') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/dashboard') ? 'active' : '') }}">
                     <i class="fa-solid fa-cubes"></i> Dashboard
                 </a>
-                <a href="{{ url('admin/master') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/master') ? 'active' : '') }}">
+                <a href="{{ url('admin/master') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/master') ? 'active' : '') }}">
                     <i class="fa-solid fa-gear"></i> Master
                 </a>
-                <a href="{{ url('admin/account') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/account') ? 'active' : '') }}">
+                <a href="{{ url('admin/account') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/account') ? 'active' : '') }}">
                     <i class="fa-solid fa-users"></i> Account
                 </a>
-                <a href="{{ url('admin/penjualan') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/penjualan') ? 'active' : '') }}">
+                <a href="{{ url('admin/penjualan') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/penjualan') ? 'active' : '') }}">
                     <i class="fa-solid fa-hand-holding-dollar"></i> Penjualan
                 </a>
-                <a href="{{ url('admin/pembelian') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/pembelian') ? 'active' : '') }}">
+                <a href="{{ url('admin/pembelian') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/pembelian') ? 'active' : '') }}">
                     <i class="fa-solid fa-store"></i> Pembelian
                 </a>
-                <a href="{{ url('admin/laporan') }}" class="btn form-control mt-1 {{ ((Request::path() == 'admin/laporan') ? 'active' : '') }}">
+                <a href="{{ url('admin/laporan') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/laporan') ? 'active' : '') }}">
                     <i class="fa-solid fa-chart-line"></i> Laporan
                 </a>
                 <div class="mt-5"></div>
@@ -253,15 +282,7 @@
                 </a>
             </div>
 
-            <div class="col col-print-12 min-vh-100 bg-light">
-                <div class="row no-print" style="border-bottom: 2px solid darkred;">
-                    <div class="col-6 pt-2">
-                        <span class="fs-2">Welcome <b>{{ Session::get('userdata')->username ?? '' }}</b></span>
-                    </div>
-                    <div class="col-6 text-end">
-                        <img src="{{ url('assets/img/logo.png') }}" style="height: 70px" alt="">
-                    </div>
-                </div>
+            <div class="col col-print-12 min-vh-100">
                 <div class="breadcrumb">
                     <div class="row pt-3">
                         <div class="col">

@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/pembelian/invoice/detail') }}" class="btn btn-selection btn-blue">
+                <a href="{{ url('admin/pembelian/invoice/list') }}" class="btn btn-selection btn-blue">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-receipt"></i>
                     </span> --}}
