@@ -82,23 +82,46 @@ class LaporanModel extends Model
         return $result;
     }
 
-    static function getBebanOpsByMonth($periode) {
-        $result = DB::table('tb_beban_ops')
-                    ->where('periode', $periode)
-                    ->first();
-        return $result;
-    }
-
-    static function getKomisiSalesByMonth($periode) {
-        $result = DB::table('tb_komisi_sales')
-                    ->where('periode', $periode)
+    static function getBebanOpsByMonth($year, $month) {
+        $result = DB::table('tb_transaksi_sales')
+                    ->where('expense_type', 'beban_ops')
+                    ->whereRaw('YEAR(tx_date) = '.$year.' AND MONTH(tx_date) = '.$month)
                     ->get();
         return $result;
     }
 
-    static function getGajiSalesByMonth($periode) {
-        $result = DB::table('tb_gaji_sales')
-                    ->where('periode', $periode)
+    static function getKomisiSalesByMonth($year, $month) {
+        $komisi = DB::table('tb_komisi_sales')
+                    ->where('year', $year)
+                    ->where('month', $month)
+                    ->get();
+        $persen = [];                    
+        foreach ($komisi as $row) {
+            $persen[$row->sales_code] = $row->persen_komisi;
+        }
+
+        $invoice_paid = DB::table('view_tabel_komisi_sales')
+                            ->groupBy('sales_code')
+                            ->whereRaw('YEAR(invoice_date) = '.$year.' AND MONTH(invoice_date) = '.$month)
+                            ->select(DB::raw('sales_code, SUM(paid_amount) AS total_paid_amount'))
+                            ->get();
+        $komisi_array = [];                            
+        foreach ($invoice_paid as $row) {
+            $data_row = [
+                'sales_code' => $row->sales_code,
+                'total_paid_amount' => (int) $row->total_paid_amount,
+                'persen_komisi' => (float) ($persen[$row->sales_code] ?? 0),
+                'total_komisi' => (int) $row->total_paid_amount * (float) (($persen[$row->sales_code] ?? 0) / 100),
+            ];
+            array_push($komisi_array, $data_row);
+        }
+        return $komisi_array;
+    }
+
+    static function getGajiSalesByMonth($year, $month) {
+        $result = DB::table('tb_transaksi_sales')
+                    ->where('expense_type', 'gaji')
+                    ->whereRaw('YEAR(tx_date) = '.$year.' AND MONTH(tx_date) = '.$month)
                     ->get();
         return $result;
     }

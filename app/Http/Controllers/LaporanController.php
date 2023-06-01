@@ -115,9 +115,9 @@ class LaporanController extends Controller
         $periode = $request->year.'-'.$request->month;
         $data = [
             'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
-            'komisi' => LaporanModel::getKomisiSalesByMonth($periode),
-            'gaji' => LaporanModel::getGajiSalesByMonth($periode),
-            'beban' => LaporanModel::getBebanOpsByMonth($periode) ?? [],
+            'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
+            'gaji' => LaporanModel::getGajiSalesByMonth($request->year, $request->month),
+            'beban' => LaporanModel::getBebanOpsByMonth($request->year, $request->month) ?? [],
             'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
         ];
         return response()->json($data, 200);

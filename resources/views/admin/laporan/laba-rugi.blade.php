@@ -12,8 +12,8 @@
 </a>
 @endsection
 @section('content')
-<form action="{{ url('admin/laporan/laba-rugi') }}" method="post">
-    @csrf
+{{-- <form action="{{ url('admin/laporan/laba-rugi') }}" method="post"> --}}
+    {{-- @csrf --}}
     <div class="row mt-5">
         <div class="col-1">
             Periode
@@ -48,10 +48,10 @@
             </select>
         </div>
         <div class="col text-end">
-            <button id="saveButton" type="submit" class="btn btn-danger btn-icon-lg">
+            {{-- <button id="saveButton" type="submit" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-save"></i>
                 Save
-            </button>
+            </button> --}}
             <button id="printButton" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-print"></i>
                 Print
@@ -106,7 +106,7 @@
                 {{ $row->sales_name }}
             </div>
             <div class="col-4">
-                <input type="text" value='0' data-type="number" name="komisi[{{$row->sales_code}}]" class="form-control komisi_sales">
+                <input type="text" value='0' readonly="readonly" data-type="number" name="komisi[{{$row->sales_code}}]" class="form-control komisi_sales">
             </div>
         </div>
         @endforeach
@@ -124,7 +124,7 @@
                 {{ $row->sales_name }}
             </div>
             <div class="col-4">
-                <input type="text" value='0' data-type="number" name="gaji[{{$row->sales_code}}]" class="form-control gaji_sales">
+                <input type="text" value='0' readonly="readonly" data-type="number" name="gaji[{{$row->sales_code}}]" class="form-control gaji_sales">
             </div>
         </div>
         @endforeach
@@ -136,7 +136,8 @@
                 <input type="text" value='0' data-type="number" readonly="readonly" name="beban_ops_total" class="form-control">
             </div>
         </div>
-        <div class="row mt-1">
+        <div class="row"><div class="col" id="beban-wrapper"></div></div>
+        {{-- <div class="row mt-1">
             <div class="col-4 pt-2">
                 INVENTARIS
             </div>
@@ -159,7 +160,7 @@
             <div class="col-4">
                 <input type="text" value='0' data-type="number" name="pulsa" class="form-control beban_ops">
             </div>
-        </div>
+        </div> --}}
         <div class="row mt-5">
             <div class="col-8 pt-2">
                 <b>TOTAL PENGELUARAN</b>
@@ -180,7 +181,7 @@
             </div>
         </div>
     </div>
-</form>
+{{-- </form> --}}
 @endsection
 @section('script')
 <script>
@@ -192,7 +193,6 @@
         refreshData();
     });
     $('input').on('paste keyup', function(){
-        console.log('p');
         processData();
     });
 
@@ -237,7 +237,7 @@
         $('input[name=pulsa]').val(pulsa).change();
 
         $.each(lastAjaxData.komisi, function(index, row) {
-            $('input[name="komisi['+row.sales_code+']"]').val(row.amount).change();
+            $('input[name="komisi['+row.sales_code+']"]').val(row.total_komisi).change();
         });
         $.each(lastAjaxData.gaji, function(index, row) {
             $('input[name="gaji['+row.sales_code+']"]').val(row.amount).change();
@@ -265,9 +265,23 @@
 
         // hitung beban
         var beban_ops_total = 0;
-        $.each($('.beban_ops'), function(index, val) {
-            cash_out += parseInt($(this).val().replace(/,/g, ''));
-            beban_ops_total += parseInt($(this).val().replace(/,/g, ''));
+        // $.each($('.beban_ops'), function(index, val) {
+        //     cash_out += parseInt($(this).val().replace(/,/g, ''));
+        //     beban_ops_total += parseInt($(this).val().replace(/,/g, ''));
+        // });
+        $.each(lastAjaxData.beban, function(index, val) {
+            console.log(val);
+            var lines = '<div class="row mt-1">' +
+                    '<div class="col-4">' +
+                        '<b>' + val.sales_code + '</b><br>' + val.description +
+                    '</div>' + 
+                    '<div class="col-4">' +
+                        '<input type="text" readonly="readonly" value=' + $.number(val.amount, 0) + ' data-type="number" name="inventaris" class="form-control beban_ops">' +
+                    '</div>' +
+                '</div>';
+            $('#beban-wrapper').append(lines);
+            cash_out += parseInt(val.amount);
+            beban_ops_total += parseInt(val.amount);
         });
         $('input[name=beban_ops_total]').val(beban_ops_total).change();
 
