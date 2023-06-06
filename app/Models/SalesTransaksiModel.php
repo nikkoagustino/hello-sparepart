@@ -11,12 +11,19 @@ class SalesTransaksiModel extends Model
     use HasFactory;
 
     static function getTransaksiSales($request) {
-        $result = DB::table('tb_transaksi_sales AS trx')
-                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
-                    ->where('trx.sales_code', $request->sales_code)
-                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year.' AND MONTH(trx.tx_date) = '.$request->month)
-                    ->select('trx.*', 'sal.sales_name')
-                    ->get();
+        $query = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code');
+        if ($request->sales_code) {
+            $query->where('trx.sales_code', $request->sales_code);
+        }
+        if ($request->year) {
+            $query->whereRaw('YEAR(trx.tx_date) = '.$request->year);
+        }
+        if ($request->month) {
+            $query->whereRaw('MONTH(trx.tx_date) = '.$request->month);
+        } 
+        $result = $query->select('trx.*', 'sal.sales_name')
+                        ->get();
         return $result;
     }
 

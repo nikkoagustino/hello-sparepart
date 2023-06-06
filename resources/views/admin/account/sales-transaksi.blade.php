@@ -24,7 +24,7 @@
             </div>
             <div class="col">
                 <select name="sales_code" required="required" class="form-select form-control">
-                    <option value="" selected="selected" disabled="disabled">Pilih Sales...</option>
+                    <option value="" selected="selected">All Sales...</option>
                     @foreach ($sales as $row)
                     <option value="{{ $row->sales_code }}">{{ $row->sales_code }} - {{ $row->sales_name }}</option>
                     @endforeach
@@ -118,6 +118,9 @@
 @endsection
 @section('script')
 <script>
+    $(document).ready(function() {
+        refreshData();
+    });
     function newButton() {
         var sales_code = $('select[name=sales_code]').val();
         if (!sales_code) {
@@ -138,23 +141,19 @@
         var sales_code = $('select[name=sales_code]').val();
         var year = $('input[name=year]').val();
         var month = $('select[name=month]').val();
-        if (sales_code && year && month) {
-            $.ajax({
-                url: '{{ url('api/transaksi') }}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    sales_code: sales_code,
-                    year: year,
-                    month: month
-                },
-            })
-            .done(function(result) {
-                processData(result);
-            });
-        } else {
-            console.log('incomplete selection');
-        }
+        $.ajax({
+            url: '{{ url('api/transaksi') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                sales_code: sales_code,
+                year: year,
+                month: month
+            },
+        })
+        .done(function(result) {
+            processData(result);
+        });
     }
 
 

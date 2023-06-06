@@ -11,9 +11,9 @@ class SalesTransaksiController extends Controller
 {
     public function getSalesTransaction(Request $request) {
         $validator = Validator::make($request->all(), [
-            'sales_code' => 'required|string',
-            'year' => 'required|integer',
-            'month' => 'required|integer',
+            'sales_code' => 'nullable|string',
+            'year' => 'nullable|integer',
+            'month' => 'nullable|integer',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
