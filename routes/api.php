@@ -45,6 +45,7 @@ Route::get('invoice/penjualan/lunas', [PenjualanController::class, 'getInvoiceLu
 
 Route::get('laporan', [LaporanController::class, 'getLaporanTransaksi']);
 Route::get('laporan-tx', [LaporanController::class, 'getLaporanTransaksiV2']);
+Route::get('laporan-bulanan', [LaporanController::class, 'getLaporanBulanan']);
 
 Route::get('data-laba-rugi', [LaporanController::class, 'getLabaRugi']);
 Route::get('invoice/pembelian/generate', [PembelianController::class, 'generateInvoiceNumber']);

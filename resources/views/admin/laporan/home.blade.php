@@ -11,7 +11,28 @@
 @endsection
 @section('content')
 <div class="row mt-5">
-    <div class="col-12"><h3>LAPORAN BULAN INI</h3></div>
+    <div class="col-4"><h3>LAPORAN BULANAN</h3></div>
+    <div class="col-2">
+        <select name="month" class="form-control form-select">
+            <option value="1">JANUARI</option>
+            <option value="2">FEBRUARI</option>
+            <option value="3">MARET</option>
+            <option value="4">APRIL</option>
+            <option value="5">MEI</option>
+            <option value="6">JUNI</option>
+            <option value="7">JULI</option>
+            <option value="8">AGUSTUS</option>
+            <option value="9">SEPTEMBER</option>
+            <option value="10">OKTOBER</option>
+            <option value="11">NOVEMBER</option>
+            <option value="12">DESEMBER</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <input type="number" name="year" step="1" class="form-control" value="{{ date('Y') }}">
+    </div>
+</div>
+<div class="row mt-3">
     <div class="col-4">
         <div class="row laporan-head">
             <div class="col-3 pt-2">
@@ -19,7 +40,7 @@
                 <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
             </div>
             <div class="col-9">
-                <span class="d-block fs-2">{{ number_format($monthly['profit'], 0) }}</span>
+                <span id="monthly_profit" class="d-block fs-2">{{ number_format($monthly['profit'], 0) }}</span>
                 <span>Keuntungan</span>
             </div>
         </div>
@@ -31,7 +52,7 @@
                 <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
             </div>
             <div class="col-9">
-                <span class="d-block fs-2">{{ number_format($monthly['income'], 0) }}</span>
+                <span id="monthly_income" class="d-block fs-2">{{ number_format($monthly['income'], 0) }}</span>
                 <span>Total Pemasukan</span>
             </div>
         </div>
@@ -43,7 +64,7 @@
                 <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
             </div>
             <div class="col-9">
-                <span class="d-block fs-2">{{ number_format($monthly['expense'], 0) }}</span>
+                <span id="monthly_expense" class="d-block fs-2">{{ number_format($monthly['expense'], 0) }}</span>
                 <span>Total Pengeluaran</span>
             </div>
         </div>
@@ -64,7 +85,7 @@
     </div>
 </div>
 
-<div class="row mt-5 laporan-head">
+<div class="row mt-5 p-3 laporan-head">
     <div class="col-12">
         <h2>Top #10 Best Seller</h2>
     </div>
@@ -137,8 +158,37 @@ let chart = null;
 let chartInitialized = false;
 
 $(document).ready(function(){
+    $('select[name=month]').val({{ date('m') }});
+    refreshNumbers();
     refreshChart(3);
 });
+
+$('select').on('change', function(){
+    refreshNumbers();
+});
+$('input').on('change', function(){
+    refreshNumbers();
+});
+
+function refreshNumbers() {
+    var month = $('select[name=month]').val();
+    var year = $('input[name=year]').val();
+    $.ajax({
+        url: '{{ url('api/laporan-bulanan') }}',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            year: year,
+            month: month
+        },
+    })
+    .done(function(result) {
+        $('#monthly_expense').text($.number(result.monthly.expense, 0));
+        $('#monthly_income').text($.number(result.monthly.income, 0));
+        $('#monthly_profit').text($.number(result.monthly.profit, 0));
+    });
+    
+}
 
 function refreshChart(range) {
     $.ajax({

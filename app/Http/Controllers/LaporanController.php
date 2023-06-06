@@ -67,6 +67,22 @@ class LaporanController extends Controller
         return view('admin.laporan.home')->with($data);
     }
 
+    function getLaporanBulanan(Request $request) {
+        $current_date = $request->year.'-'.$request->month.'-01';
+        $monthly_expense = LaporanModel::getMonthlyExpense($current_date);
+        $monthly_income = LaporanModel::getMonthlyIncome($current_date);
+        $monthly_profit = $monthly_income->income - $monthly_expense->expense;
+
+        $data = [
+            'monthly' => [
+                'expense' => (int) $monthly_expense->expense,
+                'income' => (int) $monthly_income->income,
+                'profit' => (int) $monthly_profit,
+            ],
+        ];
+        return response()->json($data, 200);
+    }
+
     function getLaporanTransaksi(Request $request) {
         $data = [
             'expenses' => LaporanModel::getExpenseBulanan($request->range),
