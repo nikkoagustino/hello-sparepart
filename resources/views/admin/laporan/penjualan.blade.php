@@ -5,10 +5,10 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/laporan') }}" class="btn btn-danger">
-    <i class="fa-solid fa-gear"></i> &nbsp; Laporan
+    <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> &nbsp; Laporan
 </a>
 <a href="{{ url('admin/laporan/penjualan') }}" class="btn btn-danger">
-    <i class="fa-solid fa-gear"></i> &nbsp; Penjualan
+    <img src="{{ url('assets/img/svg/penjualan.svg') }}"> &nbsp; Penjualan
 </a>
 @endsection
 @section('content')

@@ -217,6 +217,24 @@
             background-color: rgba(var(--bs-light-rgb),1) !important;
             content: ' ';
         }
+        #sidebar .btn img {
+            width: 25px;
+            margin-right: 10px;
+            filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7491%) hue-rotate(254deg) brightness(102%) contrast(102%);
+        }
+        #sidebar .btn:hover img,
+        #sidebar .btn.active img {
+            filter: brightness(0) saturate(100%) invert(11%) sepia(63%) saturate(6689%) hue-rotate(351deg) brightness(91%) contrast(84%);
+        }
+        .breadcrumb .btn img {
+            height: 25px;
+            /*white*/
+            filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7491%) hue-rotate(254deg) brightness(102%) contrast(102%);
+        }
+        .breadcrumb .btn:hover img {
+            /*red*/
+            filter: brightness(0) saturate(100%) invert(11%) sepia(63%) saturate(6689%) hue-rotate(351deg) brightness(91%) contrast(84%);
+        }
         :root {
           --bs-danger-rgb: 170,30,36;
         }
@@ -257,22 +275,28 @@
         <div class="row">
             <div class="no-print col-3 min-vh-100 p-0 bg-danger" id="sidebar">
                 <a href="{{ url('admin/dashboard') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/dashboard') ? 'active' : '') }}">
-                    <i class="fa-solid fa-cubes"></i> Dashboard
+                    {{-- <i class="fa-solid fa-cubes"></i> Dashboard --}}
+                    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}" alt=""> Dashboard
                 </a>
                 <a href="{{ url('admin/master') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/master') ? 'active' : '') }}">
-                    <i class="fa-solid fa-gear"></i> Master
+                    {{-- <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> Master --}}
+                    <img src="{{ url('assets/img/svg/sidebar-master.svg') }}" alt=""> Master
                 </a>
                 <a href="{{ url('admin/account') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/account') ? 'active' : '') }}">
-                    <i class="fa-solid fa-users"></i> Account
+                    {{-- <i class="fa-solid fa-users"></i> Account --}}
+                    <img src="{{ url('assets/img/svg/sidebar-account.svg') }}" alt=""> Account
                 </a>
                 <a href="{{ url('admin/penjualan') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/penjualan') ? 'active' : '') }}">
-                    <i class="fa-solid fa-hand-holding-dollar"></i> Penjualan
+                    {{-- <i class="fa-solid fa-hand-holding-dollar"></i> Penjualan --}}
+                    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}" alt=""> Penjualan
                 </a>
                 <a href="{{ url('admin/pembelian') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/pembelian') ? 'active' : '') }}">
-                    <i class="fa-solid fa-store"></i> Pembelian
+                    {{-- <i class="fa-solid fa-store"></i> Pembelian --}}
+                    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}" alt=""> Pembelian
                 </a>
                 <a href="{{ url('admin/laporan') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/laporan') ? 'active' : '') }}">
-                    <i class="fa-solid fa-chart-line"></i> Laporan
+                    {{-- <i class="fa-solid fa-chart-bar"></i> Laporan --}}
+                    <img src="{{ url('assets/img/svg/sidebar-laporan.svg') }}" alt=""> Laporan
                 </a>
                 <div class="mt-5"></div>
                 <a href="{{ url('admin/logout') }}" class="btn px-3 mt-5">
@@ -282,7 +306,7 @@
                 </a>
             </div>
 
-            <div class="col col-print-12 min-vh-100">
+            <div class="col-9 col-print-12 min-vh-100">
                 <div class="breadcrumb">
                     <div class="row pt-3">
                         <div class="col">

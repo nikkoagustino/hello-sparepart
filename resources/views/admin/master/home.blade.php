@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/master') }}" class="btn btn-danger">
-    <i class="fa-solid fa-gear"></i> &nbsp; Master
+    <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> &nbsp; Master
 </a>
 @endsection
 @section('content')
@@ -18,7 +18,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-screwdriver-wrench"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/produk.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/product.svg') }}" class="icon-lg" alt="">
                     Produk
                 </a>
             </div>
@@ -27,7 +27,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-truck-fast"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/supplier.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/supplier.svg') }}" class="icon-lg" alt="">
                     Supplier
                 </a>
             </div>
@@ -36,7 +36,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-network-wired"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/customer.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/customer.svg') }}" class="icon-lg" alt="">
                     Customer
                 </a>
             </div>
@@ -47,7 +47,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-headset"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/sales.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/sales.svg') }}" class="icon-lg" alt="">
                     Sales
                 </a>
             </div>
@@ -56,7 +56,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-barcode"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/jenis-barang.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/jenis-barang.svg') }}" class="icon-lg" alt="">
                     Jenis Barang
                 </a>
             </div>
@@ -65,7 +65,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-infinity"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/vbelt.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/vbelt.svg') }}" class="icon-lg" alt="">
                     V-Belt
                 </a>
             </div>

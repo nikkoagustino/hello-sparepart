@@ -182,12 +182,24 @@ class PenjualanController extends Controller
         return response()->json($data, 200);
     }
 
+    function getInvoiceLunas(Request $request) {
+        $data = PenjualanModel::getInvoiceLunas($request);
+        return response()->json($data, 200);
+    }
+
     function showTransaksi() {
         $data = [
             'customers' => CustomerModel::getAll(),
             'products' => ProductModel::getAll(),
         ];
         return view('admin/penjualan/transaksi')->with($data);
+    }
+    function showTransaksiLunas() {
+        $data = [
+            'customers' => CustomerModel::getAll(),
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/penjualan/lunas-list')->with($data);
     }
 
     function getTransaksiFilter(Request $request) {

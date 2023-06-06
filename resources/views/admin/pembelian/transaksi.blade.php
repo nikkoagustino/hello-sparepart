@@ -5,12 +5,13 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Penjualan
+<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
 </a>
-<a href="{{ url('admin/penjualan/transaksi') }}" class="btn btn-danger">
-    <i class="fa-solid fa-cash-register"></i> &nbsp; Transaksi
+<a href="{{ url('admin/pembelian/transaksi') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/transaksi.svg') }}"> &nbsp; Transaksi
 </a>
+
 @endsection
 
 @section('content')

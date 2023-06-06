@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/laporan') }}" class="btn btn-danger">
-    <i class="fa-solid fa-gear"></i> &nbsp; Laporan
+    <img src="{{ url('assets/img/svg/sidebar-laporan.svg') }}"> &nbsp; Laporan
 </a>
 @endsection
 @section('content')
@@ -14,8 +14,9 @@
     <div class="col-12"><h3>LAPORAN BULAN INI</h3></div>
     <div class="col-4">
         <div class="row laporan-head">
-            <div class="col-3">
-                <i class="fa-solid fa-scale-balanced fs-1"></i>
+            <div class="col-3 pt-2">
+                {{-- <i class="fa-solid fa-scale-balanced fs-1"></i> --}}
+                <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
             </div>
             <div class="col-9">
                 <span class="d-block fs-2">{{ number_format($monthly['profit'], 0) }}</span>
@@ -25,8 +26,9 @@
     </div>
     <div class="col-4">
         <div class="row laporan-head">
-            <div class="col-3">
-                <i class="fa-solid fa-scale-balanced fs-1"></i>
+            <div class="col-3 pt-2">
+                {{-- <i class="fa-solid fa-scale-balanced fs-1"></i> --}}
+                <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
             </div>
             <div class="col-9">
                 <span class="d-block fs-2">{{ number_format($monthly['income'], 0) }}</span>
@@ -36,8 +38,9 @@
     </div>
     <div class="col-4">
         <div class="row laporan-head">
-            <div class="col-3">
-                <i class="fa-solid fa-scale-balanced fs-1"></i>
+            <div class="col-3 pt-2">
+                {{-- <i class="fa-solid fa-scale-balanced fs-1"></i> --}}
+                <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
             </div>
             <div class="col-9">
                 <span class="d-block fs-2">{{ number_format($monthly['expense'], 0) }}</span>
@@ -102,7 +105,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-download"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/penjualan.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/dash-penjualan.svg') }}" class="icon-lg" alt="">
                     Penjualan
                 </a>
             </div>
@@ -111,7 +114,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-upload"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/pembelian.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/dash-pembelian.svg') }}" class="icon-lg" alt="">
                     Pembelian
                 </a>
             </div>
@@ -120,7 +123,7 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-chart-pie"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/laba-rugi.svg') }}" class="icon-lg" alt="">
+                    <img src="{{ url('assets/img/svg/laba-rugi.svg') }}" class="icon-lg" alt="">
                     Laba Rugi
                 </a>
             </div>

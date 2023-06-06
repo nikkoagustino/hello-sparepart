@@ -6,10 +6,10 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Pembelian
+    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
 </a>
 <a href="{{ url('admin/pembelian/invoice') }}" class="btn btn-danger">
-    <i class="fa-solid fa-file-invoice-dollar"></i> &nbsp; Invoice
+    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; Invoice
 </a>
 @endsection
 
@@ -20,10 +20,10 @@
             <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/invoice/new') }}" class="btn btn-selection btn-purple">
-                    {{-- <span class="display-1">
+                    <span class="display-1">
                         <i class="fa-solid fa-circle-plus"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt="">
+                    </span>
+                    {{-- <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt=""> --}}
                     Invoice Baru
                 </a>
             </div>
@@ -32,8 +32,8 @@
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-receipt"></i>
                     </span> --}}
-                    <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt="">
-                    List Invoice
+                    {{-- <img src="{{ url('assets/img/icon/invoice.svg') }}" class="icon-lg" alt=""> --}}
+                    <img src="{{ url('assets/img/svg/invoice-list.svg') }}" class="icon-lg"> &nbsp; List Invoice
                 </a>
             </div>
             <div class="col"></div>

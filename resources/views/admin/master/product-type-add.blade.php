@@ -6,10 +6,10 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/master') }}" class="btn btn-danger">
-    <i class="fa-solid fa-gear"></i> &nbsp; Master
+    <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> &nbsp; Master
 </a>
 <a href="{{ url('admin/master/product-type') }}" class="btn btn-danger">
-    <i class="fa-solid fa-barcode"></i> &nbsp; Jenis Barang
+    <img src="{{ url('assets/img/svg/jenis-barang.svg') }}"> &nbsp; Jenis Barang
 </a>
 @endsection
 

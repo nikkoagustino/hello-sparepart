@@ -178,12 +178,25 @@ class PembelianController extends Controller
         return response()->json($data, 200);
     }
 
+    function getInvoiceLunas(Request $request) {
+        $data = PembelianModel::getInvoiceLunas($request);
+        return response()->json($data, 200);
+    }
+
     function showTransaksi() {
         $data = [
             'suppliers' => SupplierModel::getAll(),
             'products' => ProductModel::getAll(),
         ];
         return view('admin/pembelian/transaksi')->with($data);
+    }
+
+    function showTransaksiLunas() {
+        $data = [
+            'suppliers' => SupplierModel::getAll(),
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/pembelian/lunas-list')->with($data);
     }
 
     function getTransaksiFilter(Request $request) {

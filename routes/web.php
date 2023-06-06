@@ -192,6 +192,10 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PembelianController::class, 'showTransaksi']);
         });
+
+        Route::prefix('lunas')->group(function(){
+            Route::get('/', [PembelianController::class, 'showTransaksiLunas']);
+        });
     });
 
     Route::prefix('penjualan')->group(function(){
@@ -221,6 +225,10 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PenjualanController::class, 'showTransaksi']);
+        });
+
+        Route::prefix('lunas')->group(function(){
+            Route::get('/', [PenjualanController::class, 'showTransaksiLunas']);
         });
     });
 

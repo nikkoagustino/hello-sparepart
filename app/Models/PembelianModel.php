@@ -155,7 +155,37 @@ class PembelianModel extends Model
 
     static function getInvoiceTerhutang($request) {
         $query = DB::table('view_hutang_pembelian AS hut')
-                    ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no');
+                    ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no')
+                    ->where('hut.hutang', '>', 0);
+
+        if ($request->invoice_no) {
+            $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
+        }
+
+        if ($request->date_start) {
+            $query->where('inv.invoice_date', '>=', $request->date_start);
+        }
+
+        if ($request->date_end) {
+            $query->where('inv.invoice_date', '<=', $request->date_end);
+        }
+
+        if ($request->supplier_code) {
+            $query->where('inv.supplier_code', $request->supplier_code);
+        }
+
+        if ($request->payment_type) {
+            $query->where('inv.payment_type', $request->payment_type);
+        }
+
+        $result = $query->get();
+        return $result;
+    }
+
+    static function getInvoiceLunas($request) {
+        $query = DB::table('view_hutang_pembelian AS hut')
+                    ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no')
+                    ->where('hut.hutang', '<=', 0);
 
         if ($request->invoice_no) {
             $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
@@ -201,6 +231,8 @@ class PembelianModel extends Model
         if ($request->product_code) {
             $query->where('itm.product_code', $request->product_code);
         }
+
+        $query->select('inv.*', 'hut.total_paid_amount', 'hut.hutang');
 
         $result = $query->groupBy('inv.invoice_no')->get();
         return $result;

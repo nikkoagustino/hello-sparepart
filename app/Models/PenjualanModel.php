@@ -113,7 +113,41 @@ class PenjualanModel extends Model
 
     static function getInvoicePiutang($request) {
         $query = DB::table('view_piutang_penjualan AS piu')
-                    ->leftJoin('view_invoice_penjualan_detail AS inv', 'piu.invoice_no', '=', 'inv.invoice_no');
+                    ->leftJoin('view_invoice_penjualan_detail AS inv', 'piu.invoice_no', '=', 'inv.invoice_no')
+                    ->where('piu.piutang', '>', 0);
+
+        if ($request->invoice_no) {
+            $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
+        }
+
+        if ($request->date_start) {
+            $query->where('inv.invoice_date', '>=', $request->date_start);
+        }
+
+        if ($request->date_end) {
+            $query->where('inv.invoice_date', '<=', $request->date_end);
+        }
+
+        if ($request->customer_code) {
+            $query->where('inv.customer_code', $request->customer_code);
+        }
+
+        if ($request->sales_code) {
+            $query->where('inv.sales_code', $request->sales_code);
+        }
+
+        if ($request->payment_type) {
+            $query->where('inv.payment_type', $request->payment_type);
+        }
+
+        $result = $query->get();
+        return $result;
+    }
+    
+    static function getInvoiceLunas($request) {
+        $query = DB::table('view_piutang_penjualan AS piu')
+                    ->leftJoin('view_invoice_penjualan_detail AS inv', 'piu.invoice_no', '=', 'inv.invoice_no')
+                    ->where('piu.piutang', '<=', 0);
 
         if ($request->invoice_no) {
             $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
@@ -167,6 +201,8 @@ class PenjualanModel extends Model
         if ($request->product_code) {
             $query->where('itm.product_code', $request->product_code);
         }
+
+        $query->select('inv.*', 'hut.total_paid_amount', 'hut.piutang');
 
         $result = $query->groupBy('inv.invoice_no')->get();
         return $result;
