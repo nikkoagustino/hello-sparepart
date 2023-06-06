@@ -6,13 +6,10 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Penjualan
+    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
 </a>
 <a href="{{ url('admin/penjualan/invoice') }}" class="btn btn-danger">
-    <i class="fa-solid fa-file-invoice-dollar"></i> &nbsp; Invoice
-</a>
-<a href="{{ url('admin/penjualan/invoice/list') }}" class="btn btn-danger">
-    <i class="fa-solid fa-receipt"></i> &nbsp; List Invoice
+    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; Invoice
 </a>
 @endsection
 

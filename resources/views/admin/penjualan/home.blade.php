@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Penjualan
+    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
 </a>
 @endsection
 
@@ -17,16 +17,17 @@
             <div class="col-4">
                 <a href="{{ url('admin/penjualan/invoice') }}" class="btn btn-selection btn-purple">
                     <span class="display-1">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <i class="fa-solid fa-circle-plus"></i>
                     </span>
                     Invoice
                 </a>
             </div>
             <div class="col-4">
                 <a href="{{ url('admin/penjualan/piutang') }}" class="btn btn-selection btn-yellow">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/svg/piutang.svg') }}" class="icon-lg" alt="">
                     Piutang
                 </a>
             </div>
@@ -51,17 +52,19 @@
             <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/penjualan/transaksi') }}" class="btn btn-selection btn-blue">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-cash-register"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/svg/transaksi.svg') }}" class="icon-lg" alt="">
                     Transaksi
                 </a>
             </div> 
             <div class="col-4">
                 <a href="{{ url('admin/penjualan/retur') }}" class="btn btn-selection btn-pink">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    </span>
+                    </span> --}}
+                    <img src="{{ url('assets/img/svg/retur.svg') }}" class="icon-lg" alt="">
                     Retur
                 </a>
             </div>

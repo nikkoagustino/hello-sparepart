@@ -9,7 +9,7 @@
     <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
 </a>
 <a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-pembayaran.svg') }}"> &nbsp; Pembayaran
+    <img src="{{ url('assets/img/svg/pembayaran.svg') }}"> &nbsp; Pembayaran
 </a>
 @endsection
 

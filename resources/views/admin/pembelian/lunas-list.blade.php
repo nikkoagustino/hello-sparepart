@@ -8,8 +8,8 @@
 <a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
     <i class="fa-solid fa-store"></i> &nbsp; Penjualan
 </a>
-<a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-danger">
-    <i class="fa-solid fa-arrow-up-from-bracket"></i> &nbsp; Lunas
+<a href="{{ url('admin/pembelian/lunas') }}" class="btn btn-danger">
+    <i class="fa-solid fa-check-to-slot"></i> &nbsp; Lunas
 </a>
 @endsection
 

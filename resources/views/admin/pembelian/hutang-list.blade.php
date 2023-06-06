@@ -8,7 +8,7 @@
 <a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
 </a>
-<a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-danger">
+<a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
 </a>
 @endsection
