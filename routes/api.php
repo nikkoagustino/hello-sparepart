@@ -33,6 +33,8 @@ Route::get('invoice/pembelian/payments', [PembelianController::class, 'getPrevio
 Route::get('invoice/hutang', [PembelianController::class, 'getInvoiceTerhutang']);
 Route::get('pembelian/transaksi', [PembelianController::class, 'getTransaksiFilter']);
 Route::get('invoice/pembelian/lunas', [PembelianController::class, 'getInvoiceLunas']);
+Route::post('pembelian/retur', [PembelianController::class, 'submitRetur']);
+Route::get('pembelian/retur/items', [PembelianController::class, 'getReturItems']);
 
 Route::post('verify-pin', [AccountController::class, 'verifyPIN']);
 
@@ -42,6 +44,8 @@ Route::get('invoice/penjualan/payments', [PenjualanController::class, 'getPrevio
 Route::get('invoice/piutang', [PenjualanController::class, 'getInvoicePiutang']);
 Route::get('penjualan/transaksi', [PenjualanController::class, 'getTransaksiFilter']);
 Route::get('invoice/penjualan/lunas', [PenjualanController::class, 'getInvoiceLunas']);
+Route::post('penjualan/retur', [PenjualanController::class, 'submitRetur']);
+Route::get('penjualan/retur/items', [PenjualanController::class, 'getReturItems']);
 
 Route::get('laporan', [LaporanController::class, 'getLaporanTransaksi']);
 Route::get('laporan-tx', [LaporanController::class, 'getLaporanTransaksiV2']);

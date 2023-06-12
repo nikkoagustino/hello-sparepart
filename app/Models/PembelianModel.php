@@ -237,4 +237,43 @@ class PembelianModel extends Model
         $result = $query->groupBy('inv.invoice_no')->get();
         return $result;
     }
+
+    static function insertRetur($request) {
+        $result = DB::table('tb_pembelian_invoice_items')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('product_code', $request->product_code)
+                    ->first();
+
+        $find = DB::table('tb_retur_pembelian')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('product_code', $request->product_code)
+                    ->first();
+        if ($find) {
+            $delete = DB::table('tb_retur_pembelian')
+                        ->where('invoice_no', $request->invoice_no)
+                        ->where('product_code', $request->product_code)
+                        ->delete();
+        }
+
+        $insert = DB::table('tb_retur_pembelian')
+                    ->insert([
+                        'invoice_no' => $request->invoice_no,
+                        'product_code' => $request->product_code,
+                        'qty' => $request->qty,
+                        'normal_price' => $result->normal_price,
+                        'discount_rate' => $result->discount_rate,
+                        'discounted_price' => $result->discounted_price,
+                        'subtotal_price' => $request->qty * $result->discounted_price,
+                    ]);
+        return $insert;
+    }
+
+    static function getReturnedItems($invoice_no) {
+        $result = DB::table('tb_retur_pembelian AS itm')
+                    ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code')
+                    ->where('itm.invoice_no', $invoice_no)
+                    ->select('itm.*', 'prd.type_code', 'prd.product_name')
+                    ->get();
+        return $result;
+    }
 }

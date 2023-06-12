@@ -221,4 +221,36 @@ class PenjualanController extends Controller
         }
         echo $invoice_no;
     }
+
+    function showReturHome() {
+        $data = [
+            'invoices' => PenjualanModel::getAllInvoice(),
+        ];
+        return view('admin/penjualan/retur-home')->with($data);
+    }
+
+    function submitRetur(Request $request) {
+        if (PenjualanModel::insertRetur($request)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil simpan retur',
+            ], 200);
+        }
+    }
+
+    function getReturItems(Request $request) {
+        $items = PenjualanModel::getReturnedItems($request->invoice_no);
+        if (count($items) == 0) {
+            $response = [
+                'success' => false,
+                'message' => 'No returned items'
+            ];
+            return response()->json($response, 400);
+        }
+        $response = [
+            'success' => true,
+            'data' => $items
+        ];
+        return response()->json($response, 200);
+    }
 }

@@ -196,6 +196,10 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::prefix('lunas')->group(function(){
             Route::get('/', [PembelianController::class, 'showTransaksiLunas']);
         });
+
+        Route::prefix('retur')->group(function(){
+            Route::get('/', [PembelianController::class, 'showReturHome']);
+        });
     });
 
     Route::prefix('penjualan')->group(function(){
@@ -229,6 +233,10 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::prefix('lunas')->group(function(){
             Route::get('/', [PenjualanController::class, 'showTransaksiLunas']);
+        });
+
+        Route::prefix('retur')->group(function(){
+            Route::get('/', [PenjualanController::class, 'showReturHome']);
         });
     });
 

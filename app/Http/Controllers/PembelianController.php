@@ -218,4 +218,36 @@ class PembelianController extends Controller
         }
         echo $invoice_no;
     }
+
+    function showReturHome() {
+        $data = [
+            'invoices' => PembelianModel::getAllInvoice(),
+        ];
+        return view('admin/pembelian/retur-home')->with($data);
+    }
+
+    function submitRetur(Request $request) {
+        if (PembelianModel::insertRetur($request)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil simpan retur',
+            ], 200);
+        }
+    }
+
+    function getReturItems(Request $request) {
+        $items = PembelianModel::getReturnedItems($request->invoice_no);
+        if (count($items) == 0) {
+            $response = [
+                'success' => false,
+                'message' => 'No returned items'
+            ];
+            return response()->json($response, 400);
+        }
+        $response = [
+            'success' => true,
+            'data' => $items
+        ];
+        return response()->json($response, 200);
+    }
 }
