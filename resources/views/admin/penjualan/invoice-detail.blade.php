@@ -263,7 +263,7 @@
                     '<td>'+$.number(row.subtotal_price, 0)+'</td>' +
                     '</tr>';
                     total_invoice_price = total_invoice_price + parseInt(row.subtotal_price);
-                retur_dropdown += '<option data-max="'+row.qty+'" value="'+row.product_code+'">'+row.product_name+' - '+row.product_name+'</option>';
+                retur_dropdown += '<option data-max="'+row.qty+'" value="'+row.product_code+'">'+row.product_code+' - '+row.product_name+'</option>';
             });
             $('#itemsTable tbody').html(table_row);
             $('.total_invoice_price').text($.number(total_invoice_price, 0));
