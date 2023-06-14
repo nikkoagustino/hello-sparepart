@@ -111,6 +111,10 @@
         $("#deleteModal").modal("show");
     });
 
+    $('#txButton').on('click', function(){
+        window.location.href='{{ url('admin/master/product/transaksi/'.$product->product_code) }}';
+    });
+
     function enableEdit() {
         $('input').removeAttr('readonly');
         $('textarea').removeAttr('readonly');

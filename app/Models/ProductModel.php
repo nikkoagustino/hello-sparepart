@@ -64,4 +64,11 @@ class ProductModel extends Model
                     ]);
         return $update;
     }
+
+    static function getProductTransactions($product_code) {
+        $result = DB::table('view_product_transaction')
+                    ->where('product_code', $product_code)
+                    ->get();
+        return $result;
+    }
 }

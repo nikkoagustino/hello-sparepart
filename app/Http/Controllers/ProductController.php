@@ -108,4 +108,13 @@ class ProductController extends Controller
             return back()->withErrors('Gagal Edit Produk');
         }
     }
+
+    function showProductTx(Request $request) {
+        $data = [
+            'product' => ProductModel::getById($request->product_code),
+            'transactions' => ProductModel::getProductTransactions($request->product_code),
+            // 'laba_rugi' => ProductModel::getProductLabaRugi($request->product_code),
+        ];
+        return view('admin/master/product-transactions')->with($data);
+    }
 }

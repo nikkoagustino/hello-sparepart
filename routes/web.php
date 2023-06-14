@@ -140,6 +140,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::post('add', [ProductController::class, 'insertProduct']);
             Route::get('delete/{product_code}', [ProductController::class, 'deleteProduct']);
             Route::post('edit', [ProductController::class, 'editProduct']);
+            Route::get('transaksi/{product_code}', [ProductController::class, 'showProductTx']);
         });
 
         Route::prefix('vbelt')->group(function(){
