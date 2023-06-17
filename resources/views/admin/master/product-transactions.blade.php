@@ -97,5 +97,9 @@
             alert('Pilih Invoice Terlebih Dahulu');
         }
     });
+
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/product/tx/'.$product_code) }}', 'printWindow');
+    })
 </script>
 @endsection

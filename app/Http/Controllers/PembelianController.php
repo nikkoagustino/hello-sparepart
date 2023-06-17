@@ -97,8 +97,9 @@ class PembelianController extends Controller
         $data = [
             'invoice' => PembelianModel::getInvoiceDetail($request->invoice_no),
             'items' => PembelianModel::getInvoiceItems($request->invoice_no),
+            'retur' => PembelianModel::getReturnedItems($request->invoice_no),
         ];
-        return view('admin/print/invoice')->with($data);
+        return view('admin/print/invoice-buy')->with($data);
     }
 
     function showPembayaranHome() {

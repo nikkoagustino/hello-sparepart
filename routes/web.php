@@ -163,6 +163,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('product', [ProductController::class, 'printProduct']);
         Route::get('vbelt', [VBeltController::class, 'printVBelt']);
         Route::get('invoice-buy/{invoice_no}', [PembelianController::class, 'printInvoice']);
+        Route::get('invoice-sell/{invoice_no}', [PenjualanController::class, 'printInvoice']);
     });
 
     Route::prefix('pembelian')->group(function(){

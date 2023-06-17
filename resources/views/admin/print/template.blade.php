@@ -3,28 +3,44 @@
 <head>
     <title></title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <style>
-        
-        .table {
-            border: 2px solid red !important;
+        body {
+            font-family: monospace;
+            font-size: 1.5rem;
+            text-align: left;
         }
-        .table th {
-            background-color: khaki;
-            font-weight: bold;
-            border: 1px solid red !important;
+        h1 {
+            text-align: center;
         }
-        .table tr:nth-child(odd) {
-            background-color: seashell;
+        table {
+            width: 100%;
         }
-        .table td {
-            border: 1px solid darkgrey;
+        thead tr th {
+            border-bottom: 2px solid black;
+            border-top: 2px solid black;
+        }
+        .table tbody tr:last-child td {
+            border-bottom: 2px solid black;
+        }
+        footer {
+            font-size: 1rem;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-end {
+            text-align: right;
         }
     </style>
 </head>
 <body>
     @yield('content')
+    <br>
+    <br>
+    <br>
+    <footer>
+    {{-- Printed on: {{ date('c') }} --}}
+    </footer>
     <script>
         $(document).ready(function(){
             window.print();

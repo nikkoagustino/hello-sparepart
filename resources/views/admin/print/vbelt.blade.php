@@ -1,5 +1,6 @@
 @extends('admin/print/template')
 @section('content')
+    <h1>List V-Belt</h1>
     <table class="table table-striped print">
         <thead>
             <tr>

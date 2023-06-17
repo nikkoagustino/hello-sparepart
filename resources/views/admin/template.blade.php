@@ -419,25 +419,25 @@
             $(this).unbind('submit').submit();
         });
 
-        $('#printButton').on('click', function(){
-            var tables = document.querySelectorAll('table.print');
+        // $('#printButton').on('click', function(){
+        //     var tables = document.querySelectorAll('table.print');
 
-            // Create a new window for printing
-            var printWindow = window.open('', '', 'width=800,height=600');
-            // Set the CSS style for table width
-            var style = '<style>table { width: 100%; font-family:monospace; font-size:1.5rem; text-align:left; }</style>';
-            printWindow.document.write(style);
+        //     // Create a new window for printing
+        //     var printWindow = window.open('', '', 'width=800,height=600');
+        //     // Set the CSS style for table width
+        //     var style = '<style>table { width: 100%; font-family:monospace; font-size:1.5rem; text-align:left; }</style>';
+        //     printWindow.document.write(style);
 
-            // Iterate through each table and append it to the print window
-            tables.forEach(function(table) {
-            printWindow.document.write(table.outerHTML);
-            printWindow.document.write('<br>');
-            });
+        //     // Iterate through each table and append it to the print window
+        //     tables.forEach(function(table) {
+        //     printWindow.document.write(table.outerHTML);
+        //     printWindow.document.write('<br>');
+        //     });
 
-            // Print the contents of the print window
-            printWindow.print();
-            printWindow.close();
-        });
+        //     // Print the contents of the print window
+        //     printWindow.print();
+        //     printWindow.close();
+        // });
 
         $('#spillPIN').on('mousedown', function(){
             $('input[name=pin]').prop('type', 'text');

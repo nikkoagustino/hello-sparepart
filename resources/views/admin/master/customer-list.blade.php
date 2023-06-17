@@ -79,5 +79,9 @@
             alert('Pilih Customer Terlebih Dahulu');
         }
     });
+
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/customer') }}', 'printWindow');
+    })
 </script>
 @endsection

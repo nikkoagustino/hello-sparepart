@@ -100,8 +100,9 @@ class PenjualanController extends Controller
         $data = [
             'invoice' => PenjualanModel::getInvoiceDetail($request->invoice_no),
             'items' => PenjualanModel::getInvoiceItems($request->invoice_no),
+            'retur' => PenjualanModel::getReturnedItems($request->invoice_no)
         ];
-        return view('admin/print/invoice')->with($data);
+        return view('admin/print/invoice-sell')->with($data);
     }
 
     function showPembayaranHome() {

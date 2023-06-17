@@ -77,5 +77,9 @@
             alert('Pilih Jenis Barang Terlebih Dahulu');
         }
     });
+
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/product') }}', 'printWindow');
+    })
 </script>
 @endsection
