@@ -8,7 +8,7 @@
     <p>Total: {{ number_format($invoice->total_price, 0) }}</p>
     <p>Status: {{ $invoice->payment_type }}</p>
 
-    <table class="table table-striped">
+    <table class="table table-striped print">
         <thead>
             <tr>
                 <th>Kode Barang</th>

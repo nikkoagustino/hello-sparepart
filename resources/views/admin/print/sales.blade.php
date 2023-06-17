@@ -1,6 +1,6 @@
 @extends('admin/print/template')
 @section('content')
-    <table class="table table-striped">
+    <table class="table table-striped print">
         <thead>
             <tr>
                 <th>Kode Sales</th>

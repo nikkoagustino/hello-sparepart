@@ -34,7 +34,7 @@ date_default_timezone_set('Asia/Jakarta');
 
     <div class="col">
         <h2>List Absen</h2>
-        <table class="table table-striped">
+        <table class="table table-striped print">
             <thead>
                 <tr>
                     <th>Nama Sales</th>

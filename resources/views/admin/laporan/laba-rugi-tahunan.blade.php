@@ -31,17 +31,19 @@
         </div>
     </div>
     <div class="row p-3 laporan-head text-start">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>BULAN</th>
-                    <th>LABA KOTOR</th>
-                    <th>PENGELUARAN</th>
-                    <th>LABA</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="col col-print-12">
+            <table class="table table-striped print">
+                <thead>
+                    <tr>
+                        <th>BULAN</th>
+                        <th>LABA KOTOR</th>
+                        <th>PENGELUARAN</th>
+                        <th>LABA</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 @endsection
 @section('script')

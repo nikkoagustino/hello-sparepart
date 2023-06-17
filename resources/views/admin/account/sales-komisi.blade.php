@@ -73,7 +73,7 @@
 </div>
 <div class="row mt-4">
     <div class="col">
-        <table class="table table-striped" id="invoice_table">
+        <table class="table table-striped print" id="invoice_table">
             <thead>
                 <tr>
                     <th>No. Invoice</th>

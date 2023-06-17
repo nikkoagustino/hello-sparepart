@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col">
         <h2>List Admin</h2>
-        <table class="table table-striped">
+        <table class="table table-striped print">
             <thead>
                 <tr>
                     <th>Username</th>

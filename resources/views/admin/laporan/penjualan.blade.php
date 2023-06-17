@@ -57,7 +57,7 @@
 </div>  
 <div class="row mt-3">
     <div class="col">
-        <table class="table table-striped table-condensed selectable">
+        <table class="table table-striped print table-condensed selectable">
             <thead>
                 <tr>
                     <th>No</th>

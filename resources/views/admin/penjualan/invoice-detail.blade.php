@@ -102,7 +102,7 @@
 <div class="row mt-3">
     <div class="col">
         <h3>List Pembelian Barang</h3>
-        <table class="table table-striped table-condensed selectable" id="itemsTable">
+        <table class="table table-striped print table-condensed selectable" id="itemsTable">
             <thead>
                 <tr>
                     <th>Kode Barang</th>
@@ -131,7 +131,7 @@
 <div class="row mt-3" id="returWrapper">
     <div class="col">
         <h3>List Barang Retur</h3>
-        <table class="table table-striped table-condensed selectable" id="returItemsTable">
+        <table class="table table-striped print table-condensed selectable" id="returItemsTable">
             <thead>
                 <tr>
                     <th>Kode Barang</th>

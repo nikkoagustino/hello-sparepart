@@ -90,7 +90,7 @@
         <h2>Top #10 Best Seller</h2>
     </div>
     <div class="col-6">
-        <table class="table table-striped">
+        <table class="table table-striped print">
             <tbody>
                 @php
                 list($left_array, $right_array) = array_chunk($best_seller, 5);
@@ -105,7 +105,7 @@
         </table>
     </div>
     <div class="col-6">
-        <table class="table table-striped">
+        <table class="table table-striped print">
             <tbody>
                 @foreach($right_array as $row)
                 <tr>

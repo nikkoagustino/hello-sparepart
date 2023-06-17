@@ -62,7 +62,7 @@
             </button>
         </div>
     </div>
-    <div class="row p-3 laporan-head text-start">
+    <div class="row p-3 laporan-head text-start print">
         
         <div class="row">
             <div class="col-8 pt-2">
