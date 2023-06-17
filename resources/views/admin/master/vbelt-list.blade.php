@@ -77,5 +77,8 @@
             alert('Pilih V-Belt Terlebih Dahulu');
         }
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/vbelt') }}', 'printWindow');
+    });
 </script>
 @endsection

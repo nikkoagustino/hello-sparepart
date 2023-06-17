@@ -164,6 +164,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('vbelt', [VBeltController::class, 'printVBelt']);
         Route::get('invoice-buy/{invoice_no}', [PembelianController::class, 'printInvoice']);
         Route::get('invoice-sell/{invoice_no}', [PenjualanController::class, 'printInvoice']);
+        Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
+        Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
     });
 
     Route::prefix('pembelian')->group(function(){

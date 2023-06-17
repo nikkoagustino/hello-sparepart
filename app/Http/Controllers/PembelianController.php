@@ -93,6 +93,13 @@ class PembelianController extends Controller
         return view('admin/pembelian/invoice-list')->with($data);
     }
 
+    function printInvoiceList() {
+        $data = [
+            'invoices' => PembelianModel::getAllInvoice(),
+        ];
+        return view('admin/print/invoice-buy-list')->with($data);
+    }
+
     function printInvoice(Request $request) {
         $data = [
             'invoice' => PembelianModel::getInvoiceDetail($request->invoice_no),

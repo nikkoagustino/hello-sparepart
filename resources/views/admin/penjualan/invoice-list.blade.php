@@ -85,5 +85,8 @@
         }
         window.location.href="{{ url('admin/penjualan/invoice/detail') }}?invoice_no="+selected_row;
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/invoice-sell-list') }}', 'printWindow');
+    });
 </script>
 @endsection

@@ -73,5 +73,8 @@
             alert('Pilih Sales Terlebih Dahulu');
         }
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/sales') }}', 'printWindow');
+    })
 </script>
 @endsection

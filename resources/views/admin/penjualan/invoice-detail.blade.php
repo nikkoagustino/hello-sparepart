@@ -361,6 +361,11 @@
                 window.location.reload();
             }
         });
-    })
+    });
+
+    $('#printButton').on('click', function(){
+        var invoice_no = $('input[name=invoice_no]').val();
+        window.open('{{ url('admin/print/invoice-sell') }}/'+invoice_no, 'printWindow');
+    });
 </script>
 @endsection

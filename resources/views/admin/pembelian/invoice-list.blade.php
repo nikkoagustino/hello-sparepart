@@ -81,5 +81,8 @@
         }
         window.location.href="{{ url('admin/pembelian/invoice/detail') }}?invoice_no="+selected_row;
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/invoice-buy-list') }}', 'printWindow');
+    });
 </script>
 @endsection

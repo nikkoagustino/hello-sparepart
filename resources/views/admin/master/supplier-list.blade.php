@@ -75,5 +75,8 @@
             alert('Pilih Supplier Terlebih Dahulu');
         }
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/supplier') }}', 'printWindow');
+    });
 </script>
 @endsection
