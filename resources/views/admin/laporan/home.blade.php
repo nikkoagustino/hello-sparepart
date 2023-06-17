@@ -149,7 +149,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{{ url('admin/laporan/produk') }}" class="btn btn-selection btn-yellow">
+                <a href="{{ url('admin/laporan/produk') }}" class="btn btn-selection btn-pink">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-chart-pie"></i>
                     </span> --}}
@@ -158,7 +158,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{{ url('admin/laporan/jenis-barang') }}" class="btn btn-selection btn-yellow">
+                <a href="{{ url('admin/laporan/jenis-barang') }}" class="btn btn-selection btn-green">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-chart-pie"></i>
                     </span> --}}

@@ -166,6 +166,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('invoice-sell/{invoice_no}', [PenjualanController::class, 'printInvoice']);
         Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
         Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
+        Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
     });
 
     Route::prefix('pembelian')->group(function(){
@@ -248,7 +249,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('/', [LaporanController::class, 'showLaporanHomepage']);
         Route::get('pembelian', [LaporanController::class, 'showLaporanPembelian']);
         Route::get('penjualan', [LaporanController::class, 'showLaporanPenjualan']);
-        Route::get('laba-rugi', [LaporanController::class, 'showLabaRugiForm']);
+        Route::get('laba-rugi', [LaporanController::class, 'showLabaRugiHome']);
         Route::get('laba-rugi/tahun', [LaporanController::class, 'showLabaRugiTahunan']);
         Route::get('laba-rugi/bulan', [LaporanController::class, 'showLabaRugiBulanan']);
         // Route::post('laba-rugi', [LaporanController::class, 'saveLabaRugi']);

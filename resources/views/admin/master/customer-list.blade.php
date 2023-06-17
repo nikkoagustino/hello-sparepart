@@ -82,6 +82,6 @@
 
     $('#printButton').on('click', function(){
         window.open('{{ url('admin/print/customer') }}', 'printWindow');
-    })
+    });
 </script>
 @endsection

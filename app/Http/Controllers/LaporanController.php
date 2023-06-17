@@ -92,6 +92,14 @@ class LaporanController extends Controller
         return response()->json($data, 200);
     }
 
+    function printLabaRugiTahunan(Request $request) {
+        $data = [
+            'reports' => LaporanModel::getYearlyLabaRugi($request->year),
+            'year' => $request->year,
+        ];
+        return view('admin/print/laba-rugi-tahunan')->with($data);
+    }
+
     function getLaporanTransaksi(Request $request) {
         $data = [
             'expenses' => LaporanModel::getExpenseBulanan($request->range),
@@ -127,6 +135,10 @@ class LaporanController extends Controller
         ];
 
         return response()->json($data, 200);
+    }
+
+    function showLabaRugiHome() {
+        return view('admin.laporan.laba-rugi');
     }
 
     function showLabaRugiTahunan() {

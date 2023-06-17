@@ -73,5 +73,10 @@
             });
         });
     }
+
+    $('#printButton').on('click', function(){
+        var year = $('input[name=year]').val();
+        window.open('{{ url('admin/print/laba-rugi-tahun') }}/'+year, 'printWindow');
+    });
 </script>
 @endsection
