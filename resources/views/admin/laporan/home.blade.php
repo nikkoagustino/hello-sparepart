@@ -119,7 +119,7 @@
 </div>
 
 <div class="row mt-5">
-    <div class="col-8 mx-5 px-5">
+    <div class="col-11 mx-5 px-5">
         <div class="row mb-4">
             <div class="col">
                 <a href="{{ url('admin/laporan/penjualan') }}" class="btn btn-selection btn-purple">
@@ -146,6 +146,24 @@
                     </span> --}}
                     <img src="{{ url('assets/img/svg/laba-rugi.svg') }}" class="icon-lg" alt="">
                     Laba Rugi
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url('admin/laporan/produk') }}" class="btn btn-selection btn-yellow">
+                    {{-- <span class="display-1">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </span> --}}
+                    <img src="{{ url('assets/img/svg/product.svg') }}" class="icon-lg" alt="">
+                    Produk
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url('admin/laporan/jenis-barang') }}" class="btn btn-selection btn-yellow">
+                    {{-- <span class="display-1">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </span> --}}
+                    <img src="{{ url('assets/img/svg/jenis-barang.svg') }}" class="icon-lg" alt="">
+                    Jenis Barang
                 </a>
             </div>
         </div>

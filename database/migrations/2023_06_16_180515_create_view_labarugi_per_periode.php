@@ -15,13 +15,13 @@ return new class extends Migration
         DB::statement("
             CREATE VIEW view_labarugi_per_periode AS
             SELECT 
-                inv.year,
-                inv.month,
-                COALESCE(inv.penjualan_kotor - mdl.total_modal, 0) AS laba_kotor,
-                COALESCE(kom.komisi_sales, 0) AS komisi_sales,
-                COALESCE(trx.beban_ops, 0) AS beban_ops,
-                COALESCE(kom.komisi_sales + trx.beban_ops, 0) AS total_pengeluaran,
-                (COALESCE(inv.penjualan_kotor - mdl.total_modal, 0) - COALESCE(kom.komisi_sales + trx.beban_ops, 0)) AS laba_bersih
+                CAST(inv.year AS SIGNED) AS year,
+                CAST(inv.month AS SIGNED) AS month,
+                CAST(COALESCE(inv.penjualan_kotor - mdl.total_modal, 0) AS SIGNED) AS laba_kotor,
+                CAST(COALESCE(kom.komisi_sales, 0) AS SIGNED) AS komisi_sales,
+                CAST(COALESCE(trx.beban_ops, 0) AS SIGNED) AS beban_ops,
+                CAST(COALESCE(kom.komisi_sales + trx.beban_ops, 0) AS SIGNED) AS total_pengeluaran,
+                CAST((COALESCE(inv.penjualan_kotor - mdl.total_modal, 0) - COALESCE(kom.komisi_sales + trx.beban_ops, 0)) AS SIGNED) AS laba_bersih
             FROM
                 (SELECT YEAR(inv.invoice_date) AS year,
                     MONTH(inv.invoice_date) AS month,
@@ -53,7 +53,7 @@ return new class extends Migration
                 FROM tb_transaksi_sales AS trx
                 GROUP BY YEAR(trx.tx_date), MONTH(trx.tx_date)) AS trx
             ON inv.year = trx.year AND inv.month = trx.month
-            ORDER BY inv.year ASC, inv.month ASC;
+            ORDER BY inv.year ASC, inv.month ASC
             ;
         ");
     }

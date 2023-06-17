@@ -246,7 +246,9 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('pembelian', [LaporanController::class, 'showLaporanPembelian']);
         Route::get('penjualan', [LaporanController::class, 'showLaporanPenjualan']);
         Route::get('laba-rugi', [LaporanController::class, 'showLabaRugiForm']);
-        Route::post('laba-rugi', [LaporanController::class, 'saveLabaRugi']);
+        Route::get('laba-rugi/tahun', [LaporanController::class, 'showLabaRugiTahunan']);
+        Route::get('laba-rugi/bulan', [LaporanController::class, 'showLabaRugiBulanan']);
+        // Route::post('laba-rugi', [LaporanController::class, 'saveLabaRugi']);
         Route::get('produk', [LaporanController::class, 'showLaporanProduk']);
         Route::get('jenis-barang', [LaporanController::class, 'showLaporanJenisBarang']);
     });

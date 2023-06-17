@@ -231,4 +231,12 @@ class LaporanModel extends Model
         $result = $query->select(DB::raw('SUM(total_modal) AS total_modal, SUM(total_penjualan) AS total_penjualan, SUM(total_laba) AS total_laba'))->first();
         return $result;
     }
+
+    static function getYearlyLabaRugi($year) {
+        $result = DB::table('view_labarugi_per_periode')
+                    ->where('year', $year)
+                    ->orderBy('month', 'asc')
+                    ->get();
+        return $result;
+    }
 }

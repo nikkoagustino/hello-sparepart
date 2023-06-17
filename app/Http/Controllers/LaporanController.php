@@ -85,6 +85,13 @@ class LaporanController extends Controller
         return response()->json($data, 200);
     }
 
+    function getLaporanTahunan(Request $request) {
+        $data = [
+            'reports' => LaporanModel::getYearlyLabaRugi($request->year),
+        ];
+        return response()->json($data, 200);
+    }
+
     function getLaporanTransaksi(Request $request) {
         $data = [
             'expenses' => LaporanModel::getExpenseBulanan($request->range),
@@ -122,11 +129,15 @@ class LaporanController extends Controller
         return response()->json($data, 200);
     }
 
-    function showLabaRugiForm() {
+    function showLabaRugiTahunan() {
+        return view('admin.laporan.laba-rugi-tahunan');
+    }
+
+    function showLabaRugiBulanan() {
         $data = [
             'sales' => SalesModel::getAll(),
         ];
-        return view('admin.laporan.laba-rugi')->with($data);
+        return view('admin.laporan.laba-rugi-bulanan')->with($data);
     }
 
     function getLabaRugi(Request $request) {

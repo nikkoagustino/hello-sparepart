@@ -8,7 +8,7 @@
     <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> &nbsp; Laporan
 </a>
 <a href="{{ url('admin/laporan/pembelian') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/product-type.svg') }}"> &nbsp; Jenis Barang
+    <img src="{{ url('assets/img/svg/jenis-barang.svg') }}"> &nbsp; Jenis Barang
 </a>
 @endsection
 @section('content')
