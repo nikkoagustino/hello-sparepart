@@ -9,6 +9,8 @@ use App\Models\LaporanModel;
 use App\Models\CustomerModel;
 use App\Models\SupplierModel;
 use App\Models\SalesModel;
+use App\Models\ProductModel;
+use App\Models\ProductTypeModel;
 use Carbon\Carbon;
 
 class LaporanController extends Controller
@@ -178,5 +180,33 @@ class LaporanController extends Controller
         }
 
         return redirect('admin/laporan/laba-rugi')->withSuccess('Berhasil simpan data');
+    }
+
+    function showLaporanProduk() {
+        $data = [
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/laporan/produk')->with($data);
+    }
+    function showLaporanJenisBarang() {
+        $data = [
+            'product_types' => ProductTypeModel::getAll(),
+        ];
+        return view('admin/laporan/product-type')->with($data);
+    }
+
+    function getLaporanProduct(Request $request) {
+        $response = [
+            'success' => true,
+            'data' => LaporanModel::getLaporanProduct($request),
+        ];
+        return response()->json($response, 200);
+    }
+    function getLaporanProductType(Request $request) {
+        $response = [
+            'success' => true,
+            'data' => LaporanModel::getLaporanProductType($request),
+        ];
+        return response()->json($response, 200);
     }
 }

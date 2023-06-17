@@ -202,4 +202,33 @@ class LaporanModel extends Model
             return $insert;
         }
     }
+
+    static function getLaporanProduct($request) {
+        $query = DB::table('view_labarugi_product');
+        if ($request->product_code) {
+            $query->where('product_code', $request->product_code);
+        }
+        if ($request->date_start) {
+            $query->where('invoice_date', '>=', $request->date_start);
+        }
+        if ($request->date_end) {
+            $query->where('invoice_date', '<=', $request->date_end);
+        }
+        $result = $query->select(DB::raw('SUM(total_modal) AS total_modal, SUM(total_penjualan) AS total_penjualan, SUM(total_laba) AS total_laba'))->first();
+        return $result;
+    }
+    static function getLaporanProductType($request) {
+        $query = DB::table('view_labarugi_product');
+        if ($request->type_code) {
+            $query->where('type_code', $request->type_code);
+        }
+        if ($request->date_start) {
+            $query->where('invoice_date', '>=', $request->date_start);
+        }
+        if ($request->date_end) {
+            $query->where('invoice_date', '<=', $request->date_end);
+        }
+        $result = $query->select(DB::raw('SUM(total_modal) AS total_modal, SUM(total_penjualan) AS total_penjualan, SUM(total_laba) AS total_laba'))->first();
+        return $result;
+    }
 }
