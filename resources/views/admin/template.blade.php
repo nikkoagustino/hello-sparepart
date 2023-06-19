@@ -394,10 +394,21 @@
             $('tr[data-id="'+selected_row+'"]').addClass('selected');
         });
     
-        $('button[type=back]').on('click', function(e){
-            e.preventDefault();
+        $('button[type=back]').on('click', function(e) {
+          e.preventDefault();
+          
+          var currentURL = window.location.href;
+          var previousURL = document.referrer;
+          
+          if (previousURL === currentURL) {
+            // If the previous URL is the same as the current one, navigate to 2 page before
+            history.back(2);
+          } else {
+            // If the previous URL is different, use history.back()
             history.back();
+          }
         });
+
 
         $('input[data-type=number]').on('change paste keyup', function(){
             var value = $(this).val();

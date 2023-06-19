@@ -22,8 +22,10 @@ class LaporanController extends Controller
             'supplier_code' => 'nullable|string',
         ]);
 
-        if (strtotime($request->date_end) < strtotime($request->date_start)) {
-            return redirect('admin/laporan/pembelian')->withErrors('Periode akhir tidak boleh lebih rendah dari periode awal');
+        if ($request->date_end && $request->date_start) {
+            if (strtotime($request->date_end) < strtotime($request->date_start)) {
+                return redirect('admin/laporan/pembelian')->withErrors('Periode akhir tidak boleh lebih rendah dari periode awal');
+            }
         }
 
         $data = [
@@ -32,6 +34,27 @@ class LaporanController extends Controller
         ];
         return view('admin/laporan/pembelian')->with($data);
     }
+
+    function printLaporanPembelian(Request $request) {
+        $request->validate([
+            'date_start' => 'nullable|date',
+            'date_end' => 'nullable|date',
+            'supplier_code' => 'nullable|string',
+        ]);
+
+        if ($request->date_end && $request->date_start) {
+            if (strtotime($request->date_end) < strtotime($request->date_start)) {
+                return redirect('admin/laporan/pembelian')->withErrors('Periode akhir tidak boleh lebih rendah dari periode awal');
+            }
+        }
+
+        $data = [
+            'suppliers' => SupplierModel::getAll(),
+            'invoices' => PembelianModel::getInvoices($request),
+        ];
+        return view('admin/print/laporan-pembelian')->with($data);
+    }
+
     function showLaporanPenjualan(Request $request) {
         $request->validate([
             'date_start' => 'nullable|date',
@@ -49,6 +72,24 @@ class LaporanController extends Controller
             'invoices' => PenjualanModel::getInvoices($request),
         ];
         return view('admin/laporan/penjualan')->with($data);
+    }
+    function printLaporanPenjualan(Request $request) {
+        $request->validate([
+            'date_start' => 'nullable|date',
+            'date_end' => 'nullable|date',
+            'customer_code' => 'nullable|string',
+        ]);
+
+        if (strtotime($request->date_end) < strtotime($request->date_start)) {
+            return redirect('admin/laporan/penjualan')->withErrors('Periode akhir tidak boleh lebih rendah dari periode awal');
+        }
+
+
+        $data = [
+            'customers' => CustomerModel::getAll(),
+            'invoices' => PenjualanModel::getInvoices($request),
+        ];
+        return view('admin/print/laporan-penjualan')->with($data);
     }
 
     function showLaporanHomepage() {

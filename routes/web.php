@@ -167,6 +167,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
         Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
         Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
+        Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
+        Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
     });
 
     Route::prefix('pembelian')->group(function(){

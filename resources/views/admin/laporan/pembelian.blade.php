@@ -110,5 +110,17 @@
         });
         window.location.href='{{ url()->current() }}?'+query.toString();
     }
+
+    $('#printButton').on('click', function(){
+        var date_start = $('input[name=date_start]').val();
+        var date_end = $('input[name=date_end]').val();
+        var supplier_code = $('select[name=supplier_code]').val();
+        var query = new URLSearchParams({
+            'date_start': date_start,
+            'date_end': date_end,
+            'supplier_code': supplier_code,
+        });
+        window.open('{{ url('admin/print/laporan-pembelian') }}?'+query.toString(), 'printWindow');
+    })
 </script>
 @endsection

@@ -110,5 +110,17 @@
         });
         window.location.href='{{ url()->current() }}?'+query.toString();
     }
+
+    $('#printButton').on('click', function(){
+        var date_start = $('input[name=date_start]').val();
+        var date_end = $('input[name=date_end]').val();
+        var customer_code = $('select[name=customer_code]').val();
+        var query = new URLSearchParams({
+            'date_start': date_start,
+            'date_end': date_end,
+            'customer_code': customer_code,
+        });
+        window.open('{{ url('admin/print/laporan-penjualan') }}?'+query.toString(), 'printWindow');
+    });
 </script>
 @endsection
