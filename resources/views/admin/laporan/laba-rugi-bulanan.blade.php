@@ -305,5 +305,15 @@
         $('select[name=month]').val(formattedMonth).change();
         processData();
     });
+
+    $('#printButton').on('click', function(){
+        var year = $('select[name=year]').val();
+        var month = $('select[name=month]').val();
+        var query = new URLSearchParams({
+            'month': month,
+            'year': year,
+        });
+        window.open('{{ url('admin/print/laba-rugi-bulanan') }}?'+query.toString(), 'printWindow');
+    })
 </script>
 @endsection

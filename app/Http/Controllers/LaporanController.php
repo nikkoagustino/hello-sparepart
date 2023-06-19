@@ -194,7 +194,6 @@ class LaporanController extends Controller
     }
 
     function getLabaRugi(Request $request) {
-        $periode = $request->year.'-'.$request->month;
         $data = [
             'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
             'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
@@ -203,6 +202,17 @@ class LaporanController extends Controller
             'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
         ];
         return response()->json($data, 200);
+    }
+
+    function printLabaRugiBulanan(Request $request) {
+        $data = [
+            'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
+            'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
+            'gaji' => LaporanModel::getGajiSalesByMonth($request->year, $request->month),
+            'beban' => LaporanModel::getBebanOpsByMonth($request->year, $request->month) ?? [],
+            'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
+        ];
+        return view('admin/print/laba-rugi-bulanan')->with($data);
     }
 
     function saveLabaRugi(Request $request) {
