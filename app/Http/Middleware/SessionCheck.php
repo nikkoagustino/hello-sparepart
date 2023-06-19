@@ -16,9 +16,9 @@ class SessionCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if (!Session::get('userdata')) {
-        //     return redirect('admin/login');
-        // }
+        if (!Session::get('userdata')) {
+            return redirect('admin/login');
+        }
         return $next($request);
     }
 }
