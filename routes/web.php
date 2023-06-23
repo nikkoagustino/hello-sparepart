@@ -62,6 +62,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         });
         Route::get('admin', [AccountController::class, 'showAccount']);
         Route::post('admin', [AccountController::class, 'createAccount']);
+        Route::get('admin/delete/{username}', [AccountController::class, 'deleteAdmin']);
 
         Route::get('absen', [AbsensiController::class, 'getAbsen']);
         Route::post('absen', [AbsensiController::class, 'insertAbsen']);

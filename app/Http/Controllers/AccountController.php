@@ -137,4 +137,12 @@ class AccountController extends Controller
             return redirect('admin/logout')->withSuccess('Berhasil menghapus 2FA, silahkan login ulang dan setup 2FA baru.');
         }
     }
+
+    public function deleteAdmin(Request $request) {
+        if (AccountModel::deleteAdmin($request->username)) {
+            return redirect('admin/account/admin')->withSuccess('Berhasil menghapus admin');
+        } else {
+            return redirect('admin/account/admin')->withErrors('Gagal menghapus admin');
+        }
+    }
 }

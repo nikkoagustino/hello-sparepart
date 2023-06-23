@@ -52,4 +52,11 @@ class AccountModel extends Model
                     ]);
         return $delete;
     }
+
+    static function deleteAdmin($username) {
+        $delete = DB::table('tb_account')
+                    ->where('username', $username)
+                    ->delete();
+        return $delete;
+    }
 }
