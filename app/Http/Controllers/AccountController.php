@@ -131,4 +131,10 @@ class AccountController extends Controller
         }
         return redirect('admin/dashboard');
     }
+
+    public function remove2FA() {
+        if (AccountModel::remove2FA()) {
+            return redirect('admin/logout')->withSuccess('Berhasil menghapus 2FA, silahkan login ulang dan setup 2FA baru.');
+        }
+    }
 }

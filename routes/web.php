@@ -68,6 +68,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::get('2fa-setup', [AccountController::class, 'show2FASetup']);
         Route::post('2fa-setup', [AccountController::class, 'submit2FASetup']);
+
+        Route::get('2fa-remove', [AccountController::class, 'remove2FA']);
     });
 
 

@@ -67,6 +67,7 @@
             <div class="col-3">
                 <form action="{{ url('admin/login/otp') }}" method="POST">
                     @csrf
+                    Masukkan 6 digit OTP dari aplikasi Authenticator anda.
                     <div class="input-group mt-5">
                         <span class="input-group-text">
                             <i class="fa-solid fa-lock"></i>

@@ -19,7 +19,13 @@
                 <tr>
                     <td>{{ $row->username }}</td>
                     <td>{{ $row->email }}</td>
-                    <td></td>
+                    <td>
+                        @if ($row->two_fa_secret)
+                        <a class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hapus 2FA" href="{{ url('admin/account/2fa-remove') }}">
+                            <i class="fa-solid fa-key"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

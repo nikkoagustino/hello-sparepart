@@ -43,4 +43,13 @@ class AccountModel extends Model
                     ]);
         return $update;
     }
+
+    static function remove2FA() {
+        $delete = DB::table('tb_account')
+                    ->where('username', Session::get('userdata')->username)
+                    ->update([
+                        'two_fa_secret' => null
+                    ]);
+        return $delete;
+    }
 }
