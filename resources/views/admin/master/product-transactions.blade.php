@@ -99,7 +99,7 @@
     });
 
     $('#printButton').on('click', function(){
-        window.open('{{ url('admin/print/product/tx/'.$product_code) }}', 'printWindow');
+        window.open('{{ url('admin/print/product/tx?product_code='.$product_code) }}', 'printWindow');
     })
 </script>
 @endsection

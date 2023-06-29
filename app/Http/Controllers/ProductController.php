@@ -111,6 +111,7 @@ class ProductController extends Controller
 
     function showProductTx(Request $request) {
         $data = [
+            'product_code' => $request->product_code,
             'product' => ProductModel::getById($request->product_code),
             'transactions' => ProductModel::getProductTransactions($request->product_code),
             // 'laba_rugi' => ProductModel::getProductLabaRugi($request->product_code),

@@ -173,6 +173,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('laba-rugi-bulanan', [LaporanController::class, 'printLabaRugiBulanan']);
         Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
         Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
+        Route::get('product/tx', [LaporanController::class, 'printProductTx']);
     });
 
     Route::prefix('pembelian')->group(function(){

@@ -283,4 +283,14 @@ class LaporanController extends Controller
         ];
         return response()->json($response, 200);
     }
+
+    function printProductTx(Request $request) {
+        $data = [
+            'product_code' => $request->product_code,
+            'product' => ProductModel::getById($request->product_code),
+            'transactions' => ProductModel::getProductTransactions($request->product_code),
+            // 'laba_rugi' => ProductModel::getProductLabaRugi($request->product_code),
+        ];
+        return view('admin/print/product-transactions')->with($data);
+    }
 }
