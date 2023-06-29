@@ -306,7 +306,7 @@
             alert('Pilih produk terlebih dahulu');
             return;
         }
-        $('#deleteAction').attr('href', '{{ url('admin/pembelian/invoice/delete-item') }}/'+invoice_no+'/'+selected_row);
+        $('#deleteAction').attr('href', '{{ url('admin/pembelian/invoice/delete-item') }}?invoice_no='+invoice_no+'&product_code='+selected_row);
         $("#deleteModal").modal("show");
     });
 
@@ -349,7 +349,7 @@
 
     $('#printButton').on('click', function(){
         var invoice_no = $('input[name=invoice_no]').val();
-        window.open('{{ url('admin/print/invoice-buy') }}/'+invoice_no, 'printWindow');
+        window.open('{{ url('admin/print/invoice-buy') }}?invoice_no='+invoice_no, 'printWindow');
     });
 </script>
 @endsection

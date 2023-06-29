@@ -50,13 +50,9 @@
         window.location.href = '{{ url('admin/pembelian/invoice/new') }}';
     });
 
-    $('#printButton').on('click', function(){
-        window.open('{{ url('admin/print/invoice') }}');
-    });
-
     $('#detailButton').on('click', function(){
         if (selected_row) {
-            window.location.href='{{ url('admin/pembelian/invoice/detail') }}/'+selected_row;
+            window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
         } else {
             alert('Pilih Invoice Terlebih Dahulu');
         }

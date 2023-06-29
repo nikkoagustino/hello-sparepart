@@ -165,8 +165,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('product-type', [ProductTypeController::class, 'printProductType']);
         Route::get('product', [ProductController::class, 'printProduct']);
         Route::get('vbelt', [VBeltController::class, 'printVBelt']);
-        Route::get('invoice-buy/{invoice_no}', [PembelianController::class, 'printInvoice']);
-        Route::get('invoice-sell/{invoice_no}', [PenjualanController::class, 'printInvoice']);
+        Route::get('invoice-buy', [PembelianController::class, 'printInvoice']);
+        Route::get('invoice-sell', [PenjualanController::class, 'printInvoice']);
         Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
         Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
         Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
@@ -186,18 +186,18 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::post('new', [PembelianController::class, 'createInvoice']);
             Route::get('detail', [PembelianController::class, 'showInvoiceDetail']);
             Route::get('list', [PembelianController::class, 'showInvoiceList']);
-            Route::get('delete-item/{invoice_no}/{product_code}', [PembelianController::class, 'deleteInvoiceItem']);
+            Route::get('delete-item', [PembelianController::class, 'deleteInvoiceItem']);
         });
 
         Route::prefix('pembayaran')->group(function(){
             Route::get('/', [PembelianController::class, 'showPembayaranHome']);
-            Route::get('invoice/{invoice_no}', [PembelianController::class, 'showPembayaranInvoice']);
+            Route::get('invoice', [PembelianController::class, 'showPembayaranInvoice']);
             Route::post('add', [PembelianController::class, 'savePembayaran']);
         });
 
         Route::prefix('hutang')->group(function(){
             Route::get('/', [PembelianController::class, 'showListHutang']);
-            Route::get('detail/{invoice_no}', [PembelianController::class, 'showDetailHutang']);
+            Route::get('detail', [PembelianController::class, 'showDetailHutang']);
         });
 
         Route::prefix('transaksi')->group(function(){
@@ -224,18 +224,18 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::post('new', [PenjualanController::class, 'createInvoice']);
             Route::get('detail', [PenjualanController::class, 'showInvoiceDetail']);
             Route::get('list', [PenjualanController::class, 'showInvoiceList']);
-            Route::get('delete-item/{invoice_no}/{product_code}', [PenjualanController::class, 'deleteInvoiceItem']);
+            Route::get('delete-item', [PenjualanController::class, 'deleteInvoiceItem']);
         });
 
         Route::prefix('pembayaran')->group(function(){
             Route::get('/', [PenjualanController::class, 'showPembayaranHome']);
-            Route::get('invoice/{invoice_no}', [PenjualanController::class, 'showPembayaranInvoice']);
+            Route::get('invoice', [PenjualanController::class, 'showPembayaranInvoice']);
             Route::post('add', [PenjualanController::class, 'savePembayaran']);
         });
 
         Route::prefix('piutang')->group(function(){
             Route::get('/', [PenjualanController::class, 'showListPiutang']);
-            Route::get('detail/{invoice_no}', [PenjualanController::class, 'showDetailPiutang']);
+            Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
         });
 
         Route::prefix('transaksi')->group(function(){

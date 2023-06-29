@@ -152,13 +152,5 @@
             alert('Pilih Invoice Terlebih Dahulu');
         }
     });
-
-    $('#paymentButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/penjualan/pembayaran/invoice') }}/'+selected_row;
-        } else {
-            alert('Pilih Invoice Terlebih Dahulu');
-        }
-    });
 </script>
 @endsection

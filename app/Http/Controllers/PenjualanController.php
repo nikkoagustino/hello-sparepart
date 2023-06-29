@@ -28,7 +28,7 @@ class PenjualanController extends Controller
 
     function createInvoice(Request $request) {
         $request->validate([
-            'invoice_no' => 'required|regex:/^[a-zA-Z0-9_\.\-]+$/',
+            'invoice_no' => 'required|regex:/^[a-zA-Z0-9_\.\-\/]+$/',
             'customer_code' => 'required|string',
             'sales_code' => 'required|string',
             'invoice_date' => 'required|date',

@@ -57,7 +57,7 @@
 
     $('#detailButton').on('click', function(){
         if (selected_row) {
-            window.location.href='{{ url('admin/penjualan/invoice/detail') }}/'+selected_row;
+            window.location.href='{{ url('admin/penjualan/invoice/detail') }}?invoice_no='+selected_row;
         } else {
             alert('Pilih Invoice Terlebih Dahulu');
         }

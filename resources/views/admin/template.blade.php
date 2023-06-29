@@ -492,10 +492,10 @@
         }
 
         $('input[name=invoice_no]').on('change paste keyup', function(){
-            var regex = /^[a-zA-Z0-9_\.\-]+$/;
+            var regex = /^[a-zA-Z0-9_\.\-\/]+$/;
             var value = $(this).val();
             if (!regex.test(value)) {
-                $(this).val(value.replace(/[^a-zA-Z0-9_\.\-]+/g, ''));
+                $(this).val(value.replace(/[^a-zA-Z0-9_\.\-\/]+/g, ''));
             }
         });
 

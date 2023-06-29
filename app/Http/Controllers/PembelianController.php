@@ -25,7 +25,7 @@ class PembelianController extends Controller
 
     function createInvoice(Request $request) {
         $request->validate([
-            'invoice_no' => 'required|regex:/^[a-zA-Z0-9_\.\-]+$/',
+            'invoice_no' => 'required|regex:/^[a-zA-Z0-9_\.\-\/]+$/',
             'supplier_code' => 'required|string',
             'invoice_date' => 'required|date',
             'days_expire' => 'required|integer',
