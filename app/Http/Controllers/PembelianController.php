@@ -100,6 +100,27 @@ class PembelianController extends Controller
         return view('admin/print/invoice-buy-list')->with($data);
     }
 
+    function printInvoiceLunas() {
+        $data = [
+            'invoices' => PembelianModel::getInvoiceLunas(),
+        ];
+        return view('admin/print/invoice-buy-list')->with($data);
+    }
+
+    function printInvoiceHutang() {
+        $data = [
+            'invoices' => PembelianModel::getInvoiceTerhutang(),
+        ];
+        return view('admin/print/invoice-buy-list')->with($data);
+    }
+
+    function printInvoiceRetur() {
+        $data = [
+            'invoices' => PembelianModel::getAllReturInvoice(),
+        ];
+        return view('admin/print/invoice-buy-list')->with($data);
+    }
+
     function printInvoice(Request $request) {
         $data = [
             'invoice' => PembelianModel::getInvoiceDetail($request->invoice_no),
@@ -229,7 +250,7 @@ class PembelianController extends Controller
 
     function showReturHome() {
         $data = [
-            'invoices' => PembelianModel::getAllInvoice(),
+            'invoices' => PembelianModel::getAllReturInvoice(),
         ];
         return view('admin/pembelian/retur-home')->with($data);
     }

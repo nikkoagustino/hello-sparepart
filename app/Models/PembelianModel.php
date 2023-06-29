@@ -90,6 +90,13 @@ class PembelianModel extends Model
         return $result;
     }
 
+    static function getAllReturInvoice() {
+        $result = DB::table('view_invoice_pembelian_detail')
+                    ->where('total_retur_qty', '>', 0)
+                    ->get();
+        return $result;
+    }
+
     // static function getInvoices($request) {
     //     DB::statement('SET sql_mode=""');
     //     $query = DB::table('tb_pembelian_invoice_master AS inv')
@@ -153,7 +160,7 @@ class PembelianModel extends Model
         return $delete;
     }
 
-    static function getInvoiceTerhutang($request) {
+    static function getInvoiceTerhutang($request = null) {
         $query = DB::table('view_hutang_pembelian AS hut')
                     ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no')
                     ->where('hut.hutang', '>', 0);
@@ -182,7 +189,7 @@ class PembelianModel extends Model
         return $result;
     }
 
-    static function getInvoiceLunas($request) {
+    static function getInvoiceLunas($request = null) {
         $query = DB::table('view_hutang_pembelian AS hut')
                     ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no')
                     ->where('hut.hutang', '<=', 0);

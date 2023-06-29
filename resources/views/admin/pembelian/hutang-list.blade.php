@@ -178,5 +178,8 @@
             alert('Pilih Invoice Terlebih Dahulu');
         }
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/buy-hutang-list') }}', 'printWindow');
+    });
 </script>
 @endsection

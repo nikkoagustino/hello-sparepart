@@ -152,5 +152,8 @@
             alert('Pilih Invoice Terlebih Dahulu');
         }
     });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/buy-lunas-list') }}', 'printWindow');
+    });
 </script>
 @endsection

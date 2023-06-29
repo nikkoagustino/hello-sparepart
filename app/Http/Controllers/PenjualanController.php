@@ -103,6 +103,20 @@ class PenjualanController extends Controller
         return view('admin/print/invoice-sell-list')->with($data);
     }
 
+    function printInvoiceLunas() {
+        $data = [
+            'invoices' => PenjualanModel::getInvoiceLunas(),
+        ];
+        return view('admin/print/invoice-sell-list')->with($data);
+    }
+
+    function printInvoicePiutang() {
+        $data = [
+            'invoices' => PenjualanModel::getInvoicePiutang(),
+        ];
+        return view('admin/print/invoice-sell-list')->with($data);
+    }
+
     function printInvoice(Request $request) {
         $data = [
             'invoice' => PenjualanModel::getInvoiceDetail($request->invoice_no),
@@ -232,7 +246,7 @@ class PenjualanController extends Controller
 
     function showReturHome() {
         $data = [
-            'invoices' => PenjualanModel::getAllInvoice(),
+            'invoices' => PenjualanModel::getAllReturInvoice(),
         ];
         return view('admin/penjualan/retur-home')->with($data);
     }

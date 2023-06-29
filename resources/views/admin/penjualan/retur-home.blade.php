@@ -43,6 +43,7 @@
                     <th>Nama Sales</th>
                     <th>Jatuh Tempo</th>
                     <th>Qty Barang</th>
+                    <th>Qty Retur</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -57,6 +58,7 @@
                     <td>{{ $row->sales_name }}</td>
                     <td>{{ $row->expiry_date }}</td>
                     <td>{{ number_format($row->total_qty, 0) }}</td>
+                    <td>{{ number_format($row->total_retur_qty, 0) }}</td>
                     <td>{{ number_format($row->total_price, 0) }}</td>
                 </tr>
                 @endforeach
@@ -73,6 +75,9 @@
             return;
         }
         window.location.href="{{ url('admin/penjualan/invoice/detail') }}?invoice_no="+selected_row;
+    });
+    $('#printButton').on('click', function(){
+        window.open('{{ url('admin/print/sell-retur-list') }}', 'printWindow');
     });
 </script>
 @endsection

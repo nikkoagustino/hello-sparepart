@@ -169,6 +169,12 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('invoice-sell', [PenjualanController::class, 'printInvoice']);
         Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
         Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
+        Route::get('buy-retur-list', [PembelianController::class, 'printInvoiceRetur']);
+        Route::get('sell-retur-list', [PenjualanController::class, 'printInvoiceRetur']);
+        Route::get('buy-lunas-list', [PembelianController::class, 'printInvoiceLunas']);
+        Route::get('sell-lunas-list', [PenjualanController::class, 'printInvoiceLunas']);
+        Route::get('buy-hutang-list', [PembelianController::class, 'printInvoiceHutang']);
+        Route::get('sell-piutang-list', [PenjualanController::class, 'printInvoicePiutang']);
         Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
         Route::get('laba-rugi-bulanan', [LaporanController::class, 'printLabaRugiBulanan']);
         Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);

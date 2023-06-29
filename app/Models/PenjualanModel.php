@@ -111,66 +111,72 @@ class PenjualanModel extends Model
         return $delete;
     }
 
-    static function getInvoicePiutang($request) {
+    static function getInvoicePiutang($request = null) {
         $query = DB::table('view_piutang_penjualan AS piu')
                     ->leftJoin('view_invoice_penjualan_detail AS inv', 'piu.invoice_no', '=', 'inv.invoice_no')
                     ->where('piu.piutang', '>', 0);
 
-        if ($request->invoice_no) {
-            $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
-        }
+        if ($request) {
 
-        if ($request->date_start) {
-            $query->where('inv.invoice_date', '>=', $request->date_start);
-        }
+            if ($request->invoice_no) {
+                $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
+            }
 
-        if ($request->date_end) {
-            $query->where('inv.invoice_date', '<=', $request->date_end);
-        }
+            if ($request->date_start) {
+                $query->where('inv.invoice_date', '>=', $request->date_start);
+            }
 
-        if ($request->customer_code) {
-            $query->where('inv.customer_code', $request->customer_code);
-        }
+            if ($request->date_end) {
+                $query->where('inv.invoice_date', '<=', $request->date_end);
+            }
 
-        if ($request->sales_code) {
-            $query->where('inv.sales_code', $request->sales_code);
-        }
+            if ($request->customer_code) {
+                $query->where('inv.customer_code', $request->customer_code);
+            }
 
-        if ($request->payment_type) {
-            $query->where('inv.payment_type', $request->payment_type);
+            if ($request->sales_code) {
+                $query->where('inv.sales_code', $request->sales_code);
+            }
+
+            if ($request->payment_type) {
+                $query->where('inv.payment_type', $request->payment_type);
+            }
         }
 
         $result = $query->get();
         return $result;
     }
     
-    static function getInvoiceLunas($request) {
+    static function getInvoiceLunas($request = null) {
         $query = DB::table('view_piutang_penjualan AS piu')
                     ->leftJoin('view_invoice_penjualan_detail AS inv', 'piu.invoice_no', '=', 'inv.invoice_no')
                     ->where('piu.piutang', '<=', 0);
 
-        if ($request->invoice_no) {
-            $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
-        }
+        if ($request) {
+            
+            if ($request->invoice_no) {
+                $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
+            }
 
-        if ($request->date_start) {
-            $query->where('inv.invoice_date', '>=', $request->date_start);
-        }
+            if ($request->date_start) {
+                $query->where('inv.invoice_date', '>=', $request->date_start);
+            }
 
-        if ($request->date_end) {
-            $query->where('inv.invoice_date', '<=', $request->date_end);
-        }
+            if ($request->date_end) {
+                $query->where('inv.invoice_date', '<=', $request->date_end);
+            }
 
-        if ($request->customer_code) {
-            $query->where('inv.customer_code', $request->customer_code);
-        }
+            if ($request->customer_code) {
+                $query->where('inv.customer_code', $request->customer_code);
+            }
 
-        if ($request->sales_code) {
-            $query->where('inv.sales_code', $request->sales_code);
-        }
+            if ($request->sales_code) {
+                $query->where('inv.sales_code', $request->sales_code);
+            }
 
-        if ($request->payment_type) {
-            $query->where('inv.payment_type', $request->payment_type);
+            if ($request->payment_type) {
+                $query->where('inv.payment_type', $request->payment_type);
+            }
         }
 
         $result = $query->get();
@@ -243,6 +249,14 @@ class PenjualanModel extends Model
                     ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code')
                     ->where('itm.invoice_no', $invoice_no)
                     ->select('itm.*', 'prd.type_code', 'prd.product_name')
+                    ->get();
+        return $result;
+    }
+
+
+    static function getAllReturInvoice() {
+        $result = DB::table('view_invoice_penjualan_detail')
+                    ->where('total_retur_qty', '>', 0)
                     ->get();
         return $result;
     }
