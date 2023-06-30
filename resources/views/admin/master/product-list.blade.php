@@ -9,7 +9,7 @@
     <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> &nbsp; Master
 </a>
 <a href="{{ url('admin/master/product') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-product.svg') }}"> &nbsp; Produk
+    <img src="{{ url('assets/img/svg/product.svg') }}"> &nbsp; Produk
 </a>
 @endsection
 
@@ -27,6 +27,10 @@
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
+        </button>
+        <button id="exportButton" class="btn btn-danger btn-icon-lg">
+            <i class="fa-solid fa-file-csv"></i>
+            Export
         </button>
         <button type="back" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-rotate-left"></i>
@@ -80,6 +84,9 @@
 
     $('#printButton').on('click', function(){
         window.open('{{ url('admin/print/product') }}', 'printWindow');
-    })
+    });
+    $('#exportButton').on('click', function(){
+        window.open("{{ url('admin/master/product/export') }}");
+     });
 </script>
 @endsection

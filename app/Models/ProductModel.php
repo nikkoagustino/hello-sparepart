@@ -24,6 +24,12 @@ class ProductModel extends Model
         return $result;
     }
 
+    static function getExportProduct() {
+        $result = DB::table('tb_product')
+                    ->get();
+        return $result;
+    }
+
     static function getById($product_code) {
         $result = DB::table('tb_product')
                     ->join('tb_product_type', 'tb_product.type_code', '=', 'tb_product_type.type_code')

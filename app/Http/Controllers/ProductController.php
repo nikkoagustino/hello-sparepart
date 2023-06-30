@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductModel;
 use App\Models\ProductTypeModel;
+use League\Csv\Writer;
 
 class ProductController extends Controller
 {
@@ -117,5 +118,28 @@ class ProductController extends Controller
             // 'laba_rugi' => ProductModel::getProductLabaRugi($request->product_code),
         ];
         return view('admin/master/product-transactions')->with($data);
+    }
+
+    function exportCSV() {
+        $data = ProductModel::getExportProduct();
+        $csv = Writer::createFromString('');
+
+        // $csv->insertOne(array_keys((array) $data[0]));
+
+        // set header
+        $csv->insertOne(array('Kode Barang', 'Nama Barang', 'Harga Modal', 'Harga Jual', 'Jenis Barang', 'Dibuat Tanggal', 'Diperbarui Tanggal'));
+
+        foreach ($data as $row) {
+            $csv->insertOne((array) $row);
+        }
+
+        // Set the HTTP response headers
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="Data Produk '.date('c').'.csv"',
+        ];
+
+        // Generate the CSV file and return as a response
+        return response($csv->toString(), 200, $headers);
     }
 }

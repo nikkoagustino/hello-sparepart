@@ -144,6 +144,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('delete/{product_code}', [ProductController::class, 'deleteProduct']);
             Route::post('edit', [ProductController::class, 'editProduct']);
             Route::get('transaksi/{product_code}', [ProductController::class, 'showProductTx']);
+            Route::get('export', [ProductController::class, 'exportCSV']);
         });
 
         Route::prefix('vbelt')->group(function(){
