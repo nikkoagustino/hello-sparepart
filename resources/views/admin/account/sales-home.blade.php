@@ -18,7 +18,7 @@
         <div class="row mb-4">
             <div class="col"></div>
             <div class="col-4">
-                <a href="{{ url('admin/account/sales/transaksi') }}" class="btn btn-selection btn-purple">
+                <a href="{{ url('admin/account/sales/transaksi') }}" class="btn btn-selection btn-blue">
                     <span class="display-1">
                         <i class="fa-solid fa-cash-register"></i>
                     </span>

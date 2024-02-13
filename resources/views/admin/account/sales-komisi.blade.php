@@ -18,45 +18,61 @@
 @section('content')
 <div class="row">
     <div class="col-8">
-        <div class="row">
-            <div class="col-2 pt-2">
+        <div class="row mt-3">
+            <div class="col-2">
                 Kode Sales
             </div>
-            <div class="col">
+            <div class="col-4">
                 <select name="sales_code" required="required" class="form-select form-control">
-                    <option value="" selected="selected" disabled="disabled">Pilih Sales...</option>
+                    <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($sales as $row)
-                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }} - {{ $row->sales_name }}</option>
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
                     @endforeach
                 </select>
             </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-2 pt-2">
+            <div class="col-2">
                 Bulan
             </div>
             <div class="col-4">
                 <select name="month" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
-                    <option value="1">JANUARI</option>
-                    <option value="2">FEBRUARI</option>
-                    <option value="3">MARET</option>
-                    <option value="4">APRIL</option>
-                    <option value="5">MEI</option>
-                    <option value="6">JUNI</option>
-                    <option value="7">JULI</option>
-                    <option value="8">AGUSTUS</option>
-                    <option value="9">SEPTEMBER</option>
-                    <option value="10">OKTOBER</option>
-                    <option value="11">NOVEMBER</option>
-                    <option value="12">DESEMBER</option>
+                    <option value="1">JANUARI (1)</option>
+                    <option value="2">FEBRUARI (2)</option>
+                    <option value="3">MARET (3)</option>
+                    <option value="4">APRIL (4)</option>
+                    <option value="5">MEI (5)</option>
+                    <option value="6">JUNI (6)</option>
+                    <option value="7">JULI (7)</option>
+                    <option value="8">AGUSTUS (8)</option>
+                    <option value="9">SEPTEMBER (9)</option>
+                    <option value="10">OKTOBER (10)</option>
+                    <option value="11">NOVEMBER (11)</option>
+                    <option value="12">DESEMBER (12)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-2">
+                Nama Sales
+            </div>
+            <div class="col-4">
+                <select name="sales_code_name" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-2 pt-2">
                 Tahun
             </div>
             <div class="col-4">
-                <input class="form-control" name="year" type="number" step="1" min="2000" max="2100" value="{{ date('Y') }}">
+                <select name="year" class="form-control form-select">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @for ($i = 2010; $i <= date('Y'); $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
         </div>
     </div>
@@ -113,7 +129,7 @@
             </div>
             <div class="col">
                 <div class="input-group">
-                    <input type="number" step="0.1" name="komisi_persen" readonly="readonly" class="form-control">
+                    <input type="number" step="0.1" name="komisi_persen" readonly="readonly" class="form-control text-end">
                     <span class="input-group-text">%</span>
                 </div>
             </div>
@@ -125,7 +141,7 @@
                 Total Invoice
             </div>
             <div class="col">
-                <input type="text" data-type="number" name="total_invoice" readonly="readonly" class="form-control">
+                <input type="number" name="total_invoice" readonly="readonly" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
@@ -133,7 +149,7 @@
                 Total Komisi
             </div>
             <div class="col">
-                <input type="text" data-type="number" name="total_komisi" readonly="readonly" class="form-control">
+                <input type="number" name="total_komisi" readonly="readonly" class="form-control">
             </div>
         </div>
     </div>
@@ -141,16 +157,19 @@
 @endsection
 @section('script')
 <script>
-    $('select').on('change', function(){
-        refreshData();
+    $('select[name=sales_code_name]').on('change', function(){
+        $('select[name=sales_code]').val($(this).val());
     });
-    $('input[name=year]').on('change', function(){
+    $('select[name=sales_code]').on('change', function(){
+        $('select[name=sales_code_name]').val($(this).val());
+    });
+    $('select').on('change', function(){
         refreshData();
     });
 
     function refreshData(){
         var sales_code = $('select[name=sales_code]').val();
-        var year = $('input[name=year]').val();
+        var year = $('select[name=year]').val();
         var month = $('select[name=month]').val();
         if (sales_code && year && month) {
             $.ajax({
@@ -199,18 +218,28 @@
 
     function enableEdit() {
         $('input[name=komisi_persen]').removeAttr('readonly');
+        $('input[name=total_komisi]').removeAttr('readonly');
     }
 
     $('input[name=komisi_persen]').on('change paste keyup', function(){
         komisi_persen = parseFloat($(this).val());
         total_komisi = Math.ceil(total_invoice_price * (komisi_persen / 100));
+        console.log(total_komisi, komisi_persen);
         $('input[name=komisi_persen]').val(komisi_persen);
-        $('input[name=total_komisi]').val(total_komisi).change();
+        $('input[name=total_komisi]').val(total_komisi);
+    });
+
+    $('input[name=total_komisi]').on('change paste keyup', function(){
+        total_komisi = parseInt($(this).val());
+        komisi_persen = (total_komisi / total_invoice_price) * 100;
+        console.log(total_komisi, komisi_persen);
+        $('input[name=total_komisi]').val(total_komisi);
+        $('input[name=komisi_persen]').val(komisi_persen);
     });
 
     $('#saveButton').on('click', function(){
         var sales_code = $('select[name=sales_code]').val();
-        var year = $('input[name=year]').val();
+        var year = $('select[name=year]').val();
         var month = $('select[name=month]').val();
         var new_komisi_persen = $('input[name=komisi_persen]').val();
         console.log([sales_code, year, month, new_komisi_persen]);
