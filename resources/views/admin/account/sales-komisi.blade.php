@@ -224,7 +224,6 @@
     $('input[name=komisi_persen]').on('change paste keyup', function(){
         komisi_persen = parseFloat($(this).val());
         total_komisi = Math.ceil(total_invoice_price * (komisi_persen / 100));
-        console.log(total_komisi, komisi_persen);
         $('input[name=komisi_persen]').val(komisi_persen);
         $('input[name=total_komisi]').val(total_komisi);
     });
@@ -232,7 +231,6 @@
     $('input[name=total_komisi]').on('change paste keyup', function(){
         total_komisi = parseInt($(this).val());
         komisi_persen = (total_komisi / total_invoice_price) * 100;
-        console.log(total_komisi, komisi_persen);
         $('input[name=total_komisi]').val(total_komisi);
         $('input[name=komisi_persen]').val(komisi_persen);
     });
@@ -257,6 +255,7 @@
         .done(function(result) {
             if (result.success) {
                 $('input[name=komisi_persen]').attr('readonly', 'readonly');
+                $('input[name=total_komisi]').attr('readonly', 'readonly');
                 $('#editButton').show();
                 $('#saveButton').hide();
             }
