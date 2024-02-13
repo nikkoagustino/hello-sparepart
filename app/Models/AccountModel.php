@@ -27,6 +27,7 @@ class AccountModel extends Model
     static function insert($request) {
         $insert = DB::table('tb_account')
                     ->insert([
+                        'fullname' => $request->fullname,
                         'username' => $request->username,
                         'email' => $request->email,
                         'password' => Hash::make($request->password),

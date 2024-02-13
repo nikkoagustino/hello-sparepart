@@ -60,9 +60,13 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
                 Route::post('edit', [SalesTransaksiController::class, 'submitEditForm']);
             });
         });
-        Route::get('admin', [AccountController::class, 'showAccount']);
-        Route::post('admin', [AccountController::class, 'createAccount']);
-        Route::get('admin/delete/{username}', [AccountController::class, 'deleteAdmin']);
+
+        Route::prefix('admin')->group(function(){
+            Route::get('/', [AccountController::class, 'showAccount']);
+            Route::get('add', [AccountController::class, 'showAddAccountForm']);
+            Route::post('add', [AccountController::class, 'createAccount']);
+            Route::get('delete/{username}', [AccountController::class, 'deleteAdmin']);
+        });
 
         Route::get('absen', [AbsensiController::class, 'getAbsen']);
         Route::post('absen', [AbsensiController::class, 'insertAbsen']);

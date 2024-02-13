@@ -11,16 +11,21 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AccountController extends Controller
 {
+    public function showAddAccountForm() {
+        return view('admin/account/admin-add');
+    }
+
     public function createAccount(Request $request) {
         $request->validate([
-            'username' => 'required|string|min:6',
+            'fullname' => 'required|string',
+            'username' => 'required|string|min:6|unique:tb_account,username',
             'password' => 'required|string|min:8',
             'confirm_password' => 'required|string|min:8',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'master_pin' => 'required|numeric',
         ]);
 
-        if ($request->password != $request->confirm_password) {
+        if ($request->password !== $request->confirm_password) {
             return redirect()->back()->withErrors('Konfirmasi Password Tidak Cocok');
         }
 
