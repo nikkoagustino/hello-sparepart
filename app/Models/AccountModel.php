@@ -17,6 +17,13 @@ class AccountModel extends Model
         return $result;
     }
 
+    static function getFromID($id) {
+        $result = DB::table('tb_account')
+                    ->where('id', $id)
+                    ->first();
+        return $result;
+    }
+
     static function getFromUsername($username) {
         $result = DB::table('tb_account')
                     ->where('username', $username)
@@ -34,6 +41,24 @@ class AccountModel extends Model
                         'master_pin' => $request->master_pin,
                     ]);
         return $insert;
+    }
+
+    static function editAdmin($request) {
+        $update_arrays = [
+            'fullname' => $request->fullname,
+            'username' => $request->username,
+        ];
+        if ($request->password) {
+            $update_arrays['password'] = Hash::make($request->password);
+        }
+        if ($request->master_pin) {
+            $update_arrays['master_pin'] = $request->master_pin;
+        }
+
+        $update = DB::table('tb_account')
+                    ->where('id', $request->id)
+                    ->update($update_arrays);
+        return $update;
     }
 
     static function save2FASecret($secret_key) {

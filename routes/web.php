@@ -65,6 +65,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('/', [AccountController::class, 'showAccount']);
             Route::get('add', [AccountController::class, 'showAddAccountForm']);
             Route::post('add', [AccountController::class, 'createAccount']);
+            Route::get('detail/{id}', [AccountController::class, 'showAdminDetail']);
+            Route::post('edit', [AccountController::class, 'submitEditAdmin']);
             Route::get('delete/{username}', [AccountController::class, 'deleteAdmin']);
         });
 

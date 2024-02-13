@@ -23,6 +23,9 @@
         .btn.form-control {
             border-radius: 50px !important;
         }
+        .form-control:disabled {
+            background: #fdf4e6;
+        }
         #sidebar {
             border-top-right-radius: 50px;
             border-bottom-right-radius: 50px;
@@ -470,8 +473,7 @@
                 dataType: 'json',
                 data: {
                     pin: pin,
-                    {{-- username: '{{ Session::get('userdata')->username }}', --}}
-                    username: 'administrator',
+                    username: '{{ Session::get('userdata')->username }}',
                 },
             })
             .done(function(result) {

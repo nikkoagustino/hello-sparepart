@@ -15,6 +15,35 @@ class AccountController extends Controller
         return view('admin/account/admin-add');
     }
 
+    public function showAdminDetail(Request $request) {
+        $data = [
+            'admin' => AccountModel::getFromID($request->id)
+        ];
+        return view('admin/account/admin-detail')->with($data);
+    }
+
+    public function submitEditAdmin(Request $request) {
+        $request->validate([
+            'id' => 'required|exists:tb_account,id',
+            'fullname' => 'required|string',
+            'username' => 'required|string|min:6',
+            'password' => 'nullable|string|min:8',
+            'confirm_password' => 'nullable|string|min:8',
+            'email' => 'nullable|email',
+            'master_pin' => 'nullable|numeric',
+        ]);
+
+        if ($request->password) {
+            if ($request->password !== $request->confirm_password) {
+                return redirect()->back()->withErrors('Konfirmasi Password Tidak Cocok');
+            }
+        }
+
+        if (AccountModel::editAdmin($request)) {
+            return redirect('admin/account/admin')->withSuccess('Akun Berhasil Diubah');
+        }
+    }
+
     public function createAccount(Request $request) {
         $request->validate([
             'fullname' => 'required|string',
