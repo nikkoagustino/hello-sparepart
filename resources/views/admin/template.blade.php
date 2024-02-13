@@ -316,7 +316,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container px-2">
+                <div class="container px-2 mb-5">
                 @yield('content')
                 </div>
             </div>

@@ -14,7 +14,7 @@
     <div class="col-8 mx-5 px-5">
         <div class="row mb-4">
             <div class="col-4">
-                <a href="{{ url('admin/account/sales') }}" class="btn btn-selection btn-purple">
+                <a href="{{ url('admin/account/sales') }}" class="btn btn-selection btn-yellow">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-headset"></i>
                     </span> --}}
@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/account/admin') }}" class="btn btn-selection btn-pink">
+                <a href="{{ url('admin/account/admin') }}" class="btn btn-selection btn-purple">
                     <span class="display-1">
                         <i class="fa-solid fa-user-secret"></i>
                     </span>
@@ -31,9 +31,9 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/account/absen') }}" class="btn btn-selection btn-yellow">
+                <a href="{{ url('admin/account/absen') }}" class="btn btn-selection btn-blue">
                     <span class="display-1">
-                        <i class="fa-solid fa-clock"></i>
+                        <i class="fa-solid fa-calendar-days"></i>
                     </span>
                     Absen
                 </a>

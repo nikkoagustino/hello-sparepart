@@ -21,13 +21,19 @@ class AbsensiModel extends Model
         return $insert;
     }
 
-    static function getAll() {
-        $result = DB::table('tb_absensi')
+    static function getAll($request) {
+        $query = DB::table('tb_absensi')
                     ->leftJoin('tb_sales', 'tb_absensi.sales_code', '=', 'tb_sales.sales_code')
                     ->orderBy('tanggal', 'desc')
                     ->orderBy('tb_absensi.sales_code', 'asc')
-                    ->orderBy('jam', 'asc')
-                    ->get();
+                    ->orderBy('jam', 'asc');
+        if ($request->start_date) {
+            $query->where('tanggal', '>=', $request->start_date);
+        }
+        if ($request->end_date) {
+            $query->where('tanggal', '<=', $request->end_date);
+        }
+        $result = $query->get();
         return $result;
     }
 }

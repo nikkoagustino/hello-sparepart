@@ -23,11 +23,18 @@ class AbsensiController extends Controller
         }
     }
 
-    public function getAbsen() {
+    public function getAbsen(Request $request) {
         $data = [
             'sales' => SalesModel::getAll(),
-            'absen' => AbsensiModel::getAll(),
+            'absen' => AbsensiModel::getAll($request),
         ];
         return view('admin/account/absen')->with($data);
+    }
+
+    public function printAbsensi(Request $request) {
+        $data = [
+            'absen' => AbsensiModel::getAll($request),
+        ];
+        return view('admin/print/absensi')->with($data);
     }
 }

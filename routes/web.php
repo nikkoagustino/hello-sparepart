@@ -160,6 +160,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
     });
 
     Route::prefix('print')->group(function(){
+        Route::get('absen', [AbsensiController::class, 'printAbsensi']);
         Route::get('customer', [CustomerController::class, 'printCustomer']);
         Route::get('supplier', [SupplierController::class, 'printSupplier']);
         Route::get('sales', [SalesController::class, 'printSales']);
