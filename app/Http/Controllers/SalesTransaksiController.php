@@ -23,6 +23,22 @@ class SalesTransaksiController extends Controller
         return response()->json($tx, 200);
     }
 
+    public function printTransaksiSales(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'sales_code' => 'required|string',
+            'year' => 'required|integer',
+            'month' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $data = [
+            'txs' => SalesTransaksiModel::getTransaksiSales($request)
+        ];
+        return view('admin/print/transaksi-sales')->with($data);
+    }
+
     public function showTransactionForm() {
         $data = [
             'sales' => SalesModel::getAll(),

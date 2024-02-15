@@ -23,6 +23,7 @@ class SalesTransaksiModel extends Model
             $query->whereRaw('MONTH(trx.tx_date) = '.$request->month);
         } 
         $result = $query->select('trx.*', 'sal.sales_name')
+                        ->orderBy('trx.tx_date', 'asc')
                         ->get();
         return $result;
     }

@@ -239,6 +239,15 @@
 
     $('#newButton').on('click', function(){
         window.location.href = '{{ url('admin/account/sales/transaksi/new') }}';
-    })
+    });
+
+    $('#printButton').on('click', function(){
+        var params = {
+            sales_code: $('select[name=sales_code]').val(),
+            year: $('select[name=year]').val(),
+            month: $('select[name=month]').val()
+        }
+        window.open('{{ url('admin/print/transaksi-sales') }}?' + $.param(params), 'printWindow');
+    });
 </script>
 @endsection
