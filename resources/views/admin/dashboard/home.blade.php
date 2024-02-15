@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
-    <i class="fa-solid fa-boxes"></i> &nbsp; Dashboard
+    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
 </a>
 @endsection
 
@@ -24,7 +24,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-selection btn-yellow">
+                <a href="{{ url('admin/dashboard/hutang') }}" class="btn btn-selection btn-yellow">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </span> --}}
@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/penjualan/piutang') }}" class="btn btn-selection btn-red">
+                <a href="{{ url('admin/dashboard/piutang') }}" class="btn btn-selection btn-red">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-right-to-bracket"></i>
                     </span> --}}

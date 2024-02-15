@@ -5,74 +5,87 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
+<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
 </a>
-<a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-danger">
+<a href="{{ url('admin/dashboard/hutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
 </a>
 @endsection
 
 @section('content')
 <div class="row mt-5">
-    <div class="col-7">
+    <div class="col-9">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 No Invoice
             </div>
-            <div class="col-9">
+            <div class="col-7">
                 <input name="invoice_no" placeholder="INVxxx" type="text" autocomplete="off" class="form-control">
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-3">
+            <div class="col-2">
                 Periode
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <input type="date" value="{{ $_GET['date_start'] ?? '' }}" name="date_start" class="form-control">
             </div>
             <div class="col-1">
                 s/d
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <input type="date" value="{{ $_GET['date_end'] ?? '' }}" name="date_end" class="form-control">
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-3">
+            <div class="col-2">
                 Kode Supplier
             </div>
-            <div class="col-9">
+            <div class="col-3">
                 <select name="supplier_code" class="form-select form-control">
-                    <option value="">Semua Supplier...</option>
+                    <option value=""></option>
                     @foreach ($suppliers as $row)
-                    <option {{ (isset($_GET['supplier_code']) && ($row->supplier_code == $_GET['supplier_code'])) ? 'selected="selected"' : ''; }} value="{{ $row->supplier_code }}">{{ $row->supplier_code }} - {{ $row->supplier_name }}</option>
+                    <option {{ (isset($_GET['supplier_code']) && ($row->supplier_code == $_GET['supplier_code'])) ? 'selected="selected"' : ''; }} value="{{ $row->supplier_code }}">{{ $row->supplier_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6">
+                <select name="supplier_code_name" class="form-select form-control">
+                    <option value=""></option>
+                    @foreach ($suppliers as $row)
+                    <option {{ (isset($_GET['supplier_code']) && ($row->supplier_code == $_GET['supplier_code'])) ? 'selected="selected"' : ''; }} value="{{ $row->supplier_code }}">{{ $row->supplier_name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-3">
+            <div class="col-2">
                 Status
             </div>
-            <div class="col-9">
-                <select name="payment_type" required="required" class="form-select form-control">
+            <div class="col-3">
+                <select name="status" class="form-control form-select">
+                    <option value="">Semua...</option>
+                    <option value="lunas">LUNAS</option>
+                    <option value="pending">PENDING</option>
+                </select>
+                {{-- <select name="payment_type" required="required" class="form-select form-control">
                     <option value="">Semua Status...</option>
                     <option {{ (isset($_GET['status']) && ($_GET['status'] == 'TUNAI')) ? 'selected="selected"' : ''; }} value="TUNAI">TUNAI</option>
                     <option {{ (isset($_GET['status']) && ($_GET['status'] == 'KREDIT')) ? 'selected="selected"' : ''; }} value="KREDIT">KREDIT</option>
-                </select>
+                </select> --}}
             </div>
         </div>
     </div>
     <div class="col text-end">
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
+        {{-- <button id="detailButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-file"></i>
             Detail
         </button>
         <button id="paymentButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-circle-dollar-to-slot"></i>
             Bayar
-        </button>
+        </button> --}}
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
@@ -88,17 +101,77 @@
         <table class="table table-striped print table-condensed selectable" id="itemsTable">
             <thead>
                 <tr>
-                    <th>No Invoice</th>
-                    <th>Tgl Invoice</th>
-                    <th>Kode Supp</th>
+                    <th>No. Invoice</th>
+                    <th>Tgl. Invoice</th>
+                    <th>Kode Supp.</th>
                     <th>Nama Supplier</th>
                     <th>Jatuh Tempo</th>
-                    <th>Total Harga</th>
-                    <th>Total Sudah Bayar</th>
-                    <th>Sisa Hutang</th>
+                    <th>Total</th>
+                    <th>Pembayaran</th>
+                    <th>Sisa</th>
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -125,7 +198,7 @@
         var date_start = $('input[name=date_start]').val();
         var date_end = $('input[name=date_end]').val();
         var supplier_code = $('select[name=supplier_code]').val();
-        var payment_type = $('select[name=payment_type]').val();
+        var status = $('select[name=status]').val();
         $.ajax({
             url: '{{ url('api/invoice/hutang') }}',
             type: 'GET',
@@ -135,7 +208,7 @@
                 date_start: date_start,
                 date_end: date_end,
                 supplier_code: supplier_code,
-                payment_type: payment_type,
+                status: status,
             }
         })
         .done(function(result) {

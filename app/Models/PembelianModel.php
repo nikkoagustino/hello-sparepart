@@ -162,8 +162,8 @@ class PembelianModel extends Model
 
     static function getInvoiceTerhutang($request = null) {
         $query = DB::table('view_hutang_pembelian AS hut')
-                    ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no')
-                    ->where('hut.hutang', '>', 0);
+                    ->leftJoin('view_invoice_pembelian_detail AS inv', 'hut.invoice_no', '=', 'inv.invoice_no');
+                    // ->where('hut.hutang', '>', 0);
 
         if ($request->invoice_no) {
             $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
@@ -183,6 +183,14 @@ class PembelianModel extends Model
 
         if ($request->payment_type) {
             $query->where('inv.payment_type', $request->payment_type);
+        }
+
+        if ($request->status) {
+            if ($request->status === 'lunas') {
+                $query->where('hut.hutang', '<=', 0);
+            } else {
+                $query->where('hut.hutang', '>', 0);
+            }
         }
 
         $result = $query->get();

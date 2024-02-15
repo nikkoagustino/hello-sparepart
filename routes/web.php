@@ -89,6 +89,17 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('invoice', function(){
             return view('admin.dashboard.invoice-home');
         });
+
+        Route::prefix('hutang')->group(function(){
+            Route::get('/', [PembelianController::class, 'showListHutang']);
+            Route::get('detail', [PembelianController::class, 'showDetailHutang']);
+        });
+
+        Route::prefix('piutang')->group(function(){
+            Route::get('/', [PenjualanController::class, 'showListPiutang']);
+            Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
+        });
+
     });
 
     Route::prefix('master')->group(function(){
@@ -212,11 +223,6 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::post('add', [PembelianController::class, 'savePembayaran']);
         });
 
-        Route::prefix('hutang')->group(function(){
-            Route::get('/', [PembelianController::class, 'showListHutang']);
-            Route::get('detail', [PembelianController::class, 'showDetailHutang']);
-        });
-
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PembelianController::class, 'showTransaksi']);
         });
@@ -249,12 +255,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('invoice', [PenjualanController::class, 'showPembayaranInvoice']);
             Route::post('add', [PenjualanController::class, 'savePembayaran']);
         });
-
-        Route::prefix('piutang')->group(function(){
-            Route::get('/', [PenjualanController::class, 'showListPiutang']);
-            Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
-        });
-
+        
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PenjualanController::class, 'showTransaksi']);
         });

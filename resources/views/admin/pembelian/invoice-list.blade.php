@@ -43,9 +43,9 @@
         <table class="table table-striped print table-condensed selectable">
             <thead>
                 <tr>
-                    <th>No Invoice</th>
-                    <th>Tanggal Invoice</th>
-                    <th>Kode Supplier</th>
+                    <th>No. Invoice</th>
+                    <th>Tgl. Invoice</th>
+                    <th>Kode Supp.</th>
                     <th>Nama Supplier</th>
                     <th>Jatuh Tempo</th>
                     <th>Qty Barang</th>
