@@ -25,10 +25,20 @@
                 Kode Sales
             </div>
             <div class="col-4">
-                <input type="text" name="sales_code" value="{{ $sales->sales_code }}" class="form-control" readonly="readonly">
+                <select name="sales_code" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-5">
-                <input type="text" name="sales_name" value="{{ $sales->sales_name }}" class="form-control" readonly="readonly">
+                <select name="sales_code_name" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="row mt-2">
@@ -47,7 +57,7 @@
                 <input type="text" name="amount" data-type="number" required="required" class="form-control">
             </div>
         </div>
-        <div class="row mt-2">
+        {{-- <div class="row mt-2">
             <div class="col-3 pt-2">
                 Jenis Pengeluaran
             </div>
@@ -57,7 +67,8 @@
                     <option value="gaji">Gaji</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
+        <input type="hidden" name="expense_type" value="beban_ops">
         <div class="row mt-2">
             <div class="col-3 pt-2">
                 Keterangan
@@ -79,4 +90,14 @@
     </div>
 </div>
 </form>
+@endsection
+@section('script')
+<script>
+    $('select[name=sales_code_name]').on('change', function(){
+        $('select[name=sales_code]').val($(this).val());
+    });
+    $('select[name=sales_code]').on('change', function(){
+        $('select[name=sales_code_name]').val($(this).val());
+    });
+</script>
 @endsection

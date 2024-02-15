@@ -37,7 +37,7 @@
                 Tanggal
             </div>
             <div class="col-4">
-                <input type="date" name="tx_date" value="{{ $tx_data->tx_date }}" required="required" class="form-control">
+                <input type="date" readonly="readonly" name="tx_date" value="{{ $tx_data->tx_date }}" required="required" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
@@ -45,10 +45,11 @@
                 Total
             </div>
             <div class="col-4">
-                <input type="text" name="amount" value="{{ number_format($tx_data->amount, 0) }}" data-type="number" required="required" class="form-control">
+                <input type="text" readonly="readonly" name="amount" value="{{ number_format($tx_data->amount, 0) }}" data-type="number" required="required" class="form-control">
             </div>
         </div>
-        <div class="row mt-2">
+        <input type="hidden" name="expense_type" value="beban_ops">
+        {{-- <div class="row mt-2">
             <div class="col-3 pt-2">
                 Jenis Pengeluaran
             </div>
@@ -58,20 +59,24 @@
                     <option value="gaji" {{ ($tx_data->expense_type == 'gaji') ? 'selected="selected"' : ''  }}>Gaji</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
         <div class="row mt-2">
             <div class="col-3 pt-2">
                 Keterangan
             </div>
             <div class="col-9">
-                <textarea name="description" rows="7" class="form-control">{{ $tx_data->description }}</textarea>
+                <textarea name="description" readonly="readonly" rows="7" class="form-control">{{ $tx_data->description }}</textarea>
             </div>
         </div>
     </div>
     <div class="col text-end">
-        <button class="btn btn-danger btn-icon-lg">
+        <button id="saveButton" style="display: none" type="submit" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-save"></i>
             Save
+        </button>
+        <button id="editButton" class="btn btn-danger btn-icon-lg">
+            <i class="fa-solid fa-pencil"></i>
+            Edit
         </button>
         <button type="back" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-rotate-left"></i>
@@ -80,4 +85,15 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('script')
+<script>
+    function enableEdit() {
+        $('#deleteButton').hide();
+        $('input[name=tx_date]').removeAttr('readonly');
+        $('input[name=amount]').removeAttr('readonly');
+        $('textarea[name=description]').removeAttr('readonly');
+    }
+</script>
 @endsection

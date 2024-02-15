@@ -389,13 +389,13 @@
             alert('Copied to Clipboard')
         }
 
-        var selected_row;
+        // var selected_row;
 
-        $('.selectable').on('click', 'tbody tr', function() {
-            selected_row = $(this).data('id');
-            $('tr').removeClass('selected');
-            $('tr[data-id="'+selected_row+'"]').addClass('selected');
-        });
+        // $('.selectable').on('click', 'tbody tr', function() {
+        //     selected_row = $(this).data('id');
+        //     $('tr').removeClass('selected');
+        //     $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        // });
     
         $('button[type=back]').on('click', function(e) {
           e.preventDefault();

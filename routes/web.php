@@ -56,7 +56,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
                 Route::get('/', [SalesTransaksiController::class, 'showTransactionForm']);
                 Route::get('new', [SalesTransaksiController::class, 'showNewTransactionForm']);
                 Route::post('new', [SalesTransaksiController::class, 'submitNewTransaction']);
-                Route::get('edit/{id}', [SalesTransaksiController::class, 'showEditForm']);
+                Route::get('detail/{id}', [SalesTransaksiController::class, 'showEditForm']);
                 Route::post('edit', [SalesTransaksiController::class, 'submitEditForm']);
             });
         });

@@ -48,10 +48,10 @@
             <i class="fa-solid fa-plus"></i>
             Tambah
         </button>
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
+        {{-- <button id="detailButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-arrow-pointer"></i>
             Detail
-        </button>
+        </button> --}}
     </div>
 </div>
 @endsection
@@ -62,7 +62,11 @@
         window.location.href = '{{ url('admin/account/admin/add') }}';
     });
 
-    $('#detailButton').on('click', function(){
+    $('.selectable').on('click', 'tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+
         if (selected_row) {
             window.location.href='{{ url('admin/account/admin/detail') }}/'+selected_row;
         } else {

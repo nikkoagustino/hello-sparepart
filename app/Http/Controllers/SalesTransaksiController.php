@@ -32,7 +32,7 @@ class SalesTransaksiController extends Controller
 
     public function showNewTransactionForm(Request $request) {
         $data = [
-            'sales' => SalesModel::getById($request->sales_code),
+            'sales' => SalesModel::getAll(),
         ];
         return view('admin/account/sales-transaksi-new')->with($data);
     }

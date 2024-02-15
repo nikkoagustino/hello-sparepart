@@ -18,53 +18,69 @@
 @section('content')
 <div class="row">
     <div class="col-8">
-        <div class="row">
-            <div class="col-2 pt-2">
+        <div class="row mt-3">
+            <div class="col-2">
                 Kode Sales
             </div>
-            <div class="col">
+            <div class="col-4">
                 <select name="sales_code" required="required" class="form-select form-control">
-                    <option value="" selected="selected">All Sales...</option>
+                    <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($sales as $row)
-                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }} - {{ $row->sales_name }}</option>
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
                     @endforeach
                 </select>
             </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-2 pt-2">
+            <div class="col-2">
                 Bulan
             </div>
             <div class="col-4">
                 <select name="month" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
-                    <option value="1">JANUARI</option>
-                    <option value="2">FEBRUARI</option>
-                    <option value="3">MARET</option>
-                    <option value="4">APRIL</option>
-                    <option value="5">MEI</option>
-                    <option value="6">JUNI</option>
-                    <option value="7">JULI</option>
-                    <option value="8">AGUSTUS</option>
-                    <option value="9">SEPTEMBER</option>
-                    <option value="10">OKTOBER</option>
-                    <option value="11">NOVEMBER</option>
-                    <option value="12">DESEMBER</option>
+                    <option value="1">JANUARI (1)</option>
+                    <option value="2">FEBRUARI (2)</option>
+                    <option value="3">MARET (3)</option>
+                    <option value="4">APRIL (4)</option>
+                    <option value="5">MEI (5)</option>
+                    <option value="6">JUNI (6)</option>
+                    <option value="7">JULI (7)</option>
+                    <option value="8">AGUSTUS (8)</option>
+                    <option value="9">SEPTEMBER (9)</option>
+                    <option value="10">OKTOBER (10)</option>
+                    <option value="11">NOVEMBER (11)</option>
+                    <option value="12">DESEMBER (12)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-2">
+                Nama Sales
+            </div>
+            <div class="col-4">
+                <select name="sales_code_name" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-2 pt-2">
                 Tahun
             </div>
             <div class="col-4">
-                <input class="form-control" name="year" type="number" step="1" min="2000" max="2100" value="{{ date('Y') }}">
+                <select name="year" class="form-control form-select">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @for ($i = config('user.MIN_YEAR'); $i <= date('Y'); $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
         </div>
     </div>
     <div class="col-4 text-end">
-        <a href="javascript:void(0)" onclick="newButton()" class="btn btn-danger btn-icon-lg">
+        <button id="newButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-plus-circle"></i>
             New
-        </a>
+        </button>
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
@@ -83,16 +99,47 @@
                     <th>Kode Sales</th>
                     <th>Nama Sales</th>
                     <th>Tanggal</th>
-                    <th>Jenis</th>
+                    {{-- <th>Jenis</th> --}}
                     <th>Total</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
 <div class="row mt-2">
-    <div class="col-4">
+   {{--  <div class="col-4">
         <button id="saveButton" style="display: none" type="submit" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-save"></i>
             Save
@@ -103,10 +150,11 @@
         </button>
     </div>
     <div class="col-4">
-    </div>
+    </div> --}}
+    <div class="col"></div>
     <div class="col-4">
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
                 Total Invoice
             </div>
             <div class="col">
@@ -118,9 +166,6 @@
 @endsection
 @section('script')
 <script>
-    $(document).ready(function() {
-        refreshData();
-    });
     function newButton() {
         var sales_code = $('select[name=sales_code]').val();
         if (!sales_code) {
@@ -130,30 +175,37 @@
         window.location.href = "{{ url('admin/account/sales/transaksi/new') }}?sales_code="+sales_code; 
     }
 
-    $('select').on('change', function(){
-        refreshData();
+    $('select[name=sales_code_name]').on('change', function(){
+        $('select[name=sales_code]').val($(this).val());
     });
-    $('input[name=year]').on('change', function(){
+    $('select[name=sales_code]').on('change', function(){
+        $('select[name=sales_code_name]').val($(this).val());
+    });
+    $('select').on('change', function(){
         refreshData();
     });
 
     function refreshData(){
         var sales_code = $('select[name=sales_code]').val();
-        var year = $('input[name=year]').val();
+        var year = $('select[name=year]').val();
         var month = $('select[name=month]').val();
-        $.ajax({
-            url: '{{ url('api/transaksi') }}',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                sales_code: sales_code,
-                year: year,
-                month: month
-            },
-        })
-        .done(function(result) {
-            processData(result);
-        });
+        if (sales_code && year && month) {
+            $.ajax({
+                url: '{{ url('api/transaksi') }}',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    sales_code: sales_code,
+                    year: year,
+                    month: month
+                },
+            })
+            .done(function(result) {
+                processData(result);
+            });
+        } else {
+            console.log('incomplete selection');
+        }
     }
 
 
@@ -165,7 +217,6 @@
                 '<td>'+row.sales_code+'</td>' +
                 '<td>'+row.sales_name+'</td>' +
                 '<td>'+row.tx_date+'</td>' +
-                '<td>'+row.expense_type+'</td>' +
                 '<td>'+$.number(row.amount, 0)+'</td>' +
                 '</tr>';
                 total_invoice_price = total_invoice_price + parseInt(row.amount);
@@ -174,8 +225,20 @@
         $('input[name=total_invoice]').val(total_invoice_price).change();
     }
 
-    function enableEdit() {
-        window.location.href = "{{ url('admin/account/sales/transaksi/edit') }}/"+selected_row;
-    }
+    $('.selectable').on('click', 'tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+
+        if (selected_row) {
+            window.location.href='{{ url('admin/account/sales/transaksi/detail') }}/'+selected_row;
+        } else {
+            alert('Pilih Admin Terlebih Dahulu');
+        }
+    });
+
+    $('#newButton').on('click', function(){
+        window.location.href = '{{ url('admin/account/sales/transaksi/new') }}';
+    })
 </script>
 @endsection
