@@ -66,6 +66,7 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            border-radius: 25px;
         }
         .btn-selection img {
             display: block;
@@ -74,22 +75,22 @@
             margin-bottom: 10px;
         }
         .btn-purple {
-            background-color: orchid;
+            background-color: #bec1d8;
         }
         .btn-pink {
-            background-color: lightpink;
+            background-color: #e3b597;
         }
         .btn-blue {
-            background-color: lightskyblue;
+            background-color: #bfdfde;
         }
         .btn-yellow {
-            background-color: khaki;
+            background-color: #e0b05e;
         }
         .btn-red {
-            background-color: lightcoral;
+            background-color: #d08380;
         }
         .btn-green {
-            background-color: lightgreen;
+            background-color: #9cbd93;
         }
         .table {
             border: 2px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
