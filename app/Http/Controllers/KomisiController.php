@@ -26,6 +26,23 @@ class KomisiController extends Controller
         return response()->json($data, 200);
     }
 
+    public function printKomisiSales(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'sales_code' => 'required|string',
+            'year' => 'required|integer',
+            'month' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $data = [
+            'invoices' => KomisiModel::getSalesInvoice($request),
+            'percent_komisi' => KomisiModel::getPercentKomisi($request),
+        ];
+        return view('admin/print/komisi-sales')->with($data);
+    }
+
     public function updateKomisi(Request $request) {
         $validator = Validator::make($request->all(), [
             'sales_code' => 'required|string',

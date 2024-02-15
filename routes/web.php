@@ -170,6 +170,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('customer', [CustomerController::class, 'printCustomer']);
         Route::get('supplier', [SupplierController::class, 'printSupplier']);
         Route::get('sales', [SalesController::class, 'printSales']);
+        Route::get('komisi-sales', [KomisiController::class, 'printKomisiSales']);
         Route::get('product-type', [ProductTypeController::class, 'printProductType']);
         Route::get('product', [ProductController::class, 'printProduct']);
         Route::get('vbelt', [VBeltController::class, 'printVBelt']);

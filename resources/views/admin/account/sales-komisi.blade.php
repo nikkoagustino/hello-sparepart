@@ -262,5 +262,14 @@
             alert(result.message);
         });
     });
+
+    $('#printButton').on('click', function(){
+        var params = {
+            sales_code: $('select[name=sales_code]').val(),
+            year: $('select[name=year]').val(),
+            month: $('select[name=month]').val()
+        }
+        window.open('{{ url('admin/print/komisi-sales') }}?' + $.param(params), 'printWindow');
+    });
 </script>
 @endsection
