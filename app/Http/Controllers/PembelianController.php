@@ -107,12 +107,12 @@ class PembelianController extends Controller
         return view('admin/print/invoice-buy-list')->with($data);
     }
 
-    function printInvoiceHutang() {
-        $data = [
-            'invoices' => PembelianModel::getInvoiceTerhutang(),
-        ];
-        return view('admin/print/invoice-buy-list')->with($data);
-    }
+    // function printInvoiceHutang() {
+    //     $data = [
+    //         'invoices' => PembelianModel::getInvoiceTerhutang(),
+    //     ];
+    //     return view('admin/print/invoice-buy-list')->with($data);
+    // }
 
     function printInvoiceRetur() {
         $data = [
@@ -205,6 +205,16 @@ class PembelianController extends Controller
     function getInvoiceTerhutang(Request $request) {
         $data = PembelianModel::getInvoiceTerhutang($request);
         return response()->json($data, 200);
+    }
+
+    function printInvoiceHutang(Request $request) {
+        $data = [
+            'invoices' => PembelianModel::getInvoiceTerhutang($request)
+        ];
+
+        $pdf = \PDF::loadView('admin/print/invoice-buy-list', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    //     return view('admin/print/invoice-buy-list')->with($data);
     }
 
     function getInvoiceLunas(Request $request) {

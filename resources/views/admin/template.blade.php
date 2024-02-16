@@ -512,6 +512,28 @@
             $(".alert").alert('close');
           }, 5000);
         });
+
+        
+        $('select[name=sales_code_name]').on('change', function(){
+            $('select[name=sales_code]').val($(this).val());
+        });
+        $('select[name=sales_code]').on('change', function(){
+            $('select[name=sales_code_name]').val($(this).val());
+        });
+        
+        $('select[name=customer_code_name]').on('change', function(){
+            $('select[name=customer_code]').val($(this).val());
+        });
+        $('select[name=customer_code]').on('change', function(){
+            $('select[name=customer_code_name]').val($(this).val());
+        });
+        
+        $('select[name=supplier_code_name]').on('change', function(){
+            $('select[name=supplier_code]').val($(this).val());
+        });
+        $('select[name=supplier_code]').on('change', function(){
+            $('select[name=supplier_code_name]').val($(this).val());
+        });
     </script>
     @yield('script')
 </body>

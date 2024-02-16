@@ -16,6 +16,8 @@
             text-align: center;
             font-size: 1.8rem;
             margin-top: 0;
+            text-transform: uppercase;
+            text-decoration: underline;
         }
         table {
             width: 100%;
@@ -46,6 +48,7 @@
     </style>
 </head>
 <body>
+    @php date_default_timezone_set('Asia/Jakarta'); @endphp
     <header>{{ date('d/m/y H:i') }}</header>
     @yield('content')
     <footer>

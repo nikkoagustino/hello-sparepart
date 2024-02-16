@@ -252,7 +252,15 @@
         }
     });
     $('#printButton').on('click', function(){
-        window.open('{{ url('admin/print/buy-hutang-list') }}', 'printWindow');
+        var params = {
+            invoice_no: $('input[name=invoice_no]').val(),
+            date_start: $('input[name=date_start]').val(),
+            date_end: $('input[name=date_end]').val(),
+            supplier_code: $('select[name=supplier_code]').val(),
+            supplier_code_name: $('select[name=supplier_code_name] option:selected').text(),
+            status: $('select[name=status]').val(),
+        }
+        window.open('{{ url('admin/print/buy-hutang-list') }}?' + $.param(params), 'printWindow');
     });
 
     $('.selectable').on('click', 'tbody tr', function() {

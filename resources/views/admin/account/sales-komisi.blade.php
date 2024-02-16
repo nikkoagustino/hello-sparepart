@@ -200,12 +200,6 @@
 @endsection
 @section('script')
 <script>
-    $('select[name=sales_code_name]').on('change', function(){
-        $('select[name=sales_code]').val($(this).val());
-    });
-    $('select[name=sales_code]').on('change', function(){
-        $('select[name=sales_code_name]').val($(this).val());
-    });
     $('select').on('change', function(){
         refreshData();
     });
