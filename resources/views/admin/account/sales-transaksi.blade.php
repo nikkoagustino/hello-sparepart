@@ -233,7 +233,7 @@
         if (selected_row) {
             window.location.href='{{ url('admin/account/sales/transaksi/detail') }}/'+selected_row;
         } else {
-            alert('Pilih Admin Terlebih Dahulu');
+            alert('Pilih Data Terlebih Dahulu');
         }
     });
 

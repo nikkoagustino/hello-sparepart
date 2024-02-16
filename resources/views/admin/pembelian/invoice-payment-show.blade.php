@@ -5,11 +5,14 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
+<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
 </a>
-<a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/pembayaran.svg') }}"> &nbsp; Pembayaran
+<a href="{{ url('admin/dashboard/hutang') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
+</a>
+<a href="{{ url()->current() }}" class="btn btn-danger">
+    <i class="fa-solid fa-coins"></i> &nbsp; Bayar
 </a>
 @endsection
 
@@ -20,7 +23,7 @@
             <div class="col-3">
                 No Invoice
             </div>
-            <div class="col-9">
+            <div class="col-6">
                 <input type="text" name="invoice_no" readonly="readonly" value="{{ $invoice->invoice_no }}" class="form-control">
             </div>
         </div>
@@ -28,7 +31,7 @@
             <div class="col-3">
                 Tanggal Invoice
             </div>
-            <div class="col-9">
+            <div class="col-3">
                 <input type="date" readonly="readonly" name="invoice_date" value="{{ $invoice->invoice_date }}" class="form-control">
             </div>
         </div>
@@ -36,18 +39,21 @@
             <div class="col-3">
                 Kode Supplier
             </div>
-            <div class="col-9">
-                <input name="supplier_code" value="{{ $invoice->supplier_code }} - {{ $invoice->supplier_name }}" readonly="readonly" class="form-control">
+            <div class="col-3">
+                <input name="supplier_code" value="{{ $invoice->supplier_code }}" readonly="readonly" class="form-control">
+            </div>
+            <div class="col-6">
+                <input name="supplier_code_name" value="{{ $invoice->supplier_name }}" readonly="readonly" class="form-control">
             </div>
         </div>
-        <div class="row mt-1">
+{{--         <div class="row mt-1">
             <div class="col-3">
                 Status
             </div>
             <div class="col-9">
                 <input name="payment_type" value="{{ $invoice->payment_type }}" readonly="readonly" class="form-control">
             </div>
-        </div>
+        </div> --}}
     </div>
     <div class="col text-end">
         <button id="payButton" class="btn btn-danger btn-icon-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">
@@ -89,19 +95,28 @@
                 @php $total_paid_amount += $row->paid_amount; @endphp
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2">Total Pembayaran</td>
-                    <td>
-                        {{ number_format($total_paid_amount, 0) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Sisa Piutang</td>
-                    <td>{{ number_format($invoice->total_price - $total_paid_amount, 0) }}</td>
-                </tr>
-            </tfoot>
         </table>
+    </div>
+    <div class="row mt-2">
+        <div class="col"></div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-5">
+                    Total Invoice
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control bg-khaki" readonly="readonly" value="{{ number_format($invoice->total_price, 0) }}">
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-5">
+                    Sisa
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" readonly="readonly" value="{{ number_format($invoice->total_price - $total_paid_amount, 0) }}">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -110,16 +125,26 @@
 <div class="modal modal-lg fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ url('admin/pembelian/pembayaran/add') }}" method="POST" enctype="multipart/form-data">
+
+            <form action="{{ url('admin/dashboard/hutang/bayar') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="modal-body">
-                <div class="row">
+                <div class="breadcrumb">
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ url()->current() }}" class="btn btn-danger">
+                                <i class="fa-solid fa-coins"></i> &nbsp; Bayar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
                     <div class="col-8">
                         <div class="row mb-1">
                             <div class="col-3">
                                 No. Invoice
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 <input type="text" value="{{ $invoice->invoice_no }}" name="invoice_no" readonly="readonly" class="form-control">
                             </div>
                         </div>
@@ -127,7 +152,7 @@
                             <div class="col-3">
                                 Tanggal Invoice
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 <input type="date" name="invoice_date" value="{{ $invoice->invoice_date }}" readonly="readonly" class="form-control">
                             </div>
                         </div>
@@ -135,10 +160,10 @@
                             <div class="col-3">
                                 Kode Supplier
                             </div>
-                            <div class="col-2">
+                            <div class="col-3">
                                 <input type="text" name="supplier_code" value="{{ $invoice->supplier_code }}" readonly="readonly" class="form-control">
                             </div>
-                            <div class="col-7">
+                            <div class="col-6">
                                 <input type="text" name="supplier_name" value="{{ $invoice->supplier_name }}" readonly="readonly" class="form-control">
                             </div>
                         </div>

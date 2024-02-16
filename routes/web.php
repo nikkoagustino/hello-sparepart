@@ -93,12 +93,20 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::prefix('hutang')->group(function(){
             Route::get('/', [PembelianController::class, 'showListHutang']);
             Route::get('detail', [PembelianController::class, 'showDetailHutang']);
+            Route::get('bayar', [PembelianController::class, 'showPembayaranInvoice']);
+            Route::post('bayar', [PembelianController::class, 'savePembayaran']);
         });
 
         Route::prefix('piutang')->group(function(){
             Route::get('/', [PenjualanController::class, 'showListPiutang']);
             Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
         });
+
+        // Route::prefix('pembayaran')->group(function(){
+        //     Route::get('/', [PembelianController::class, 'showPembayaranHome']);
+        //     Route::get('invoice', [PembelianController::class, 'showPembayaranInvoice']);
+        //     Route::post('add', [PembelianController::class, 'savePembayaran']);
+        // });
 
     });
 
@@ -217,11 +225,11 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('delete-item', [PembelianController::class, 'deleteInvoiceItem']);
         });
 
-        Route::prefix('pembayaran')->group(function(){
-            Route::get('/', [PembelianController::class, 'showPembayaranHome']);
-            Route::get('invoice', [PembelianController::class, 'showPembayaranInvoice']);
-            Route::post('add', [PembelianController::class, 'savePembayaran']);
-        });
+        // Route::prefix('pembayaran')->group(function(){
+        //     Route::get('/', [PembelianController::class, 'showPembayaranHome']);
+        //     Route::get('invoice', [PembelianController::class, 'showPembayaranInvoice']);
+        //     Route::post('add', [PembelianController::class, 'savePembayaran']);
+        // });
 
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PembelianController::class, 'showTransaksi']);

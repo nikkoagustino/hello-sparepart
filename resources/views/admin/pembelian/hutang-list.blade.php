@@ -254,5 +254,17 @@
     $('#printButton').on('click', function(){
         window.open('{{ url('admin/print/buy-hutang-list') }}', 'printWindow');
     });
+
+    $('.selectable').on('click', 'tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+
+        if (selected_row) {
+            window.location.href='{{ url('admin/dashboard/hutang/bayar') }}?invoice_no='+selected_row;
+        } else {
+            alert('Pilih Data Terlebih Dahulu');
+        }
+    });
 </script>
 @endsection

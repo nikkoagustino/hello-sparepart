@@ -226,6 +226,8 @@
         #sidebar .btn img {
             width: 25px;
             margin-right: 10px;
+            vertical-align: baseline;
+            margin-bottom: -3px;
             filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7491%) hue-rotate(254deg) brightness(102%) contrast(102%);
         }
         #sidebar .btn:hover img,
@@ -233,7 +235,7 @@
             filter: brightness(0) saturate(100%) invert(11%) sepia(63%) saturate(6689%) hue-rotate(351deg) brightness(91%) contrast(84%);
         }
         .breadcrumb .btn img {
-            height: 25px;
+            height: 1rem;
             /*white*/
             filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7491%) hue-rotate(254deg) brightness(102%) contrast(102%);
         }
@@ -243,6 +245,9 @@
         }
         :root {
           --bs-danger-rgb: 170,30,36;
+        }
+        .bg-khaki {
+            background-color: khaki !important;
         }
     </style>
 

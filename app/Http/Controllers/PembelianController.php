@@ -173,7 +173,7 @@ class PembelianController extends Controller
 
         // Insert pembayaran
         if (PembelianModel::insertPayment($request, $upload_path)) {
-            return redirect('admin/pembelian/pembayaran/invoice/'.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            return redirect('admin/dashboard/hutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
         } else {
             return redirect()->back()->withErrors('Gagal menyimpan pembayaran');
         }
