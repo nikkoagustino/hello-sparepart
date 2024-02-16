@@ -35,6 +35,8 @@ class AbsensiController extends Controller
         $data = [
             'absen' => AbsensiModel::getAll($request),
         ];
-        return view('admin/print/absensi')->with($data);
+        $pdf = \PDF::loadView('admin/print/absensi', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+        // return view('admin/print/absensi')->with($data);
     }
 }

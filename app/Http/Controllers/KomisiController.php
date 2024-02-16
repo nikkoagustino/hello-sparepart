@@ -40,7 +40,9 @@ class KomisiController extends Controller
             'invoices' => KomisiModel::getSalesInvoice($request),
             'percent_komisi' => KomisiModel::getPercentKomisi($request),
         ];
-        return view('admin/print/komisi-sales')->with($data);
+        $pdf = \PDF::loadView('admin/print/komisi-sales', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+        // return view('admin/print/komisi-sales')->with($data);
     }
 
     public function updateKomisi(Request $request) {

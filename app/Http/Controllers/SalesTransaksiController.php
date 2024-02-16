@@ -36,7 +36,9 @@ class SalesTransaksiController extends Controller
         $data = [
             'txs' => SalesTransaksiModel::getTransaksiSales($request)
         ];
-        return view('admin/print/transaksi-sales')->with($data);
+        $pdf = \PDF::loadView('admin/print/transaksi-sales', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+        // return view('admin/print/transaksi-sales')->with($data);
     }
 
     public function showTransactionForm() {

@@ -38,7 +38,10 @@ class SalesController extends Controller
         $data = [
             'sales' => SalesModel::getAll(),
         ];
-        return view('admin/print/sales')->with($data);
+
+        $pdf = \PDF::loadView('admin/print/sales', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+        // return view('admin/print/sales')->with($data);
     }
 
     function detailSales(Request $request) {

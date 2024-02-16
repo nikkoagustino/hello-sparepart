@@ -4,13 +4,19 @@
     <title></title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        @page { 
+            margin-left:20px;
+            margin-right:20px;
+            margin-top: 0px;
+        }
         body {
-            font-family: monospace;
-            font-size: 1.5rem;
+            font-family: sans-serif;
+            font-size: 1.2rem;
             text-align: left;
         }
         h1 {
             text-align: center;
+            font-size: 1.8rem;
         }
         table {
             width: 100%;
@@ -18,6 +24,9 @@
         thead tr th {
             border-bottom: 2px solid black;
             border-top: 2px solid black;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            text-align: left;
         }
         .table tbody tr:last-child td {
             border-bottom: 2px solid black;
