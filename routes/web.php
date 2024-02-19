@@ -101,6 +101,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::prefix('piutang')->group(function(){
             Route::get('/', [PenjualanController::class, 'showListPiutang']);
             Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
+            Route::get('bayar', [PenjualanController::class, 'showPembayaranInvoice']);
+            Route::post('bayar', [PenjualanController::class, 'savePembayaran']);
         });
 
         Route::prefix('surat-jalan')->group(function(){

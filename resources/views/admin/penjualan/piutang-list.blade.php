@@ -5,74 +5,87 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
+<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Penjualan
 </a>
-<a href="{{ url('admin/penjualan/piutang') }}" class="btn btn-danger">
+<a href="{{ url('admin/dashboard/piutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/piutang.svg') }}"> &nbsp; Piutang
 </a>
 @endsection
 
 @section('content')
 <div class="row mt-5">
-    <div class="col-7">
+    <div class="col-9">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 No Invoice
             </div>
-            <div class="col-9">
+            <div class="col-7">
                 <input name="invoice_no" placeholder="INVxxx" type="text" autocomplete="off" class="form-control">
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-3">
+            <div class="col-2">
                 Periode
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <input type="date" value="{{ $_GET['date_start'] ?? '' }}" name="date_start" class="form-control">
             </div>
             <div class="col-1">
                 s/d
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <input type="date" value="{{ $_GET['date_end'] ?? '' }}" name="date_end" class="form-control">
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-3">
-                Kode Customer
+            <div class="col-2">
+                Kode Supplier
             </div>
-            <div class="col-9">
+            <div class="col-3">
                 <select name="customer_code" class="form-select form-control">
-                    <option value="" selected="selected" disabled="disabled">Pilih Customer...</option>
+                    <option value=""></option>
                     @foreach ($customers as $row)
-                    <option value="{{ $row->customer_code }}">{{ $row->customer_code }} - {{ $row->customer_name }}</option>
+                    <option {{ (isset($_GET['customer_code']) && ($row->customer_code == $_GET['customer_code'])) ? 'selected="selected"' : ''; }} value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6">
+                <select name="customer_code_name" class="form-select form-control">
+                    <option value=""></option>
+                    @foreach ($customers as $row)
+                    <option {{ (isset($_GET['customer_code']) && ($row->customer_code == $_GET['customer_code'])) ? 'selected="selected"' : ''; }} value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-3">
+            <div class="col-2">
                 Status
             </div>
-            <div class="col-9">
-                <select name="payment_type" required="required" class="form-select form-control">
+            <div class="col-3">
+                <select name="status" class="form-control form-select">
+                    <option value="">Semua...</option>
+                    <option value="lunas">LUNAS</option>
+                    <option value="pending">KREDIT</option>
+                </select>
+                {{-- <select name="payment_type" required="required" class="form-select form-control">
                     <option value="">Semua Status...</option>
                     <option {{ (isset($_GET['status']) && ($_GET['status'] == 'TUNAI')) ? 'selected="selected"' : ''; }} value="TUNAI">TUNAI</option>
                     <option {{ (isset($_GET['status']) && ($_GET['status'] == 'KREDIT')) ? 'selected="selected"' : ''; }} value="KREDIT">KREDIT</option>
-                </select>
+                </select> --}}
             </div>
         </div>
     </div>
     <div class="col text-end">
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
+        {{-- <button id="detailButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-file"></i>
             Detail
         </button>
         <button id="paymentButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-circle-dollar-to-slot"></i>
             Bayar
-        </button>
+        </button> --}}
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
@@ -88,17 +101,77 @@
         <table class="table table-striped print table-condensed selectable" id="itemsTable">
             <thead>
                 <tr>
-                    <th>No Invoice</th>
-                    <th>Tgl Invoice</th>
-                    <th>Kode Cust</th>
-                    <th>Nama Cust</th>
+                    <th>No. Invoice</th>
+                    <th>Tgl. Invoice</th>
+                    <th>Kode Cust.</th>
+                    <th>Nama Customer</th>
                     <th>Jatuh Tempo</th>
-                    <th>Total Harga</th>
-                    <th>Total Sudah Bayar</th>
-                    <th>Sisa Piutang</th>
+                    <th>Total</th>
+                    <th>Pembayaran</th>
+                    <th>Sisa</th>
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -163,23 +236,43 @@
         });
     }
 
-    $('#detailButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/penjualan/invoice/detail') }}?invoice_no='+selected_row;
-        } else {
-            alert('Pilih Invoice Terlebih Dahulu');
+    // $('#detailButton').on('click', function(){
+    //     if (selected_row) {
+    //         window.location.href='{{ url('admin/penjualan/invoice/detail') }}?invoice_no='+selected_row;
+    //     } else {
+    //         alert('Pilih Invoice Terlebih Dahulu');
+    //     }
+    // });
+
+    // $('#paymentButton').on('click', function(){
+    //     if (selected_row) {
+    //         window.location.href='{{ url('admin/penjualan/pembayaran/invoice') }}?invoice_no='+selected_row;
+    //     } else {
+    //         alert('Pilih Invoice Terlebih Dahulu');
+    //     }
+    // });
+    $('#printButton').on('click', function(){
+        var params = {
+            invoice_no: $('input[name=invoice_no]').val(),
+            date_start: $('input[name=date_start]').val(),
+            date_end: $('input[name=date_end]').val(),
+            customer_code: $('select[name=customer_code]').val(),
+            customer_code_name: $('select[name=customer_code_name] option:selected').text(),
+            status: $('select[name=status]').val(),
         }
+        window.open('{{ url('admin/print/sell-piutang-list') }}?' + $.param(params), 'printWindow');
     });
 
-    $('#paymentButton').on('click', function(){
+    $('.selectable').on('click', 'tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+
         if (selected_row) {
-            window.location.href='{{ url('admin/penjualan/pembayaran/invoice') }}?invoice_no='+selected_row;
+            window.location.href='{{ url('admin/dashboard/piutang/bayar') }}?invoice_no='+selected_row;
         } else {
-            alert('Pilih Invoice Terlebih Dahulu');
+            alert('Pilih Data Terlebih Dahulu');
         }
-    });
-    $('#printButton').on('click', function(){
-        window.open('{{ url('admin/print/sell-piutang-list') }}', 'printWindow');
     });
 </script>
 @endsection

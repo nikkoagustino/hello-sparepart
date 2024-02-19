@@ -67,7 +67,7 @@
                 <select name="status" class="form-control form-select">
                     <option value="">Semua...</option>
                     <option value="lunas">LUNAS</option>
-                    <option value="pending">PENDING</option>
+                    <option value="pending">KREDIT</option>
                 </select>
                 {{-- <select name="payment_type" required="required" class="form-select form-control">
                     <option value="">Semua Status...</option>
@@ -236,21 +236,21 @@
         });
     }
 
-    $('#detailButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
-        } else {
-            alert('Pilih Invoice Terlebih Dahulu');
-        }
-    });
+    // $('#detailButton').on('click', function(){
+    //     if (selected_row) {
+    //         window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
+    //     } else {
+    //         alert('Pilih Invoice Terlebih Dahulu');
+    //     }
+    // });
 
-    $('#paymentButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/pembelian/pembayaran/invoice') }}?invoice_no='+selected_row;
-        } else {
-            alert('Pilih Invoice Terlebih Dahulu');
-        }
-    });
+    // $('#paymentButton').on('click', function(){
+    //     if (selected_row) {
+    //         window.location.href='{{ url('admin/pembelian/pembayaran/invoice') }}?invoice_no='+selected_row;
+    //     } else {
+    //         alert('Pilih Invoice Terlebih Dahulu');
+    //     }
+    // });
     $('#printButton').on('click', function(){
         var params = {
             invoice_no: $('input[name=invoice_no]').val(),
