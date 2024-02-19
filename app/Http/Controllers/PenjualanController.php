@@ -110,9 +110,9 @@ class PenjualanController extends Controller
         return view('admin/print/invoice-sell-list')->with($data);
     }
 
-    function printInvoicePiutang() {
+    function printInvoicePiutang(Request $request) {
         $data = [
-            'invoices' => PenjualanModel::getInvoicePiutang(),
+            'invoices' => PenjualanModel::getInvoicePiutang($request),
         ];
         return view('admin/print/invoice-sell-list')->with($data);
     }

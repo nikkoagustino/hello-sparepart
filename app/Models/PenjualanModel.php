@@ -116,30 +116,35 @@ class PenjualanModel extends Model
                     ->leftJoin('view_invoice_penjualan_detail AS inv', 'piu.invoice_no', '=', 'inv.invoice_no')
                     ->where('piu.piutang', '>', 0);
 
-        if ($request) {
+        if ($request->invoice_no) {
+            $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
+        }
 
-            if ($request->invoice_no) {
-                $query->whereRaw('inv.invoice_no LIKE "%'.$request->invoice_no.'%"');
-            }
+        if ($request->date_start) {
+            $query->where('inv.invoice_date', '>=', $request->date_start);
+        }
 
-            if ($request->date_start) {
-                $query->where('inv.invoice_date', '>=', $request->date_start);
-            }
+        if ($request->date_end) {
+            $query->where('inv.invoice_date', '<=', $request->date_end);
+        }
 
-            if ($request->date_end) {
-                $query->where('inv.invoice_date', '<=', $request->date_end);
-            }
+        if ($request->customer_code) {
+            $query->where('inv.customer_code', $request->customer_code);
+        }
 
-            if ($request->customer_code) {
-                $query->where('inv.customer_code', $request->customer_code);
-            }
+        if ($request->sales_code) {
+            $query->where('inv.sales_code', $request->sales_code);
+        }
 
-            if ($request->sales_code) {
-                $query->where('inv.sales_code', $request->sales_code);
-            }
+        if ($request->payment_type) {
+            $query->where('inv.payment_type', $request->payment_type);
+        }
 
-            if ($request->payment_type) {
-                $query->where('inv.payment_type', $request->payment_type);
+        if ($request->status) {
+            if ($request->status === 'lunas') {
+                $query->where('piu.piutang', '<=', 0);
+            } else {
+                $query->where('piu.piutang', '>', 0);
             }
         }
 

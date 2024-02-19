@@ -4,7 +4,7 @@
 $start_date = request()->date_start ?? config('user.MIN_YEAR').'/01/01';
 $end_date = request()->date_end ?? date('Y-m-d');
 @endphp
-    <h1>List Invoice</h1>
+    <h1>List Hutang</h1>
     <table style="font-weight: bold">
         <tr>
             <td width="15%">No. Invoice</td>
@@ -47,7 +47,7 @@ $end_date = request()->date_end ?? date('Y-m-d');
             <tr>
                 <td>{{ $row->invoice_no }}</td>
                 <td>{{ date('d/m/Y', strtotime($row->invoice_date)) }}</td>
-                <td>{{ $row->supplier_name }}</td>
+                <td>{{ $row->supplier_code }} &nbsp; {{ $row->supplier_name }}</td>
                 <td>{{ $row->expiry_date }}</td>
                 <td>{{ number_format($row->total_price, 0) }}</td>
                 <td>{{ number_format($row->total_paid_amount, 0) }}</td>

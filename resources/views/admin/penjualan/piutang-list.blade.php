@@ -198,7 +198,7 @@
         var date_start = $('input[name=date_start]').val();
         var date_end = $('input[name=date_end]').val();
         var customer_code = $('select[name=customer_code]').val();
-        var payment_type = $('select[name=payment_type]').val();
+        var status = $('select[name=status]').val();
         $.ajax({
             url: '{{ url('api/invoice/piutang') }}',
             type: 'GET',
@@ -208,7 +208,7 @@
                 date_start: date_start,
                 date_end: date_end,
                 customer_code: customer_code,
-                payment_type: payment_type,
+                status: status,
             }
         })
         .done(function(result) {
