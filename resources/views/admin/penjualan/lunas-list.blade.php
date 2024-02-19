@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>List Lunas - {{ env('APP_NAME') }}</title>
+<title>List Lunas - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

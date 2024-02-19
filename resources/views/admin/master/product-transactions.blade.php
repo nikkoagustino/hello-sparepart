@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>{{ $product->product_name }} - {{ env('APP_NAME') }}</title>
+<title>{{ $product->product_name }} - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

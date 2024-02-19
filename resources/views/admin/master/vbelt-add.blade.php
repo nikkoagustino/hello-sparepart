@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Tambah V-Belt - {{ env('APP_NAME') }}</title>
+<title>Tambah V-Belt - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

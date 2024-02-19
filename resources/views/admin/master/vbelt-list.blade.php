@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>List V-Belt - {{ env('APP_NAME') }}</title>
+<title>List V-Belt - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

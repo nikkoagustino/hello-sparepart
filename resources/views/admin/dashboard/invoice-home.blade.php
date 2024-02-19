@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Invoice - {{ env('APP_NAME') }}</title>
+<title>Invoice - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

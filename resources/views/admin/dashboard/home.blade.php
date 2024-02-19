@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Dashboard - {{ env('APP_NAME') }}</title>
+<title>Dashboard - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -44,7 +44,7 @@
         </div>
         <div class="row mb-5">
             <div class="col-4">
-                <a href="{{ url('admin/surat-jalan') }}" class="btn btn-selection btn-pink">
+                <a href="{{ url('admin/dashboard/surat-jalan') }}" class="btn btn-selection btn-pink">
                     <span class="display-1">
                         <i class="fa-solid fa-motorcycle"></i>
                     </span>

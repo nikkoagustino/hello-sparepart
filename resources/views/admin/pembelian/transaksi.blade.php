@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>List Transaksi - {{ env('APP_NAME') }}</title>
+<title>List Transaksi - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

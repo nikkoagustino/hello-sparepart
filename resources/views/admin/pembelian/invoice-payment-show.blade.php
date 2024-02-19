@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>{{ $invoice->invoice_no }} - Pembayaran Invoice - {{ env('APP_NAME') }}</title>
+<title>{{ $invoice->invoice_no }} - Pembayaran Invoice - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

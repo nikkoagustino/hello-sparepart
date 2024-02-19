@@ -1,6 +1,6 @@
 @extends('admin/template')
 @section('meta')
-<title>Laba Rugi - {{ env('APP_NAME') }}</title>
+<title>Laba Rugi - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Laporan - {{ env('APP_NAME') }}</title>
+<title>Laporan - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

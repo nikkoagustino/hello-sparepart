@@ -96,9 +96,10 @@
             border: 2px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
         }
         .table th {
-            background-color: khaki;
+            background-color: #e0b05e;
             font-weight: bold;
             border: 1px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
+            text-align: center;
         }
         .table tr:nth-child(odd) {
             background-color: seashell;

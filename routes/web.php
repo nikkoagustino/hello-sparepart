@@ -15,6 +15,7 @@ use App\Http\Controllers\BackupController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\KomisiController;
 use App\Http\Controllers\SalesTransaksiController;
+use App\Http\Controllers\SuratJalanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,11 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::prefix('piutang')->group(function(){
             Route::get('/', [PenjualanController::class, 'showListPiutang']);
             Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
+        });
+
+        Route::prefix('surat-jalan')->group(function(){
+            Route::get('/', [SuratJalanController::class, 'showSuratJalanForm']);
+            Route::get('print', [SuratJalanController::class, 'printSuratJalan']);
         });
 
         // Route::prefix('pembayaran')->group(function(){

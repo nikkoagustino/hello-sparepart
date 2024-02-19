@@ -1,6 +1,6 @@
 @extends('admin.template')
 @section('meta')
-<title>Absen - {{ env('APP_NAME') }}</title>
+<title>Absen - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

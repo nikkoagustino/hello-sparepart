@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Tambah Supplier - {{ env('APP_NAME') }}</title>
+<title>Tambah Supplier - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

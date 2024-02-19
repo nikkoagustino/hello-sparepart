@@ -1,6 +1,6 @@
 @extends('admin/template')
 @section('meta')
-<title>Laporan Pembelian - {{ env('APP_NAME') }}</title>
+<title>Laporan Pembelian - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

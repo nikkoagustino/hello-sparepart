@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>Penjualan - {{ env('APP_NAME') }}</title>
+<title>Penjualan - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

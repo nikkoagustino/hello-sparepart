@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>List Piutang - {{ env('APP_NAME') }}</title>
+<title>List Piutang - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')

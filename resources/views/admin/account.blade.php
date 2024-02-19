@@ -1,6 +1,6 @@
 @extends('admin.template')
 @section('meta')
-<title>Akun - {{ env('APP_NAME') }}</title>
+<title>Akun - {{ config('app.name') }}</title>
 @endsection
 @section('content')
 <div class="row">
