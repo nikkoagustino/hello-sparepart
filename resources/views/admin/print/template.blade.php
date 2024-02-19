@@ -8,9 +8,10 @@
             margin: 20px;
         }
         body {
-            font-family: sans-serif;
+            font-family: sans-serif !important;
             font-size: 1rem;
             text-align: left;
+            line-height: 1.5rem;
         }
         h1 {
             text-align: center;
@@ -49,7 +50,9 @@
 </head>
 <body>
     @php date_default_timezone_set('Asia/Jakarta'); @endphp
+    @if (!Str::contains(request()->url(), 'surat-jalan'))
     <header>{{ date('d/m/y H:i') }}</header>
+    @endif
     @yield('content')
     <footer>
     {{-- Printed on: {{ date('c') }} --}}

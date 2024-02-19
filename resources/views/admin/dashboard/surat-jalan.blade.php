@@ -209,7 +209,7 @@
             invoice_no: invoice_no,
             tgl_kirim: tgl_kirim,
         }
-        window.open('{{ url('admin/print/surat_jalan') }}?' + $.param(params), 'printWindow');
+        window.open('{{ url('admin/print/surat-jalan') }}?' + $.param(params), 'printWindow');
     });
 </script>
 @endsection

@@ -105,7 +105,6 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::prefix('surat-jalan')->group(function(){
             Route::get('/', [SuratJalanController::class, 'showSuratJalanForm']);
-            Route::get('print', [SuratJalanController::class, 'printSuratJalan']);
         });
 
         // Route::prefix('pembayaran')->group(function(){
@@ -215,6 +214,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
         Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
         Route::get('product/tx', [LaporanController::class, 'printProductTx']);
+        Route::get('surat-jalan', [SuratJalanController::class, 'printSuratJalan']);
     });
 
     Route::prefix('pembelian')->group(function(){
