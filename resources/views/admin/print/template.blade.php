@@ -33,6 +33,12 @@
         .table tbody tr:last-child td {
             border-bottom: 2px solid black;
         }
+        .table tfoot tr td {
+            font-weight: bold;
+            border-bottom: 2px solid black;
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
         header {
             font-weight: 400;
             text-align: right;
@@ -50,7 +56,7 @@
 </head>
 <body>
     @php date_default_timezone_set('Asia/Jakarta'); @endphp
-    @if (!Str::contains(request()->url(), 'surat-jalan'))
+    @if ((!Str::contains(request()->url(), 'surat-jalan')) && (!Str::contains(request()->url(), 'invoice')))
     <header>{{ date('d/m/y H:i') }}</header>
     @endif
     @yield('content')
