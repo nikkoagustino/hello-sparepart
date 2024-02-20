@@ -377,6 +377,34 @@
     </div>
 </div>
 
+<div class="modal modal-sm fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body bg-danger text-light text-center">
+                <p class="py-2">PIN</p>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="delete_pin" placeholder="PIN" aria-label="PIN" aria-describedby="spillPINDelete">
+                    <button class="btn btn-danger" type="button" id="spillPINDelete">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <button id="submitPINDelete" class="btn form-control btn-light">
+                            LOGIN
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn form-control btn-light" data-bs-dismiss="modal" aria-label="Close">
+                            CANCEL
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- 
 <!-- Modal -->
 <div class="modal modal-sm fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -399,7 +427,7 @@
         </div>
     </div>
 </div>
-
+ --}}
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
@@ -480,6 +508,13 @@
             $('input[name=pin]').prop('type', 'password');
         });
 
+        $('#spillPINDelete').on('mousedown', function(){
+            $('input[name=delete_pin]').prop('type', 'text');
+        });
+        $('#spillPINDelete').on('mouseup', function(){
+            $('input[name=delete_pin]').prop('type', 'password');
+        });
+
         $('#editButton').on('click', function(event){
             event.preventDefault();
             $('#pinModal').modal('show');
@@ -501,6 +536,28 @@
                 $('#saveButton').show();
                 enableEdit();
                 $('#pinModal').modal('hide');
+            })
+            .fail(function(result) {
+                alert(result.responseJSON.message);
+            })
+            .always(function() {
+            });
+        });
+
+        $('#submitPINDelete').on('click', function(){
+            var pin = $('input[name=delete_pin]').val();
+            $.ajax({
+                url: '{{ url('api/verify-pin') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    pin: pin,
+                    username: '{{ Session::get('userdata')->username }}',
+                },
+            })
+            .done(function(result) {
+                enableDelete();
+                $('#deleteModal').modal('hide');
             })
             .fail(function(result) {
                 alert(result.responseJSON.message);

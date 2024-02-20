@@ -265,4 +265,13 @@ class PenjualanModel extends Model
                     ->get();
         return $result;
     }
+
+    static function updateInvoiceItem($data) {
+        $data = (array) $data;
+        $update = DB::table('tb_penjualan_invoice_items')
+                    ->where('invoice_no', $data['invoice_no'])
+                    ->where('product_code', $data['product_code'])
+                    ->update($data);
+        return $update;
+    }
 }

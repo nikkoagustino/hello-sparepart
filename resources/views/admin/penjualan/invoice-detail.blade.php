@@ -133,7 +133,7 @@
 </div>
 <div class="row mt-3">
     <div class="col">
-        <table class="table table-striped print table-condensed selectable" id="itemsTable">
+        <table class="table table-striped print table-condensed" id="itemsTable">
             <thead>
                 <tr>
                     <th>Kode Barang</th>
@@ -301,7 +301,7 @@
                             <i class="fa-solid fa-save"></i>
                             Save
                         </button>
-                        <button id="editItemDelete" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
+                        <button id="editItemDelete" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
                             <i class="fa-solid fa-trash"></i>
                             Delete
                         </button>
@@ -316,13 +316,13 @@
                         Kode Barang
                     </div>
                     <div class="col-3">
-                        <input type="text" class="form-control" name="edit_item_product_code">
+                        <input type="text" readonly="readonly" class="form-control" name="edit_item_product_code">
                     </div>
                     <div class="col-2">
-                        <input type="text" class="form-control" name="edit_item_product_type_code">
+                        <input type="text" readonly="readonly" class="form-control" name="edit_item_product_type_code">
                     </div>
                     <div class="col-5">
-                        <input type="text" class="form-control" name="edit_item_product_name">
+                        <input type="text" readonly="readonly" class="form-control" name="edit_item_product_name">
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -565,17 +565,52 @@
         $('#editItemModal').modal('hide');
     });
 
-    // before revision below
-
-    $('#deleteButton').on('click', function(){
-        var invoice_no = $('input[name=invoice_no]').val();
-        if (!selected_row) {
-            alert('Pilih produk terlebih dahulu');
-            return;
-        }
-        $('#deleteAction').attr('href', '{{ url('admin/penjualan/invoice/delete-item') }}?invoice_no='+encodeURIComponent(invoice_no)+'&product_code='+selected_row);
-        $("#deleteModal").modal("show");
+    $('#editItemSave').on('click', function(){
+        $.ajax({
+            url: '{{ url('api/penjualan/edit-item') }}',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                invoice_no: $('input[name=invoice_no]').val(),
+                product_code: $('input[name=edit_item_product_code]').val(),
+                normal_price: parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, '')),
+                discount_rate: $('input[name=edit_item_discount_rate]').val(),
+                discounted_price: parseInt($('input[name=edit_item_discount_price]').val().replace(/,/g, '')),
+                qty: $('input[name=edit_item_qty]').val(),
+                subtotal_price: parseInt($('input[name=edit_item_subtotal_price]').val().replace(/,/g, '')),
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                $('#editItemModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
+            } else {
+                console.log(result);
+            }
+        });
+        
     });
+
+    function enableDelete() {
+        $.ajax({
+            url: '{{ url('api/penjualan/delete-item') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                invoice_no: $('input[name=invoice_no]').val(),
+                product_code: $('input[name=edit_item_product_code]').val(),
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                $('input[name=invoice_no]').trigger('change');
+            } else {
+                alert(result);
+            }
+        });
+    }
+
+    // before revision below
 
     @if ($_GET)
     @if ($_GET['invoice_no'])

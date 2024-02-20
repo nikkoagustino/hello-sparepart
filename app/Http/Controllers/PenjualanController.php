@@ -196,6 +196,14 @@ class PenjualanController extends Controller
             return back()->withErrors('Gagal delete item');
         }
     }
+    
+    function deleteInvoiceItemAPI(Request $request) {
+        if (PenjualanModel::deleteInvoiceItem($request)) {
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false], 200);
+        }
+    }
 
     function showListPiutang() {
         $data = [
@@ -279,5 +287,16 @@ class PenjualanController extends Controller
             'data' => $items
         ];
         return response()->json($response, 200);
+    }
+
+    function updateInvoiceItem(Request $request) {
+        if (PenjualanModel::updateInvoiceItem($request->all())) {
+            $response = [
+                'success' => true,
+                'data' => $request->all(),
+            ];
+            return response()->json($response, 200);
+        }
+        return response()->json(['success' => false], 400);
     }
 }
