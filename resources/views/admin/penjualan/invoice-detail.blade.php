@@ -759,7 +759,6 @@
         })
         .done(function(result) {
             if (result.success) {
-                alert('Berhasil menyimpan retur');
                 $('#returModal').modal('hide');
                 $('input[name=invoice_no]').trigger('change');
             }
@@ -871,7 +870,7 @@
         var selected_row = $(this).data('id');
         $('tr').removeClass('selected');
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
-        window.location.href = "{{ url('admin/dashboard/penjualan/retur') }}?id="+selected_row;
+        window.location.href = "{{ url('admin/dashboard/invoice/penjualan/retur') }}?id="+selected_row;
     });
 
     // before revision below

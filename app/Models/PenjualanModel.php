@@ -274,4 +274,20 @@ class PenjualanModel extends Model
                     ->update($data);
         return $update;
     }
+
+    static function getReturByID($id) {
+        $result = DB::table('tb_retur_penjualan AS itm')
+                    ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code')
+                    ->where('itm.id', $id)
+                    ->select('itm.*', 'prd.type_code', 'prd.product_name')
+                    ->first();
+        return $result;
+    }
+
+    static function deleteReturByID($id) {
+        $delete = DB::table('tb_retur_penjualan')
+                    ->where('id', $id)
+                    ->delete();
+        return $delete;
+    }
 }

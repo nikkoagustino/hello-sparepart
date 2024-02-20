@@ -324,4 +324,30 @@ class PenjualanController extends Controller
         }
             return response()->json(['success' => false], 400);
     }
+
+    function showReturDetail(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:tb_retur_penjualan,id'
+        ]);
+
+        $data = [
+            'retur_data' => PenjualanModel::getReturByID($request->id),
+        ];
+        return view('admin.penjualan.retur-detail')->with($data);
+    }
+
+    function deleteReturItem(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:tb_retur_penjualan,id'
+        ]);
+
+        $retur_data = PenjualanModel::getReturByID($request->id);
+        if (PenjualanModel::deleteReturByID($request->id)) {
+            return redirect('admin/dashboard/invoice/penjualan?invoice_no='.$retur_data->invoice_no);
+        } else {
+            return back()->withErrors(['Failed to delete']);
+        }
+    }
 }
