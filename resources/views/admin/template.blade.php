@@ -509,10 +509,6 @@
             });
         });
 
-        function enableEdit(){
-            console.log('Editing enabled');
-        }
-
         $('input[name=invoice_no]').on('change paste keyup', function(){
             var regex = /^[a-zA-Z0-9_\.\-\/]+$/;
             var value = $(this).val();

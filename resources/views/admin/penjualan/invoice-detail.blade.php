@@ -201,6 +201,10 @@
             <i class="fa-solid fa-pencil"></i>
             Edit
         </button>
+        <button id="newItemButton" style="display: none" class="btn btn-danger btn-icon-lg">
+            <i class="fa-solid fa-plus-circle"></i>
+            New
+        </button>
         <button id="returButton" data-bs-toggle="modal" data-bs-target="#returModal" class="btn btn-danger btn-icon-lg">
             <img src="{{ url('assets/img/svg/retur.svg') }}">
             Retur
@@ -379,13 +383,17 @@
             $('#returWrapper').hide();
         });
     }
-    $('#editButton').on('click', function(){
-        // if (!selected_row) {
-        //     alert('Pilih produk terlebih dahulu');
-        //     return;
-        // }
-
-    });
+    
+    function enableEdit() {
+        var invoice_no = $('input[name=invoice_no]').val();
+        if (!invoice_no) {
+            alert('Pilih invoice terlebih dahulu');
+            $('#editButton').show();
+            return;
+        }
+        $('input').removeAttr('readonly');
+        $('#newItemButton').show();
+    }
 
     $('#deleteButton').on('click', function(){
         var invoice_no = $('input[name=invoice_no]').val();
