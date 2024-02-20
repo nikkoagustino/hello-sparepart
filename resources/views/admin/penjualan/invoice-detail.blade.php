@@ -280,6 +280,96 @@
     </div>
 </div>
 
+<div class="modal modal-lg fade" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumb">
+                            <div class="row pt-3">
+                                <div class="col">
+                                    <a href="{{ url()->current() }}" class="btn btn-danger">
+                                        <i class="fa-solid fa-pencil"></i> &nbsp; Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-end">
+                        <button id="editItemSave" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-save"></i>
+                            Save
+                        </button>
+                        <button id="editItemDelete" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+                        </button>
+                        <button id="editItemBack" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Back
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-2">
+                        Kode Barang
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" name="edit_item_product_code">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" name="edit_item_product_type_code">
+                    </div>
+                    <div class="col-5">
+                        <input type="text" class="form-control" name="edit_item_product_name">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Harga
+                    </div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" class="form-control" name="edit_item_normal_price">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Discount
+                    </div>
+                    <div class="col-3">
+                        <input type="number" step="0.1" class="form-control" name="edit_item_discount_rate">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Qty
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" name="edit_item_qty">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Harga Discount
+                    </div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" class="form-control" name="edit_item_discount_price">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Total
+                    </div>
+                    <div class="col-3">
+                        <input type="text" readonly="readonly" data-type="number" class="form-control" name="edit_item_subtotal_price">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
 <script>
@@ -393,7 +483,89 @@
         }
         $('input').removeAttr('readonly');
         $('#newItemButton').show();
+        $('#itemsTable').addClass('selectable');
     }
+
+    $('body').on('click', '.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+
+        if (selected_row) {
+            $('input[name=edit_item_product_code]').val($(this).find('td:nth-child(1)').text());
+            $('input[name=edit_item_product_type_code]').val($(this).find('td:nth-child(2)').text());
+            $('input[name=edit_item_product_name]').val($(this).find('td:nth-child(3)').text());
+            $('input[name=edit_item_qty]').val($(this).find('td:nth-child(4)').text());
+            var normal_price = parseInt(($(this).find('td:nth-child(5)').text()).replace(/,/g, ''));
+            var discount_rate = parseFloat(($(this).find('td:nth-child(6)').text()).replace(/,/g, ''));
+            var subtotal_price = parseInt(($(this).find('td:nth-child(7)').text()).replace(/,/g, ''));
+            $('input[name=edit_item_normal_price]').val(normal_price).change();
+            $('input[name=edit_item_discount_rate]').val(discount_rate).change();
+            $('input[name=edit_item_discount_price]').val(normal_price * (discount_rate / 100)).change();
+            $('input[name=edit_item_subtotal_price]').val(subtotal_price).change();
+            $('#editItemModal').modal('show');
+        } else {
+            alert('Pilih Data Terlebih Dahulu');
+        }
+    });
+
+    $('input[name=edit_item_normal_price]').on('keyup', function(){
+        var normal_price = parseInt($(this).val().replace(/,/g, ''));
+        var discount_rate = parseFloat($('input[name=edit_item_discount_rate]').val().replace(/,/g, ''));
+        var qty = parseInt($('input[name=edit_item_qty]').val().replace(/,/g, ''));
+        var discount_price = normal_price * (discount_rate / 100);
+        var subtotal_price = qty * (normal_price - discount_price);
+        // $('input[name=edit_item_normal_price]').val(normal_price).change();
+        $('input[name=edit_item_discount_rate]').val(discount_rate).change();
+        $('input[name=edit_item_discount_price]').val(discount_price).change();
+        $('input[name=edit_item_subtotal_price]').val(subtotal_price).change();
+        $('input[name=edit_item_qty]').val(qty).change();
+    });
+
+    $('input[name=edit_item_discount_rate]').on('click keyup', function(){
+        var discount_rate = parseFloat($(this).val().replace(/,/g, ''));
+        var normal_price = parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, ''));
+        var qty = parseInt($('input[name=edit_item_qty]').val().replace(/,/g, ''));
+        var discount_price = normal_price * (discount_rate / 100);
+        var subtotal_price = qty * (normal_price - discount_price);
+        // $('input[name=edit_item_normal_price]').val(normal_price).change();
+        $('input[name=edit_item_discount_rate]').val(discount_rate).change();
+        $('input[name=edit_item_discount_price]').val(discount_price).change();
+        $('input[name=edit_item_subtotal_price]').val(subtotal_price).change();
+        $('input[name=edit_item_qty]').val(qty).change();
+    });
+
+    $('input[name=edit_item_discount_price]').on('keyup', function(){
+        var discount_price = parseFloat($(this).val().replace(/,/g, ''));
+        var normal_price = parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, ''));
+        var discount_rate = (discount_price / normal_price) * 100;
+        var qty = parseInt($('input[name=edit_item_qty]').val().replace(/,/g, ''));
+        var subtotal_price = qty * (normal_price - discount_price);
+        // $('input[name=edit_item_normal_price]').val(normal_price).change();
+        $('input[name=edit_item_discount_rate]').val(discount_rate).change();
+        $('input[name=edit_item_discount_price]').val(discount_price).change();
+        $('input[name=edit_item_subtotal_price]').val(subtotal_price).change();
+        $('input[name=edit_item_qty]').val(qty).change();
+    });
+
+    $('input[name=edit_item_qty]').on('click keyup', function(){
+        var qty = parseInt($(this).val().replace(/,/g, ''));
+        var normal_price = parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, ''));
+        var discount_rate = parseFloat($('input[name=edit_item_discount_rate]').val().replace(/,/g, ''));
+        var discount_price = normal_price * (discount_rate / 100);
+        var subtotal_price = qty * (normal_price - discount_price);
+        // $('input[name=edit_item_normal_price]').val(normal_price).change();
+        $('input[name=edit_item_discount_rate]').val(discount_rate).change();
+        $('input[name=edit_item_discount_price]').val(discount_price).change();
+        $('input[name=edit_item_subtotal_price]').val(subtotal_price).change();
+        $('input[name=edit_item_qty]').val(qty).change();
+    });
+
+    $('#editItemBack').on('click', function(){
+        $('#editItemModal').modal('hide');
+    });
+
+    // before revision below
 
     $('#deleteButton').on('click', function(){
         var invoice_no = $('input[name=invoice_no]').val();
