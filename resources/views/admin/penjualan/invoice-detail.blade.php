@@ -250,29 +250,43 @@
 </div> --}}
 
 <!-- Modal -->
-<div class="modal fade" id="returModal" tabindex="-1" aria-labelledby="returModalLabel" aria-hidden="true">
+<div class="modal modal-lg fade" id="returModal" tabindex="-1" aria-labelledby="returModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body bg-danger text-light text-center">
-                <p class="py-2">Retur Item</p>
-                <div class="row my-2">
-                    Kode Barang
-                    <select name="returItemCode" class="form-control form-select"></select>
-                </div>
-                <div class="row my-2">
-                    Qty Retur
-                    <input type="number" name="retur_qty" class="form-control" value="0" min="1" step="1">
-                </div>
-                <div class="row my-2">
+            <div class="modal-body">
+                <div class="row">
                     <div class="col">
-                        <a class="btn form-control btn-light" id="saveRetur">
-                            SIMPAN
-                        </a>
+                        <div class="breadcrumb">
+                            <div class="row pt-3">
+                                <div class="col">
+                                    <a href="{{ url()->current() }}" class="btn btn-danger">
+                                        <img src="{{ url('assets/img/svg/retur.svg') }}"> &nbsp; Retur
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <button class="btn form-control btn-light" data-bs-dismiss="modal" aria-label="Close">
-                            CANCEL
+                    <div class="col text-end">
+                        <button id="saveRetur" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-save"></i>
+                            Save
                         </button>
+                        <button id="returItemBack" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Back
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-2">Kode Barang</div>
+                    <div class="col-6">
+                        <select name="returItemCode" class="form-control form-select"></select>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">Qty</div>
+                    <div class="col-4">
+                        <input name="returQty" type="number" step="1" min="1" value="1" class="form-control">
                     </div>
                 </div>
             </div>
@@ -565,6 +579,10 @@
         $('#editItemModal').modal('hide');
     });
 
+    $('#returItemBack').on('click', function(){
+        $('#returModal').modal('hide');
+    });
+
     $('#editItemSave').on('click', function(){
         $.ajax({
             url: '{{ url('api/penjualan/edit-item') }}',
@@ -610,18 +628,18 @@
         });
     }
 
-    // before revision below
-
     @if ($_GET)
     @if ($_GET['invoice_no'])
         $('input[name=invoice_no]').val('{{ $_GET['invoice_no'] }}').trigger('change').attr('readonly', 'readonly');
     @endif
     @endif
 
+    // before revision below
+
     $('#saveRetur').on('click', function(){
         var retur_product_code = $('select[name=returItemCode]').val();
         var max_qty = $('select[name=returItemCode] option:selected').data('max');
-        var retur_qty = $('input[name=retur_qty]').val();
+        var retur_qty = $('input[name=returQty]').val();
         var invoice_no = $('input[name=invoice_no]').val();
         if (retur_qty < 1) {
             alert('Minimal retur qty = 1');
@@ -644,7 +662,8 @@
         .done(function(result) {
             if (result.success) {
                 alert('Berhasil menyimpan retur');
-                window.location.reload();
+                $('#returModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
             }
         });
     });
