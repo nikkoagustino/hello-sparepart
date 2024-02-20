@@ -219,10 +219,21 @@
         <input type="text" readonly="readonly" class="form-control bg-khaki" name="total_invoice_price">
     </div>
 </div>
-{{-- <div class="row mt-3" id="returWrapper">
-    <div class="col">
-        <h3>List Barang Retur</h3>
-        <table class="table table-striped print table-condensed selectable" id="returItemsTable">
+
+<div class="row mt-3" id="returWrapper" style="display: none">
+    <div class="col-12">
+        <div class="breadcrumb">
+            <div class="row pt-3">
+                <div class="col">
+                    <a href="{{ url()->current() }}" class="btn btn-danger">
+                        <img src="{{ url('assets/img/svg/retur.svg') }}"> &nbsp; Retur
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <table class="table table-striped print table-condensed" id="returItemsTable">
             <thead>
                 <tr>
                     <th>Kode Barang</th>
@@ -237,17 +248,14 @@
             <tbody>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="6">Total</td>
-                    <td class="total_returned_price">
-                    0
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     </div>
-</div> --}}
+    <div class="col"></div>
+    <div class="col-1">Total</div>
+    <div class="col-3">
+        <input type="text" data-type="number" readonly="readonly" class="form-control bg-khaki" name="total_returned_price">
+    </div>
+</div>
 
 <!-- Modal -->
 <div class="modal modal-lg fade" id="returModal" tabindex="-1" aria-labelledby="returModalLabel" aria-hidden="true">
@@ -569,7 +577,8 @@
                     total_returned_price = total_returned_price + parseInt(row.subtotal_price);
             });
             $('#returItemsTable tbody').html(table_row);
-            $('.total_returned_price').text($.number(total_returned_price, 0));
+            $('input[name=total_returned_price]').val(total_returned_price).change();
+            $('#returWrapper').show();
         })
         .fail(function(xhr, result){
             $('#returWrapper').hide();
@@ -603,7 +612,7 @@
             var subtotal_price = parseInt(($(this).find('td:nth-child(7)').text()).replace(/,/g, ''));
             $('input[name=edit_item_normal_price]').val(normal_price).change();
             $('input[name=edit_item_discount_rate]').val(discount_rate).change();
-            $('input[name=edit_item_discount_price]').val(normal_price * (discount_rate / 100)).change();
+            $('input[name=edit_item_discount_price]').val(normal_price - (normal_price * (discount_rate / 100))).change();
             $('input[name=edit_item_subtotal_price]').val(subtotal_price).change();
             $('#editItemModal').modal('show');
         } else {
@@ -615,8 +624,8 @@
         var normal_price = parseInt($(this).val().replace(/,/g, ''));
         var discount_rate = parseFloat($('input[name=edit_item_discount_rate]').val().replace(/,/g, ''));
         var qty = parseInt($('input[name=edit_item_qty]').val().replace(/,/g, ''));
-        var discount_price = normal_price * (discount_rate / 100);
-        var subtotal_price = qty * (normal_price - discount_price);
+        var discount_price = normal_price - (normal_price * (discount_rate / 100));
+        var subtotal_price = qty * discount_price;
         // $('input[name=edit_item_normal_price]').val(normal_price).change();
         $('input[name=edit_item_discount_rate]').val(discount_rate).change();
         $('input[name=edit_item_discount_price]').val(discount_price).change();
@@ -628,8 +637,8 @@
         var discount_rate = parseFloat($(this).val().replace(/,/g, ''));
         var normal_price = parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, ''));
         var qty = parseInt($('input[name=edit_item_qty]').val().replace(/,/g, ''));
-        var discount_price = normal_price * (discount_rate / 100);
-        var subtotal_price = qty * (normal_price - discount_price);
+        var discount_price = normal_price - (normal_price * (discount_rate / 100));
+        var subtotal_price = qty * discount_price;
         // $('input[name=edit_item_normal_price]').val(normal_price).change();
         $('input[name=edit_item_discount_rate]').val(discount_rate).change();
         $('input[name=edit_item_discount_price]').val(discount_price).change();
@@ -640,9 +649,9 @@
     $('input[name=edit_item_discount_price]').on('keyup', function(){
         var discount_price = parseFloat($(this).val().replace(/,/g, ''));
         var normal_price = parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, ''));
-        var discount_rate = (discount_price / normal_price) * 100;
+        var discount_rate = ((normal_price - discount_price) / normal_price) * 100;
         var qty = parseInt($('input[name=edit_item_qty]').val().replace(/,/g, ''));
-        var subtotal_price = qty * (normal_price - discount_price);
+        var subtotal_price = qty * discount_price;
         // $('input[name=edit_item_normal_price]').val(normal_price).change();
         $('input[name=edit_item_discount_rate]').val(discount_rate).change();
         $('input[name=edit_item_discount_price]').val(discount_price).change();
@@ -654,8 +663,8 @@
         var qty = parseInt($(this).val().replace(/,/g, ''));
         var normal_price = parseInt($('input[name=edit_item_normal_price]').val().replace(/,/g, ''));
         var discount_rate = parseFloat($('input[name=edit_item_discount_rate]').val().replace(/,/g, ''));
-        var discount_price = normal_price * (discount_rate / 100);
-        var subtotal_price = qty * (normal_price - discount_price);
+        var discount_price = normal_price - (normal_price * (discount_rate / 100));
+        var subtotal_price = qty * discount_price;
         // $('input[name=edit_item_normal_price]').val(normal_price).change();
         $('input[name=edit_item_discount_rate]').val(discount_rate).change();
         $('input[name=edit_item_discount_price]').val(discount_price).change();
