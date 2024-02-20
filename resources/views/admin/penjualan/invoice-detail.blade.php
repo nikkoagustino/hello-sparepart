@@ -201,7 +201,7 @@
             <i class="fa-solid fa-pencil"></i>
             Edit
         </button>
-        <button id="newItemButton" style="display: none" class="btn btn-danger btn-icon-lg">
+        <button id="newItemButton" style="display: none" data-bs-toggle="modal" data-bs-target="#newItemModal" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-plus-circle"></i>
             New
         </button>
@@ -283,7 +283,7 @@
                         <select name="returItemCode" class="form-control form-select"></select>
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-2 mb-5 pb-5">
                     <div class="col-2">Qty</div>
                     <div class="col-4">
                         <input name="returQty" type="number" step="1" min="1" value="1" class="form-control">
@@ -377,6 +377,94 @@
                     </div>
                     <div class="col-3">
                         <input type="text" readonly="readonly" data-type="number" class="form-control" name="edit_item_subtotal_price">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal-lg fade" id="newItemModal" tabindex="-1" aria-labelledby="newItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumb">
+                            <div class="row pt-3">
+                                <div class="col">
+                                    <a href="{{ url()->current() }}" class="btn btn-danger">
+                                        <i class="fa-solid fa-plus-circle"></i> &nbsp; New
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-end">
+                        <button id="newItemSave" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-save"></i>
+                            Save
+                        </button>
+                        <button id="newItemBack" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Back
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-2">Kode Barang</div>
+                    <div class="col-3 position-relative">
+                        <input type="text" name="new_item_product_code" class="form-control">
+                        <ul class="floating-select" id="product_code_list"></ul>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" name="new_item_product_type_code" readonly="readonly" class="form-control">
+                    </div>
+                    <div class="col-5 position-relative">
+                        <input type="text" name="new_item_product_name" class="form-control">
+                        <ul class="floating-select" id="product_name_list"></ul>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Harga
+                    </div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" class="form-control" name="new_item_normal_price">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Discount
+                    </div>
+                    <div class="col-3">
+                        <input type="number" step="0.1" class="form-control" name="new_item_discount_rate">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Qty
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" name="new_item_qty">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Harga Discount
+                    </div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" class="form-control" name="new_item_discount_price">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        Total
+                    </div>
+                    <div class="col-3">
+                        <input type="text" readonly="readonly" data-type="number" class="form-control" name="new_item_subtotal_price">
                     </div>
                 </div>
             </div>
@@ -583,6 +671,10 @@
         $('#returModal').modal('hide');
     });
 
+    $('#newItemBack').on('click', function(){
+        $('#newItemModal').modal('hide');
+    });
+
     $('#editItemSave').on('click', function(){
         $.ajax({
             url: '{{ url('api/penjualan/edit-item') }}',
@@ -606,7 +698,6 @@
                 console.log(result);
             }
         });
-        
     });
 
     function enableDelete() {
@@ -633,8 +724,6 @@
         $('input[name=invoice_no]').val('{{ $_GET['invoice_no'] }}').trigger('change').attr('readonly', 'readonly');
     @endif
     @endif
-
-    // before revision below
 
     $('#saveRetur').on('click', function(){
         var retur_product_code = $('select[name=returItemCode]').val();
@@ -667,6 +756,108 @@
             }
         });
     });
+
+
+
+    // create product finder
+    var products = JSON.parse('{!! json_encode($products) !!}');
+    $('input[name=new_item_product_code]').on('change paste keyup', function(){
+        var product_code_filtered = [];
+        var search_term = $(this).val();
+        $('#product_code_list').html('');
+        $.each(products, function(index, val) {
+            if (val.product_code.toLowerCase().indexOf(search_term.toLowerCase()) >= 0) {
+                product_code_filtered.push(val);
+                $('#product_code_list').append('<li>'+ val.product_code +'</li>');
+            }
+        });
+    });
+    $('input[name=new_item_product_name]').on('change paste keyup', function(){
+        var product_code_filtered = [];
+        var search_term = $(this).val();
+        $('#product_name_list').html('');
+        $.each(products, function(index, val) {
+            if (val.product_name.toLowerCase().indexOf(search_term.toLowerCase()) >= 0) {
+                product_code_filtered.push(val);
+                $('#product_name_list').append('<li data-code="'+ val.product_code +'">'+ val.product_name +'</li>');
+            }
+        });
+    });
+
+    $('#product_code_list').on('click', 'li', function() {
+        selected_product_code = $(this).html();
+        $(this).text(selected_product_code);
+        selectProduct(selected_product_code);
+    });
+    $('#product_name_list').on('click', 'li', function() {
+        selected_product_code = $(this).data('code');
+        $('input[name=new_item_product_code]').text(selected_product_code);
+        selectProduct(selected_product_code);
+    });
+
+    function selectProduct(product_code) {
+        $('.floating-select').html('');
+        $.ajax({
+            url: '{{ url('api/product') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {product_code: product_code},
+        })
+        .done(function(result) {
+            $('input[name=new_item_product_code]').val(result.data.product_code);
+            $('input[name=new_item_product_name]').val(result.data.product_name);
+            $('input[name=new_item_product_type_code]').val(result.data.type_code).attr('readonly', 'readonly');
+            normal_price = result.data.price_selling;
+            $('input[name=new_item_normal_price]').val(normal_price);
+            calculatePrice();
+        });
+    }
+
+    $('input[name=new_item_discount_rate]').on('change paste keyup', function(){
+        calculatePrice();
+    });
+
+    $('input[name=new_item_qty]').on('change paste keyup', function(){
+        calculatePrice();
+    });
+
+    function calculatePrice() {
+        var discount_rate = $('input[name=new_item_discount_rate]').val();
+        var discounted_price = parseInt(normal_price - (normal_price * (parseFloat(discount_rate) / 100)));
+        var qty = $('input[name=new_item_qty]').val();
+        var subtotal_price = parseInt(discounted_price * qty);
+
+        $('input[name=new_item_discount_price]').val(discounted_price);
+        $('input[name=new_item_subtotal_price]').val(subtotal_price);
+        $('input[data-type=number]').trigger('change');
+    }
+
+    $('#newItemSave').on('click', function(){
+        $.ajax({
+            url: '{{ url('api/penjualan/add-item') }}',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                invoice_no: $('input[name=invoice_no]').val(),
+                product_code: $('input[name=new_item_product_code]').val(),
+                normal_price: parseInt($('input[name=new_item_normal_price]').val().replace(/,/g, '')),
+                discount_rate: $('input[name=new_item_discount_rate]').val(),
+                discounted_price: parseInt($('input[name=new_item_discount_price]').val().replace(/,/g, '')),
+                qty: $('input[name=new_item_qty]').val(),
+                subtotal_price: parseInt($('input[name=new_item_subtotal_price]').val().replace(/,/g, '')),
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                $('#newItemModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
+            } else {
+                alert(result);
+            }
+        });
+    });
+
+    // before revision below
 
     $('#printButton').on('click', function(){
         var invoice_no = $('input[name=invoice_no]').val();
