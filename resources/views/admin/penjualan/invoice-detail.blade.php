@@ -233,7 +233,7 @@
         </div>
     </div>
     <div class="col-12">
-        <table class="table table-striped print table-condensed" id="returItemsTable">
+        <table class="table table-striped print table-condensed selectable" id="returItemsTable">
             <thead>
                 <tr>
                     <th>Kode Barang</th>
@@ -565,7 +565,7 @@
             var table_row = '';
             var total_returned_price = 0;
             $.each(result.data, function(index, row) {
-                table_row += '<tr data-id="'+row.product_code+'">' +
+                table_row += '<tr data-id="'+row.id+'">' +
                     '<td>'+row.product_code+'</td>' +
                     '<td>'+row.type_code+'</td>' +
                     '<td>'+row.product_name+'</td>' +
@@ -597,7 +597,7 @@
         $('#itemsTable').addClass('selectable');
     }
 
-    $('body').on('click', '.selectable tbody tr', function() {
+    $('body').on('click', '#itemsTable.selectable tbody tr', function() {
         var selected_row = $(this).data('id');
         $('tr').removeClass('selected');
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
@@ -864,6 +864,14 @@
                 alert(result);
             }
         });
+    });
+
+
+    $('body').on('click', '#returItemsTable.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        window.location.href = "{{ url('admin/dashboard/penjualan/retur') }}?id="+selected_row;
     });
 
     // before revision below
