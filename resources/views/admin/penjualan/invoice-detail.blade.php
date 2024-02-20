@@ -5,90 +5,122 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
+
+<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
+    <i class="fa-solid fa-boxes"></i> &nbsp; Dashboard
 </a>
-<a href="{{ url('admin/penjualan/invoice') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; Invoice
+<a href="{{ url('admin/dashboard/invoice') }}" class="btn btn-danger">
+    <i class="fa-solid fa-store"></i> &nbsp; Invoice
+</a>
+<a href="{{ url()->current() }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/icon/penjualan.svg') }}" alt=""> &nbsp; Penjualan
 </a>
 @endsection
 
 @section('content')
 <div class="row mt-5">
-    <div class="col-8">
+    <div class="col-9">
         <div class="row">
             <div class="col-3">
                 No Invoice
             </div>
-            <div class="col-9">
+            <div class="col-7">
                 <input type="text" name="invoice_no" class="form-control">
             </div>
         </div>
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3">
                 Tanggal Invoice
             </div>
-            <div class="col-9">
-                <input type="date" readonly="readonly" name="invoice_date" class="form-control">
+            <div class="col-3">
+                <input type="date" name="invoice_date" class="form-control">
+            </div>
+            <div class="col-1">s/d</div>
+            <div class="col-3">
+                <input type="date" name="invoice_date" class="form-control">
             </div>
         </div>
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3">
                 Kode Customer
             </div>
-            <div class="col-9">
-                <input name="customer_code" readonly="readonly" class="form-control">
+            <div class="col-3">
+                <select name="customer_code" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($customers as $row)
+                    <option value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6">
+                <select name="customer_code_name" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($customers as $row)
+                    <option value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3">
                 Kode Sales
             </div>
-            <div class="col-9">
-                <input name="sales_code" readonly="readonly" class="form-control">
+            <div class="col-3">
+                <select name="sales_code" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6">
+                <select name="sales_code_name" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
-        <div class="row mt-1">
+        {{-- <div class="row mt-2">
             <div class="col-3">
                 Alamat
             </div>
             <div class="col-9">
                 <textarea name="address" rows="3" readonly="readonly" class="form-control"></textarea>
             </div>
-        </div>
-        <div class="row mt-1">
+        </div> --}}
+        <div class="row mt-2">
             <div class="col-3">
                 Jatuh Tempo
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <input name="days_expire" readonly="readonly" class="form-control">
             </div>
-            <div class="col-3">
+            <div class="col-1">
                 Hari
             </div>
-        </div>
-        <div class="row mt-1">
-            <div class="col-3">
-                Keterangan
+            <div class="col-1">
+                Ket
             </div>
-            <div class="col-9">
+            <div class="col-5">
                 <input name="description" readonly="readonly" class="form-control">
             </div>
         </div>
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3">
                 Status
             </div>
-            <div class="col-9">
+            <div class="col-3">
                 <input name="payment_type" readonly="readonly" class="form-control">
             </div>
         </div>
     </div>
     <div class="col text-end">
-        <a href="{{ url('admin/penjualan/invoice/list') }}" class="btn btn-danger btn-icon-lg">
+        {{-- <a href="{{ url('admin/penjualan/invoice/list') }}" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-receipt"></i>
             List
-        </a>
+        </a> --}}
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
@@ -101,7 +133,6 @@
 </div>
 <div class="row mt-3">
     <div class="col">
-        <h3>List Pembelian Barang</h3>
         <table class="table table-striped print table-condensed selectable" id="itemsTable">
             <thead>
                 <tr>
@@ -115,20 +146,76 @@
                 </tr>
             </thead>
             <tbody>
-
-            </tbody>
-            <tfoot>
                 <tr>
-                    <td colspan="6">Total</td>
-                    <td class="total_invoice_price">
-                    0
-                    </td>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-            </tfoot>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
-<div class="row mt-3" id="returWrapper">
+<div class="row mt-2 mb-5">
+    <div class="col">
+        <button id="editButton" data-bs-toggle="modal" data-bs-target="#pinModal" class="btn btn-danger btn-icon-lg">
+            <i class="fa-solid fa-pencil"></i>
+            Edit
+        </button>
+        <button id="returButton" data-bs-toggle="modal" data-bs-target="#returModal" class="btn btn-danger btn-icon-lg">
+            <img src="{{ url('assets/img/svg/retur.svg') }}">
+            Retur
+        </button>
+        {{-- <button id="deleteButton" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
+            <i class="fa-solid fa-trash"></i>
+            Delete
+        </button> --}}
+    </div>
+    <div class="col-1">Total</div>
+    <div class="col-3">
+        <input type="text" readonly="readonly" class="form-control bg-khaki" name="total_invoice_price">
+    </div>
+</div>
+{{-- <div class="row mt-3" id="returWrapper">
     <div class="col">
         <h3>List Barang Retur</h3>
         <table class="table table-striped print table-condensed selectable" id="returItemsTable">
@@ -156,23 +243,7 @@
             </tfoot>
         </table>
     </div>
-</div>
-<div class="row mt-2 mb-5">
-    <div class="col">
-        <button id="editButton" data-bs-toggle="modal" data-bs-target="#pinModal" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-pencil"></i>
-            Edit
-        </button>
-        <button id="returButton" data-bs-toggle="modal" data-bs-target="#returModal" class="btn btn-danger btn-icon-lg">
-            <img src="{{ url('assets/img/svg/retur.svg') }}">
-            Retur
-        </button>
-        <button id="deleteButton" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-trash"></i>
-            Delete
-        </button>
-    </div>
-</div>
+</div> --}}
 
 <!-- Modal -->
 <div class="modal fade" id="returModal" tabindex="-1" aria-labelledby="returModalLabel" aria-hidden="true">
@@ -221,8 +292,8 @@
             $('input[name=invoice_date]').val(result.data.invoice_date);
             $('input[name=days_expire]').val(result.data.days_expire);
             $('input[name=description]').val(result.data.description);
-            $('input[name=customer_code]').val(result.data.customer_code + ' - ' + result.data.customer_name).change();
-            $('input[name=sales_code]').val(result.data.sales_code + ' - ' + result.data.sales_name).change();
+            $('select[name=customer_code]').val(result.data.customer_code).change();
+            $('select[name=sales_code]').val(result.data.sales_code).change();
             $('input[name=payment_type]').val(result.data.payment_type);
             $('textarea[name=address]').text(result.data.customer_address);
             getInvoiceItems(invoice_no);
@@ -232,8 +303,8 @@
             $('input[name=invoice_date]').val('');
             $('input[name=days_expire]').val('');
             $('input[name=description]').val('');
-            $('input[name=customer_code]').val('').change();
-            $('input[name=sales_code]').val('').change();
+            $('select[name=customer_code]').val('').change();
+            $('select[name=sales_code]').val('').change();
             $('input[name=payment_type]').val('').change();
             $('textarea[name=address]').text('');
         })
@@ -266,7 +337,7 @@
                 retur_dropdown += '<option data-max="'+row.qty+'" value="'+row.product_code+'">'+row.product_code+' - '+row.product_name+'</option>';
             });
             $('#itemsTable tbody').html(table_row);
-            $('.total_invoice_price').text($.number(total_invoice_price, 0));
+            $('input[name=total_invoice_price]').val($.number(total_invoice_price, 0));
             $('select[name=returItemCode]').html(retur_dropdown);
         })
         .fail(function() {

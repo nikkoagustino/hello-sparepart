@@ -86,7 +86,12 @@ class PenjualanController extends Controller
     }
 
     function showInvoiceDetail() {
-        return view('admin/penjualan/invoice-detail');
+        $data = [
+            'invoices' => PenjualanModel::getAllInvoice(),
+            'customers' => CustomerModel::getAll(),
+            'sales' => SalesModel::getAll(),
+        ];
+        return view('admin/penjualan/invoice-detail')->with($data);
     }
 
     function showInvoiceList() {

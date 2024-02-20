@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
+        body {
+            line-height: 2rem;
+        }
         img {
             max-width: 100%;
         }
@@ -43,6 +46,16 @@
         .btn-icon-lg {
             text-align: center;
             padding: 10px 20px;
+        }
+        .btn-icon-lg img {
+            /*white*/
+            height: 2.5rem;
+            display: block;
+            filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7491%) hue-rotate(254deg) brightness(102%) contrast(102%);
+        }
+        .btn-icon-lg:hover img {
+            /*red*/
+            filter: brightness(0) saturate(100%) invert(11%) sepia(63%) saturate(6689%) hue-rotate(351deg) brightness(91%) contrast(84%);
         }
         .btn:hover {
             background-color: white !important;

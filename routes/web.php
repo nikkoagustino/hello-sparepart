@@ -109,12 +109,9 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('/', [SuratJalanController::class, 'showSuratJalanForm']);
         });
 
-        // Route::prefix('pembayaran')->group(function(){
-        //     Route::get('/', [PembelianController::class, 'showPembayaranHome']);
-        //     Route::get('invoice', [PembelianController::class, 'showPembayaranInvoice']);
-        //     Route::post('add', [PembelianController::class, 'savePembayaran']);
-        // });
-
+        Route::prefix('invoice')->group(function(){
+            Route::get('penjualan', [PenjualanController::class, 'showInvoiceDetail']);
+        });
     });
 
     Route::prefix('master')->group(function(){
@@ -261,7 +258,6 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('/', [PenjualanController::class, 'showInvoiceHome']);
             Route::get('new', [PenjualanController::class, 'formNewInvoice']);
             Route::post('new', [PenjualanController::class, 'createInvoice']);
-            Route::get('detail', [PenjualanController::class, 'showInvoiceDetail']);
             Route::get('list', [PenjualanController::class, 'showInvoiceList']);
             Route::get('delete-item', [PenjualanController::class, 'deleteInvoiceItem']);
         });

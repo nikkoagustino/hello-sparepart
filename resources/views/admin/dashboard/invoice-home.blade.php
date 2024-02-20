@@ -19,7 +19,7 @@
         <div class="row mb-4">
             <div class="col"></div>
             <div class="col-4">
-                <a href="{{ url('admin/penjualan/invoice/list') }}" class="btn btn-selection btn-pink">
+                <a href="{{ url('admin/dashboard/invoice/penjualan') }}" class="btn btn-selection btn-pink">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-download"></i>
                     </span> --}}
@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/pembelian/invoice/list') }}" class="btn btn-selection btn-blue">
+                <a href="{{ url('admin/dashboard/invoice/pembelian') }}" class="btn btn-selection btn-blue">
                     {{-- <span class="display-1">
                         <i class="fa-solid fa-upload"></i>
                     </span> --}}
