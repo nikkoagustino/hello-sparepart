@@ -8,6 +8,7 @@ use App\Models\PembelianModel;
 use App\Models\ProductModel;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PembelianController extends Controller
 {
@@ -293,5 +294,46 @@ class PembelianController extends Controller
             'data' => $items
         ];
         return response()->json($response, 200);
+    }
+    function updateInvoiceItem(Request $request) {
+        if (PembelianModel::updateInvoiceItem($request->all())) {
+            $response = [
+                'success' => true,
+                'data' => $request->all(),
+            ];
+            return response()->json($response, 200);
+        }
+        return response()->json(['success' => false], 400);
+    }
+
+    function addInvoiceItem(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'product_code' => 'required|exists:tb_product,product_code',
+            'normal_price' => 'required|integer',
+            'discount_rate' => 'required|numeric',
+            'discounted_price' => 'required|integer',
+            'qty' => 'required|integer',
+            'subtotal_price' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'message' => $validator->messages(),
+            ];
+            return response()->json($response, 400);
+        }
+
+        if (PembelianModel::addInvoiceItem($request)) {
+            return response()->json(['success' => true], 200);
+        }
+            return response()->json(['success' => false], 400);
+    }
+
+    function deleteInvoiceItemAPI(Request $request) {
+        if (PembelianModel::deleteInvoiceItem($request)) {
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false], 200);
+        }
     }
 }

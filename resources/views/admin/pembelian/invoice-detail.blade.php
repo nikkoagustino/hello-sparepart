@@ -96,7 +96,7 @@
         </div>
     </div>
     <div class="col text-end">
-        {{-- <a href="{{ url('admin/penjualan/invoice/list') }}" class="btn btn-danger btn-icon-lg">
+        {{-- <a href="{{ url('admin/pembelian/invoice/list') }}" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-receipt"></i>
             List
         </a> --}}
@@ -537,7 +537,7 @@
 
     function getReturnedItems(invoice_no) {
         $.ajax({
-            url: '{{ url('api/penjualan/retur/items') }}',
+            url: '{{ url('api/pembelian/retur/items') }}',
             type: 'GET',
             dataType: 'json',
             data: {invoice_no: invoice_no},
@@ -672,7 +672,7 @@
 
     $('#editItemSave').on('click', function(){
         $.ajax({
-            url: '{{ url('api/penjualan/edit-item') }}',
+            url: '{{ url('api/pembelian/edit-item') }}',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -739,7 +739,7 @@
             return;
         }
         $.ajax({
-            url: '{{ url('api/penjualan/retur') }}',
+            url: '{{ url('api/pembelian/retur') }}',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -833,7 +833,7 @@
 
     $('#newItemSave').on('click', function(){
         $.ajax({
-            url: '{{ url('api/penjualan/add-item') }}',
+            url: '{{ url('api/pembelian/add-item') }}',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -861,7 +861,7 @@
         var selected_row = $(this).data('id');
         $('tr').removeClass('selected');
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
-        window.location.href = "{{ url('admin/dashboard/invoice/penjualan/retur') }}?id="+selected_row;
+        window.location.href = "{{ url('admin/dashboard/invoice/pembelian/retur') }}?id="+selected_row;
     });
 
     // before revision below

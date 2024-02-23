@@ -36,6 +36,10 @@ Route::get('invoice/pembelian/lunas', [PembelianController::class, 'getInvoiceLu
 Route::post('pembelian/retur', [PembelianController::class, 'submitRetur']);
 Route::get('pembelian/retur/items', [PembelianController::class, 'getReturItems']);
 
+Route::post('pembelian/add-item', [PembelianController::class, 'addInvoiceItem']);
+Route::post('pembelian/edit-item', [PembelianController::class, 'updateInvoiceItem']);
+Route::get('pembelian/delete-item', [PembelianController::class, 'deleteInvoiceItemAPI']);
+
 Route::post('verify-pin', [AccountController::class, 'verifyPIN']);
 
 Route::get('invoice/penjualan', [PenjualanController::class, 'getInvoiceByInvNo']);
