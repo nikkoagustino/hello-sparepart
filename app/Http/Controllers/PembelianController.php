@@ -336,4 +336,30 @@ class PembelianController extends Controller
             return response()->json(['success' => false], 200);
         }
     }
+
+    function showReturDetail(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:tb_retur_pembelian,id'
+        ]);
+
+        $data = [
+            'retur_data' => PembelianModel::getReturByID($request->id),
+        ];
+        return view('admin.pembelian.retur-detail')->with($data);
+    }
+
+    function deleteReturItem(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:tb_retur_pembelian,id'
+        ]);
+
+        $retur_data = PembelianModel::getReturByID($request->id);
+        if (PembelianModel::deleteReturByID($request->id)) {
+            return redirect('admin/dashboard/invoice/pembelian/detail?invoice_no='.$retur_data->invoice_no);
+        } else {
+            return back()->withErrors(['Failed to delete']);
+        }
+    }
 }

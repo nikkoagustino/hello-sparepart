@@ -715,7 +715,9 @@
                 }
             });
         } else if (deleteTargetFunction === 'deleteInvoice') {
-            window.location.href = '{{ url('admin/dashboard/invoice/pembelian/delete') }}?invoice_no='+$('input[name=invoice_no]').val();
+            if (window.confirm('Fungsi ini untuk menghapus seluruh invoice. Lanjutkan menghapus invoice?')) {
+                window.location.href = '{{ url('admin/dashboard/invoice/pembelian/delete') }}?invoice_no='+$('input[name=invoice_no]').val();
+            }
         }
     }
 
