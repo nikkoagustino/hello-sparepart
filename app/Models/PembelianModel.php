@@ -318,4 +318,17 @@ class PembelianModel extends Model
                     ->delete();
         return $delete;
     }
+
+    static function deleteInvoice($invoice_no) {
+        $delete_master = DB::table('tb_pembelian_invoice_master')
+                            ->where('invoice_no', $invoice_no)
+                            ->delete();
+        $delete_items = DB::table('tb_pembelian_invoice_items')
+                            ->where('invoice_no', $invoice_no)
+                            ->delete();
+        $delete_retur = DB::table('tb_retur_pembelian')
+                            ->where('invoice_no', $invoice_no)
+                            ->delete();
+        return $delete_master;
+    }
 }

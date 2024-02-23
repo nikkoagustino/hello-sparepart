@@ -12,7 +12,7 @@
 <a href="{{ url('admin/dashboard/invoice') }}" class="btn btn-danger">
     <i class="fa-solid fa-store"></i> &nbsp; Invoice
 </a>
-<a href="{{ url()->current() }}" class="btn btn-danger">
+<a href="{{ url('admin/dashboard/invoice/pembelian') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/icon/pembelian.svg') }}" alt=""> &nbsp; Pembelian
 </a>
 @endsection

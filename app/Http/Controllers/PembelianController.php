@@ -362,4 +362,16 @@ class PembelianController extends Controller
             return back()->withErrors(['Failed to delete']);
         }
     }
+
+    function deleteInvoice(Request $request)
+    {
+        $request->validate([
+            'invoice_no' => 'required|exists:tb_pembelian_invoice_master,invoice_no'
+        ]);
+
+        if (PembelianModel::deleteInvoice($request->invoice_no)) {
+            return redirect('admin/dashboard/invoice/pembelian')->withSuccess('Invoice berhasil dihapus');
+        }
+        return back()->withErrors(['Gagal menghapus invoice']);
+    }
 }
