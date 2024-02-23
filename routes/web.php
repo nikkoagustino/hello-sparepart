@@ -115,6 +115,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('penjualan/retur/delete', [PenjualanController::class, 'deleteReturItem']);
 
             Route::get('pembelian', [PembelianController::class, 'showInvoiceList']);
+            Route::get('pembelian/detail', [PembelianController::class, 'showInvoiceDetail']);
         });
     });
 

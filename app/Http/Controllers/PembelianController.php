@@ -83,7 +83,11 @@ class PembelianController extends Controller
     }
 
     function showInvoiceDetail() {
-        return view('admin/pembelian/invoice-detail');
+        $data = [
+            'suppliers' => SupplierModel::getAll(),
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/pembelian/invoice-detail')->with($data);
     }
 
     function showInvoiceList() {
