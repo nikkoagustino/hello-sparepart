@@ -1,18 +1,18 @@
 @extends('admin/print/template')
 @section('content')
-    <h1>INVOICE PEMBELIAN</h1>
     <table>
         <tr>
-            <td width="15%"><b>No. Invoice</b></td>
-            <td width="35%">: {{ $invoice->invoice_no }}</td>
-            <td width="15%"><b>Kode Supplier</b></td>
-            <td width="35%">: {{ $invoice->supplier_code }}</td>
-        </tr>
-        <tr>
-            <td width="15%"><b>Tgl. Invoice</b></td>
-            <td width="35%">: {{ date('d F Y', strtotime($invoice->invoice_date)) }}</td>
-            <td width="15%"><b>Nama Supplier</b></td>
-            <td width="35%">: {{ $invoice->supplier_name }}</td>
+            <td width="70%">
+                TURBO EXPRESS MOTOR
+                <br>JAKARTA
+                <br><br>
+                No. Faktur : {{ $invoice->invoice_no }}
+            </td>
+            <td>
+                Jakarta, {{ date('d F Y') }}
+                <br>
+                Kepada Yth: {{ $invoice->supplier_name }}
+            </td>
         </tr>
     </table>
     <br>
@@ -41,21 +41,9 @@
             </tr>
             @endforeach
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">
-                    Jatuh Tempo : {{ date('d F Y', strtotime($invoice->expiry_date)) }}
-                </td>
-                <td>TOTAL</td>
-                <td>
-                    {{ number_format($invoice->total_price, 0) }}
-                </td>
-            </tr>
-        </tfoot>
     </table>
     <br>
-    @if (count($retur) > 0)
-    <h2>RETUR</h2>
+    <h2>Retur</h2>
     <table class="table">
         <thead>
             <tr>
@@ -81,17 +69,27 @@
             </tr>
             @endforeach
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">
-                </td>
-                <td>TOTAL</td>
-                <td class="text-end">
-                    {{ number_format($invoice->total_price, 0) }}
-                </td>
-            </tr>
-        </tfoot>
     </table>
-    @endif
     <br>
+
+    <table>
+        <tr>
+            <td>
+                Jatuh Tempo Tanggal {{ $invoice->expiry_date }}
+            </td>
+            <td class="text-end">
+                Jumlah &nbsp;&nbsp;&nbsp;&nbsp; {{ number_format($invoice->total_price, 0) }}       
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table class="text-center">
+        <tr>
+            <td width="25%">Tanda Terima,</td>
+            <td width="25%">Pengecek,</td>
+            <td width="25%">Pengirim,</td>
+            <td width="25%">Hormat kami,</td>
+        </tr>
+    </table>
+
 @endsection

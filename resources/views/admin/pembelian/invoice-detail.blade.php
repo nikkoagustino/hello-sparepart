@@ -870,7 +870,7 @@
 
     $('#printButton').on('click', function(){
         var invoice_no = $('input[name=invoice_no]').val();
-        window.open('{{ url('admin/print/invoice-sell') }}?invoice_no='+invoice_no, 'printWindow');
+        window.open('{{ url('admin/print/invoice-buy') }}?invoice_no='+invoice_no, 'printWindow');
     });
 </script>
 @endsection

@@ -133,7 +133,9 @@ class PembelianController extends Controller
             'items' => PembelianModel::getInvoiceItems($request->invoice_no),
             'retur' => PembelianModel::getReturnedItems($request->invoice_no),
         ];
-        return view('admin/print/invoice-buy')->with($data);
+        $pdf = \PDF::loadView('admin/print/invoice-buy', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+        // return view('admin/print/invoice-buy')->with($data);
     }
 
     function showPembayaranHome() {
