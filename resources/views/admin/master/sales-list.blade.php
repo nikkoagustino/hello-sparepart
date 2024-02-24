@@ -14,15 +14,26 @@
 @endsection
 
 @section('content')
+
 <div class="row mt-5">
+    <div class="col-8">
+        <div class="row">
+            <div class="col-3">Kode Sales</div>
+            <div class="col">
+                <input type="text" name="sales_code" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">Nama Sales</div>
+            <div class="col">
+                <input type="text" name="sales_name" class="form-control">
+            </div>
+        </div>
+    </div>
     <div class="col text-end">
         <button id="newButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-plus"></i>
-            Tambah
-        </button>
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-arrow-pointer"></i>
-            Detail
+            <i class="fa-solid fa-plus-circle"></i>
+            New
         </button>
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
@@ -34,6 +45,7 @@
         </button>
     </div>
 </div>
+
 <div class="row mt-3">
     <div class="col">
         <table class="table table-striped print table-condensed selectable">
@@ -41,19 +53,54 @@
                 <tr>
                     <th>Kode Sales</th>
                     <th>Nama Sales</th>
+                    <th>Alamat</th>
                     <th>Telepon 1</th>
                     <th>Telepon 2</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($sales as $row)
-                <tr data-id="{{ $row->sales_code }}">
-                    <td>{{ $row->sales_code }}</td>
-                    <td>{{ $row->sales_name }}</td>
-                    <td>{{ $row->phone_number_1 }}</td>
-                    <td>{{ $row->phone_number_2 }}</td>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                @endforeach
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -66,12 +113,41 @@
         window.location.href = '{{ url('admin/master/sales/add') }}';
     });
 
-    $('#detailButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/master/sales/detail') }}/'+selected_row;
-        } else {
-            alert('Pilih Sales Terlebih Dahulu');
-        }
+    $('input').on('change paste keyup', function(){
+        searchSales();
+    });
+
+    function searchSales() {
+        $.ajax({
+            url: '{{ url('api/sales-search') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                sales_code: $('input[name=sales_code]').val(),
+                sales_name: $('input[name=sales_name]').val(),
+            },
+        })
+        .done(function(result) {
+            console.log(result);
+            $('tbody').html('');
+            $.each(result.data, function(index, val) {
+                var newRow = '<tr data-id="'+val.sales_code+'">'+
+                                '<td>'+val.sales_code+'</td>'+
+                                '<td>'+val.sales_name+'</td>'+
+                                '<td>'+val.address+'</td>'+
+                                '<td>'+val.phone_number_1+'</td>'+
+                                '<td>'+val.phone_number_2+'</td>'+
+                                '</tr>';
+                $('tbody').append(newRow);
+            });
+        });
+    }
+
+    $('body').on('click', '.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        window.location.href = "{{ url('admin/master/sales/detail') }}/"+selected_row;
     });
     $('#printButton').on('click', function(){
         window.open('{{ url('admin/print/sales') }}', 'printWindow');

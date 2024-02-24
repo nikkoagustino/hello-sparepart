@@ -10,6 +10,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KomisiController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesTransaksiController;
 
 /*
@@ -79,3 +80,4 @@ Route::post('transaksi/save', [SalesTransaksiController::class, 'insertTx']);
 Route::get('customer-search', [CustomerController::class, 'searchCustomer']);
 Route::get('product-type-search', [ProductTypeController::class, 'searchProductType']);
 Route::get('product-search', [ProductController::class, 'searchProduct']);
+Route::get('sales-search', [SalesController::class, 'searchSales']);

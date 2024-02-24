@@ -48,4 +48,11 @@ class SalesModel extends Model
                     ]);
         return $update;
     }
+
+    static function searchSales($request) {
+        $query = DB::table('tb_sales');
+        if ($request->sales_code) $query->where('sales_code', 'like', '%'.$request->sales_code.'%');
+        if ($request->sales_name) $query->where('sales_name', 'like', '%'.$request->sales_name.'%');
+        return $query->get();
+    }
 }

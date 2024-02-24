@@ -19,47 +19,46 @@
     <div class="row mt-5">
         <div class="col-8">
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Kode Sales
                 </div>
-                <div class="col-8">
+                <div class="col-4">
                     <input name="sales_code" required="required" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Nama Sales
                 </div>
-                <div class="col-8">
+                <div class="col-7">
                     <input name="sales_name" required="required" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Alamat
                 </div>
-                <div class="col-8">
+                <div class="col-9">
                     <textarea name="address" rows="3" class="form-control"></textarea>
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Telepon 1
                 </div>
-                <div class="col-8">
+                <div class="col-4">
                     <input name="phone_number_1" required="required" type="text" class="form-control">
                 </div>
             </div>
 
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Telepon 2
                 </div>
-                <div class="col-8">
+                <div class="col-4">
                     <input name="phone_number_2" type="text" class="form-control">
                 </div>
             </div>
-
         </div>
 
         <div class="col-4 text-end">

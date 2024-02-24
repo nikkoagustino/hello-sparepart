@@ -69,10 +69,18 @@ class SalesController extends Controller
         ]);
 
         if (SalesModel::editSales($request)) {
-            return redirect('admin/master/sales')->withSuccess('Berhasil Tambah Sales');
             return back()->withSuccess('Berhasil Edit Sales');
         } else {
             return back()->withErrors('Gagal Edit Sales');
         }
+    }
+
+    function searchSales(Request $request) {
+
+        $output = [
+            'success' => true,
+            'data' => SalesModel::searchSales($request)
+        ];
+        return response()->json($output, 200);
     }
 }
