@@ -233,6 +233,13 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             return view('admin.pembelian.home');
         });
 
+        Route::prefix('hutang')->group(function(){
+            Route::get('/', [PembelianController::class, 'showListHutang']);
+            Route::get('detail', [PembelianController::class, 'showDetailHutang']);
+            Route::get('bayar', [PembelianController::class, 'showPembayaranInvoice']);
+            Route::post('bayar', [PembelianController::class, 'savePembayaran']);
+        });
+
         Route::prefix('invoice')->group(function(){
             Route::get('/', [PembelianController::class, 'showInvoiceHome']);
             Route::get('new', [PembelianController::class, 'formNewInvoice']);

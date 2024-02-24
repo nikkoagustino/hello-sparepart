@@ -5,12 +5,21 @@
 @endsection
 
 @section('breadcrumb')
+@if (Str::contains(request()->url(), 'dashboard'))
 <a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
 </a>
 <a href="{{ url('admin/dashboard/hutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
 </a>
+@else
+<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
+</a>
+<a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
+</a> 
+@endif
 @endsection
 
 @section('content')
@@ -181,11 +190,6 @@
 
 @section('script')
 <script>
-    $(document).ready(function() {
-        $('input').attr('autocomplete', 'off');
-        refreshData();
-    });
-
     $('input').on('change paste keyup', function(){
         refreshData();
     });
@@ -235,22 +239,6 @@
             console.log("complete");
         });
     }
-
-    // $('#detailButton').on('click', function(){
-    //     if (selected_row) {
-    //         window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
-    //     } else {
-    //         alert('Pilih Invoice Terlebih Dahulu');
-    //     }
-    // });
-
-    // $('#paymentButton').on('click', function(){
-    //     if (selected_row) {
-    //         window.location.href='{{ url('admin/pembelian/pembayaran/invoice') }}?invoice_no='+selected_row;
-    //     } else {
-    //         alert('Pilih Invoice Terlebih Dahulu');
-    //     }
-    // });
     $('#printButton').on('click', function(){
         var params = {
             invoice_no: $('input[name=invoice_no]').val(),
@@ -269,7 +257,11 @@
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
 
         if (selected_row) {
+            @if (Str::contains(request()->url(), 'dashboard'))
             window.location.href='{{ url('admin/dashboard/hutang/bayar') }}?invoice_no='+selected_row;
+            @else
+            window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
+            @endif
         } else {
             alert('Pilih Data Terlebih Dahulu');
         }

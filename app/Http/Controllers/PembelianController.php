@@ -9,6 +9,7 @@ use App\Models\ProductModel;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Str;
 
 class PembelianController extends Controller
 {
@@ -181,7 +182,11 @@ class PembelianController extends Controller
 
         // Insert pembayaran
         if (PembelianModel::insertPayment($request, $upload_path)) {
-            return redirect('admin/dashboard/hutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            if (Str::contains($request->redirect_to, 'dashboard')) {
+                return redirect('admin/dashboard/hutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            } else {
+                return redirect('admin/pembelian/hutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            }
         } else {
             return redirect()->back()->withErrors('Gagal menyimpan pembayaran');
         }

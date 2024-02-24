@@ -5,12 +5,23 @@
 @endsection
 
 @section('breadcrumb')
+
+@if (Str::contains(request()->url(), 'dashboard'))
 <a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
 </a>
 <a href="{{ url('admin/dashboard/hutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
 </a>
+@else
+<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
+</a>
+<a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
+</a> 
+@endif
+
 <a href="{{ url()->current() }}" class="btn btn-danger">
     <i class="fa-solid fa-coins"></i> &nbsp; Bayar
 </a>
@@ -126,8 +137,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form action="{{ url('admin/dashboard/hutang/bayar') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url()->current() }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
             <div class="modal-body">
                 <div class="breadcrumb">
                     <div class="row">
