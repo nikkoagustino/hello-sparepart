@@ -32,23 +32,23 @@
                     Hutang
                 </a>
             </div>
-            {{-- <div class="col-4">
+            <div class="col-4">
                 <a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-selection btn-red">
-                    <span class="display-1">
+                    {{-- <span class="display-1">
                         <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                    </span>
+                    </span> --}}
                     <img src="{{ url('assets/img/svg/pembayaran.svg') }}" class="icon-lg" alt="">
                     Pembayaran
                 </a>
-            </div> --}}
-            <div class="col-4">
+            </div>
+            {{-- <div class="col-4">
                 <a href="{{ url('admin/pembelian/lunas') }}" class="btn btn-selection btn-blue">
                     <span class="display-1">
                         <i class="fa-solid fa-check-to-slot"></i>
                     </span>
                     Lunas
                 </a>
-            </div>
+            </div> --}}
         </div>
         <div class="row mb-5">
             <div class="col"></div>
