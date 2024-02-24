@@ -142,4 +142,12 @@ class ProductController extends Controller
         // Generate the CSV file and return as a response
         return response($csv->toString(), 200, $headers);
     }
+
+    function searchProduct(Request $request) {
+        $output = [
+            'success' => true,
+            'data' => ProductModel::searchProduct($request)
+        ];
+        return response()->json($output, 200);
+    }
 }

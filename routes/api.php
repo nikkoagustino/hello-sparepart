@@ -78,3 +78,4 @@ Route::post('transaksi/save', [SalesTransaksiController::class, 'insertTx']);
 
 Route::get('customer-search', [CustomerController::class, 'searchCustomer']);
 Route::get('product-type-search', [ProductTypeController::class, 'searchProductType']);
+Route::get('product-search', [ProductController::class, 'searchProduct']);
