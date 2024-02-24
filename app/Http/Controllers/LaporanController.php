@@ -312,4 +312,17 @@ class LaporanController extends Controller
         ];
         return response()->json($output, 200);
     }
+
+    function printRangkumanLabaRugi(Request $request)
+    {
+        $data = [
+            'penjualan_kotor' => (int) LaporanModel::getPenjualanKotor($request) ?? 0,
+            'modal_bersih' => (int) LaporanModel::getModalBersih($request) ?? 0,
+            'komisi_sales' => (int) LaporanModel::getKomisiSales($request) ?? 0,
+            'beban_ops' => (int) LaporanModel::getBebanOps($request) ?? 0,
+        ];
+
+        $pdf = \PDF::loadView('admin/print/rangkuman-laba-rugi', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
 }

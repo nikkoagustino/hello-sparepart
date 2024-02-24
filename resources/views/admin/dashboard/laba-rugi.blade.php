@@ -98,7 +98,6 @@
     });
 
     function updateData() {
-        console.log('aa');
         var year = $('select[name=year]').val();
         var month_start = $('select[name=month_start]').val();
         var month_end = $('select[name=month_end]').val();
@@ -126,11 +125,23 @@
                 $('input[name=laba_bersih]').val(laba_bersih);
                 $('input').trigger('change');
             });
-        } else {
-            console.log('Lengkapi pilihan terlebih dahulu');
-            return;
         }
-
     }
+
+    $('#printButton').on('click', function(){
+        var year = $('select[name=year]').val();
+        var month_start = $('select[name=month_start]').val();
+        var month_end = $('select[name=month_end]').val();
+        if (year && month_start && month_end) {
+            const params = new URLSearchParams({
+                year: year,
+                month_start: month_start,
+                month_end: month_end
+            });
+            window.location.href = '{{ url('admin/print/rangkuman-laba-rugi') }}?'+params.toString();
+        } else {
+            alert('Lengkapi pilihan terlebih dahulu');
+        }
+    });
 </script>
 @endsection

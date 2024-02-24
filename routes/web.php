@@ -225,6 +225,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
         Route::get('product/tx', [LaporanController::class, 'printProductTx']);
         Route::get('surat-jalan', [SuratJalanController::class, 'printSuratJalan']);
+        Route::get('rangkuman-laba-rugi', [LaporanController::class, 'printRangkumanLabaRugi']);
     });
 
     Route::prefix('pembelian')->group(function(){
