@@ -18,13 +18,13 @@
     <div class="col-8">
         <div class="row">
             <div class="col-3">Kode Customer</div>
-            <div class="col position-relative">
+            <div class="col">
                 <input type="text" name="customer_code" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
             <div class="col-3">Nama Customer</div>
-            <div class="col position-relative">
+            <div class="col">
                 <input type="text" name="customer_name" class="form-control">
             </div>
         </div>
@@ -34,10 +34,6 @@
             <i class="fa-solid fa-plus-circle"></i>
             New
         </button>
-{{--         <button id="detailButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-arrow-pointer"></i>
-            Detail
-        </button> --}}
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print

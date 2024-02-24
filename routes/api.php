@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
@@ -76,3 +77,4 @@ Route::get('transaksi', [SalesTransaksiController::class, 'getSalesTransaction']
 Route::post('transaksi/save', [SalesTransaksiController::class, 'insertTx']);
 
 Route::get('customer-search', [CustomerController::class, 'searchCustomer']);
+Route::get('product-type-search', [ProductTypeController::class, 'searchProductType']);

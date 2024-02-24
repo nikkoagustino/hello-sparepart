@@ -13,7 +13,7 @@ class ProductTypeController extends Controller
 
     function insertProductType(Request $request) {
         $request->validate([
-            'type_code' => 'required|string',
+            'type_code' => 'required|unique:tb_product_type,type_code',
             'type_name' => 'required|string',
         ]);
 
@@ -35,7 +35,8 @@ class ProductTypeController extends Controller
         $data = [
             'product_types' => ProductTypeModel::getAll(),
         ];
-        return view('admin/print/product-type')->with($data);
+        $pdf = \PDF::loadView('admin/print/product-type', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 
     function detailProductType(Request $request) {
@@ -79,5 +80,13 @@ class ProductTypeController extends Controller
         } else {
             return back()->withErrors('Gagal Edit Tipe Produk');
         }
+    }
+
+    function searchProductType(Request $request) {
+        $output = [
+            'success' => true,
+            'data' => ProductTypeModel::searchProductType($request)
+        ];
+        return response()->json($output, 200);
     }
 }

@@ -59,4 +59,11 @@ class ProductTypeModel extends Model
                     ]);
         return $update;
     }
+
+    static function searchProductType($request) {
+        $query = DB::table('tb_product_type');
+        if ($request->type_code) $query->where('type_code', 'like', '%'.$request->type_code.'%');
+        if ($request->type_name) $query->where('type_name', 'like', '%'.$request->type_name.'%');
+        return $query->get();
+    }
 }

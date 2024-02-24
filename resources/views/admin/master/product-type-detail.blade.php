@@ -52,18 +52,6 @@
         </div>
     </div>
 </form>
-    <div class="row">
-        <div class="col mt-2">
-            <button id="listButton" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-file-lines"></i>
-                List
-            </button>
-            <button id="deleteButton" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-trash"></i>
-                Delete
-            </button>
-        </div>
-    </div>
 @endsection
 
 @section('script')
