@@ -54,4 +54,11 @@ class SupplierModel extends Model
                     ]);
         return $update;
     }
+
+    static function searchSupplier($request) {
+        $query = DB::table('tb_supplier');
+        if ($request->supplier_code) $query->where('supplier_code', 'like', '%'.$request->supplier_code.'%');
+        if ($request->supplier_name) $query->where('supplier_name', 'like', '%'.$request->supplier_name.'%');
+        return $query->get();
+    }
 }

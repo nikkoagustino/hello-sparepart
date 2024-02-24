@@ -39,7 +39,8 @@ class SupplierController extends Controller
         $data = [
             'suppliers' => SupplierModel::getAll(),
         ];
-        return view('admin/master/supplier')->with($data);
+        $pdf = \PDF::loadView('admin/print/supplier', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 
     function detailSupplier(Request $request) {
@@ -79,5 +80,14 @@ class SupplierController extends Controller
         } else {
             return back()->withErrors('Gagal Edit Supplier');
         }
+    }
+
+    function searchSupplier(Request $request) {
+
+        $output = [
+            'success' => true,
+            'data' => SupplierModel::searchSupplier($request)
+        ];
+        return response()->json($output, 200);
     }
 }

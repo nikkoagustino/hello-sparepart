@@ -12,6 +12,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KomisiController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesTransaksiController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,3 +82,4 @@ Route::get('customer-search', [CustomerController::class, 'searchCustomer']);
 Route::get('product-type-search', [ProductTypeController::class, 'searchProductType']);
 Route::get('product-search', [ProductController::class, 'searchProduct']);
 Route::get('sales-search', [SalesController::class, 'searchSales']);
+Route::get('supplier-search', [SupplierController::class, 'searchSupplier']);
