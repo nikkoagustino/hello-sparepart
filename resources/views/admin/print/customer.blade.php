@@ -1,6 +1,6 @@
 @extends('admin/print/template')
 @section('content')
-    <h1>List Customer</h1>
+    <h1>Database Customer</h1>
     <table class="table table-striped">
         <thead>
             <tr>

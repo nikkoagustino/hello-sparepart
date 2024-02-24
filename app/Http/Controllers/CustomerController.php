@@ -40,7 +40,9 @@ class CustomerController extends Controller
         $data = [
             'customers' => CustomerModel::getAll(),
         ];
-        return view('admin/print/customer')->with($data);
+
+        $pdf = \PDF::loadView('admin/print/customer', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 
     function detailCustomer(Request $request) {
