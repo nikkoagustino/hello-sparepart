@@ -50,4 +50,11 @@ class CustomerModel extends Model
                     ]);
         return $update;
     }
+
+    static function searchCustomer($request) {
+        $query = DB::table('tb_customer');
+        if ($request->customer_code) $query->where('customer_code', 'like', '%'.$request->customer_code.'%');
+        if ($request->customer_name) $query->where('customer_name', 'like', '%'.$request->customer_name.'%');
+        return $query->get();
+    }
 }

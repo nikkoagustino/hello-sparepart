@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
@@ -73,3 +74,5 @@ Route::get('komisi', [KomisiController::class, 'getKomisiViewTable']);
 Route::post('komisi/save', [KomisiController::class, 'updateKomisi']);
 Route::get('transaksi', [SalesTransaksiController::class, 'getSalesTransaction']);
 Route::post('transaksi/save', [SalesTransaksiController::class, 'insertTx']);
+
+Route::get('customer-search', [CustomerController::class, 'searchCustomer']);

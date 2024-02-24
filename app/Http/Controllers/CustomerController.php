@@ -75,4 +75,12 @@ class CustomerController extends Controller
             return back()->withErrors('Gagal Edit Customer');
         }
     }
+
+    function searchCustomer(Request $request) {
+        $output = [
+            'success' => true,
+            'data' => CustomerModel::searchCustomer($request)
+        ];
+        return response()->json($output, 200);
+    }
 }

@@ -15,15 +15,29 @@
 
 @section('content')
 <div class="row mt-5">
+    <div class="col-8">
+        <div class="row">
+            <div class="col-3">Kode Customer</div>
+            <div class="col position-relative">
+                <input type="text" name="customer_code" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">Nama Customer</div>
+            <div class="col position-relative">
+                <input type="text" name="customer_name" class="form-control">
+            </div>
+        </div>
+    </div>
     <div class="col text-end">
         <button id="newButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-plus"></i>
-            Tambah
+            <i class="fa-solid fa-plus-circle"></i>
+            New
         </button>
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
+{{--         <button id="detailButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-arrow-pointer"></i>
             Detail
-        </button>
+        </button> --}}
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
@@ -48,16 +62,46 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($customers as $row)
-                <tr data-id="{{ $row->customer_code }}">
-                    <td>{{ $row->customer_code }}</td>
-                    <td>{{ $row->customer_name }}</td>
-                    <td>{{ number_format($row->limit, 0) }}</td>
-                    <td>{{ $row->contact_person }}</td>
-                    <td>{{ $row->phone_number_1 }}</td>
-                    <td>{{ $row->phone_number_2 }}</td>
+                <tr>
+                    <tr>&nbsp;</tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
                 </tr>
-                @endforeach
+                <tr>
+                    <tr>&nbsp;</tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                </tr>
+                <tr>
+                    <tr>&nbsp;</tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                </tr>
+                <tr>
+                    <tr>&nbsp;</tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                </tr>
+                <tr>
+                    <tr>&nbsp;</tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -71,6 +115,37 @@
     $('#newButton').on('click', function(){
         window.location.href = '{{ url('admin/master/customer/add') }}';
     });
+
+    $('input').on('change paste keyup', function(){
+        searchCustomer();
+    });
+
+    function searchCustomer() {
+        $.ajax({
+            url: '{{ url('api/customer-search') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                customer_code: $('input[name=customer_code]').val(),
+                customer_name: $('input[name=customer_name]').val(),
+            },
+        })
+        .done(function(result) {
+            console.log(result);
+            $('tbody').html('');
+            $.each(result.data, function(index, val) {
+                var newRow = '<tr data-id="'+val.customer_code+'">'+
+                                '<td>'+val.customer_code+'</td>'+
+                                '<td>'+val.customer_name+'</td>'+
+                                '<td>'+$.number(val.limit, 0)+'</td>'+
+                                '<td>'+val.contact_person+'</td>'+
+                                '<td>'+val.phone_number_1+'</td>'+
+                                '<td>'+val.phone_number_2+'</td>'+
+                                '</tr>';
+                $('tbody').append(newRow);
+            });
+        });
+    }
 
     $('#detailButton').on('click', function(){
         if (selected_row) {
