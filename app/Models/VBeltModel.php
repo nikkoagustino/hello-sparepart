@@ -49,4 +49,11 @@ class VBeltModel extends Model
                     ]);
         return $update;
     }
+
+    static function searchVBelt($request) {
+        $query = DB::table('tb_vbelt');
+        if ($request->type_code) $query->where('type_code', 'like', '%'.$request->type_code.'%');
+        if ($request->model) $query->where('model', 'like', '%'.$request->model.'%');
+        return $query->get();
+    }
 }

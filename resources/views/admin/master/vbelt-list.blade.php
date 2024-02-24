@@ -15,14 +15,24 @@
 
 @section('content')
 <div class="row mt-5">
+    <div class="col-8">
+        <div class="row">
+            <div class="col-3">Jenis Barang</div>
+            <div class="col">
+                <input type="text" name="type_code" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">Model</div>
+            <div class="col">
+                <input type="text" name="model" class="form-control">
+            </div>
+        </div>
+    </div>
     <div class="col text-end">
         <button id="newButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-plus"></i>
-            Tambah
-        </button>
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-arrow-pointer"></i>
-            Detail
+            <i class="fa-solid fa-plus-circle"></i>
+            New
         </button>
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
@@ -34,6 +44,7 @@
         </button>
     </div>
 </div>
+
 <div class="row mt-3">
     <div class="col">
         <table class="table table-striped print table-condensed selectable">
@@ -48,16 +59,46 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($vbelts as $row)
-                <tr data-id="{{ $row->id }}">
-                    <td>{{ $row->type_code }}</td>
-                    <td>{{ $row->model }}</td>
-                    <td>{{ $row->size_min }} s/d {{ $row->size_max }}</td>
-                    <td>{{ number_format($row->price, 0) }}</td>
-                    <td>{{ $row->price_unit }}</td>
-                    <td>{{ number_format($row->discount, 2) }}</td>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                @endforeach
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -70,12 +111,42 @@
         window.location.href = '{{ url('admin/master/vbelt/add') }}';
     });
     
-    $('#detailButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/master/vbelt/detail') }}/'+selected_row;
-        } else {
-            alert('Pilih V-Belt Terlebih Dahulu');
-        }
+    $('input').on('change paste keyup', function(){
+        searchvbelt();
+    });
+
+    function searchvbelt() {
+        $.ajax({
+            url: '{{ url('api/vbelt-search') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                type_code: $('input[name=type_code]').val(),
+                model: $('input[name=model]').val(),
+            },
+        })
+        .done(function(result) {
+            console.log(result);
+            $('tbody').html('');
+            $.each(result.data, function(index, val) {
+                var newRow = '<tr data-id="'+val.id+'">'+
+                                '<td>'+val.type_code+'</td>'+
+                                '<td>'+val.model+'</td>'+
+                                '<td>'+val.size_min+' s/d '+val.size_max+'</td>'+
+                                '<td>'+$.number(val.price, 0)+'</td>'+
+                                '<td>'+val.price_unit+'</td>'+
+                                '<td>'+$.number(val.discount, 2)+'</td>'+
+                                '</tr>';
+                $('tbody').append(newRow);
+            });
+        });
+    }
+
+    $('body').on('click', '.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        window.location.href = "{{ url('admin/master/vbelt/detail') }}/"+selected_row;
     });
     $('#printButton').on('click', function(){
         window.open('{{ url('admin/print/vbelt') }}', 'printWindow');

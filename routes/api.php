@@ -13,6 +13,7 @@ use App\Http\Controllers\KomisiController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesTransaksiController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\VBeltController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,3 +84,4 @@ Route::get('product-type-search', [ProductTypeController::class, 'searchProductT
 Route::get('product-search', [ProductController::class, 'searchProduct']);
 Route::get('sales-search', [SalesController::class, 'searchSales']);
 Route::get('supplier-search', [SupplierController::class, 'searchSupplier']);
+Route::get('vbelt-search', [VBeltController::class, 'searchVBelt']);

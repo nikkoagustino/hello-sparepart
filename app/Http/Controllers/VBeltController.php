@@ -44,7 +44,8 @@ class VBeltController extends Controller
         $data = [
             'vbelts' => VBeltModel::getAll(),
         ];
-        return view('admin/print/vbelt')->with($data);
+        $pdf = \PDF::loadView('admin/print/vbelt', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 
     function detailVBelt(Request $request) {
@@ -83,5 +84,14 @@ class VBeltController extends Controller
         } else {
             return back()->withErrors('Gagal Edit V-Belt');
         }
+    }
+
+    function searchVBelt(Request $request) {
+
+        $output = [
+            'success' => true,
+            'data' => VBeltModel::searchVBelt($request)
+        ];
+        return response()->json($output, 200);
     }
 }
