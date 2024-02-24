@@ -9,7 +9,7 @@
     <img src="{{ url('assets/img/svg/sidebar-master.svg') }}"> &nbsp; Master
 </a>
 <a href="{{ url('admin/master/product') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-product.svg') }}"> &nbsp; Produk
+    <img src="{{ url('assets/img/svg/product.svg') }}"> &nbsp; Produk
 </a>
 @endsection
 
@@ -19,53 +19,66 @@
     <div class="row mt-5">
         <div class="col-8">
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Kode Produk
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <input name="product_code" readonly="readonly" value="{{ $product->product_code }}" required="required" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Nama Produk
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <input name="product_name" readonly="readonly" value="{{ $product->product_name }}" required="required" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Harga Modal
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <input name="price_capital" value="{{ number_format($product->price_capital, 0) }}" required="required" readonly="readonly" type="text" data-type="number" class="form-control">
                 </div>
             </div>
 
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Harga Jual
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <input name="price_selling" value="{{ number_format($product->price_selling, 0) }}" required="required" readonly="readonly" type="text" data-type="number" class="form-control">
                 </div>
             </div>
-
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Jenis Barang
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <select name="type_code" required="required" readonly="readonly" class="form-select form-control">
                         @foreach ($product_types as $row)
-                        <option {{ ($row->type_code == $product->type_code) ? 'selected="selected"' : ''; }} value="{{ $row->type_code }}">{{ $row->type_code }} - {{ $row->type_name }}</option>
+                        <option {{ ($row->type_code == $product->type_code) ? 'selected="selected"' : ''; }} value="{{ $row->type_code }}">{{ $row->type_code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6">
+                    <select name="type_code_name" required="required" readonly="readonly" class="form-select form-control">
+                        @foreach ($product_types as $row)
+                        <option {{ ($row->type_code == $product->type_code) ? 'selected="selected"' : ''; }} value="{{ $row->type_code }}">{{ $row->type_name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    Qty
+                </div>
+                <div class="col-3">
+                    <input name="qty_stok" value="{{ number_format($product->qty_stok, 0) }}" required="required" readonly="readonly" type="text" data-type="number" class="form-control">
+                </div>
+            </div>
         </div>
-
         <div class="col-4 text-end">
             <button id="saveButton" style="display: none" type="submit" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-save"></i>
@@ -75,6 +88,10 @@
                 <i class="fa-solid fa-pencil"></i>
                 Edit
             </button>
+            <button id="deleteButton" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
+                <i class="fa-solid fa-trash"></i>
+                Delete
+            </button>
             <button type="back" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-rotate-left"></i>
                 Back
@@ -82,22 +99,6 @@
         </div>
     </div>
 </form>
-    <div class="row">
-        <div class="col mt-2">
-            <button id="listButton" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-file-lines"></i>
-                List
-            </button>
-            <button id="txButton" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-file-invoice-dollar"></i>
-                Transaksi
-            </button>
-            <button id="deleteButton" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-trash"></i>
-                Delete
-            </button>
-        </div>
-    </div>
 @endsection
 
 @section('script')
@@ -107,10 +108,12 @@
     });
 
     $('#deleteButton').on('click', function(){
-        $('#deleteAction').attr('href', '{{ url('admin/master/product/delete/'.$product->product_code) }}');
+        event.preventDefault();
         $("#deleteModal").modal("show");
     });
-
+    function enableDelete() {
+        window.location.href = '{{ url('admin/master/product/delete/'.$product->product_code) }}';
+    }
     $('#txButton').on('click', function(){
         window.location.href='{{ url('admin/master/product/transaksi/'.$product->product_code) }}';
     });

@@ -67,6 +67,7 @@ class ProductModel extends Model
                         'price_capital' => $request->price_capital,
                         'price_selling' => $request->price_selling,
                         'type_code' => $request->type_code,
+                        'qty_stok' => $request->qty_stok,
                     ]);
         return $update;
     }
@@ -79,16 +80,9 @@ class ProductModel extends Model
     }
 
     static function searchProduct($request) {
-        DB::statement('SET SQL_MODE=""');
-        $query = DB::table('tb_product')->groupBy('tb_product.product_code');
-        if ($request->product_code) $query->where('tb_product.product_code', 'like', '%'.$request->product_code.'%');
-        if ($request->product_name) $query->where('tb_product.product_name', 'like', '%'.$request->product_name.'%');
-
-        $query->leftJoin('tb_pembelian_invoice_items AS beli', 'tb_product.product_code', '=', 'beli.product_code');
-        $query->leftJoin('tb_penjualan_invoice_items AS jual', 'tb_product.product_code', '=', 'jual.product_code');
-
-        $query->select('tb_product.*', DB::raw('(COALESCE(SUM(beli.qty), 0) - COALESCE(SUM(jual.qty), 0)) AS qty_stok'));
-        
+        $query = DB::table('tb_product')->groupBy('product_code');
+        if ($request->product_code) $query->where('product_code', 'like', '%'.$request->product_code.'%');
+        if ($request->product_name) $query->where('product_name', 'like', '%'.$request->product_name.'%');
         return $query->get();
     }
 }

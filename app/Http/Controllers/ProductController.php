@@ -101,6 +101,7 @@ class ProductController extends Controller
             'price_capital' => 'required|integer',
             'price_selling' => 'required|integer',
             'type_code' => 'required|string',
+            'qty_stok' => 'required|integer',
         ]);
 
         if (ProductModel::edit($request)) {
