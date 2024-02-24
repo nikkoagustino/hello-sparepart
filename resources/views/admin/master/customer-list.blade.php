@@ -147,12 +147,11 @@
         });
     }
 
-    $('#detailButton').on('click', function(){
-        if (selected_row) {
-            window.location.href='{{ url('admin/master/customer/detail') }}/'+selected_row;
-        } else {
-            alert('Pilih Customer Terlebih Dahulu');
-        }
+    $('body').on('click', '.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        window.location.href = "{{ url('admin/master/customer/detail') }}/"+selected_row;
     });
 
     $('#printButton').on('click', function(){

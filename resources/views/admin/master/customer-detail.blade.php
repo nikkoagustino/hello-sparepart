@@ -22,7 +22,7 @@
                 <div class="col-4">
                     Kode Customer
                 </div>
-                <div class="col-8">
+                <div class="col-5">
                     <input name="customer_code" readonly="readonly" value="{{ $customer->customer_code }}" required="required" type="text" class="form-control">
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="col-4">
                     Nama Customer
                 </div>
-                <div class="col-8">
+                <div class="col-7">
                     <input name="customer_name" readonly="readonly" value="{{ $customer->customer_name }}" required="required" type="text" class="form-control">
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="col-4">
                     Telepon 1
                 </div>
-                <div class="col-8">
+                <div class="col-5">
                     <input name="phone_number_1" readonly="readonly" value="{{ $customer->phone_number_1 }}" required="required" type="text" class="form-control">
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <div class="col-4">
                     Telepon 2
                 </div>
-                <div class="col-8">
+                <div class="col-5">
                     <input name="phone_number_2" readonly="readonly" value="{{ $customer->phone_number_2 }}" type="text" class="form-control">
                 </div>
             </div>
@@ -64,7 +64,7 @@
                 <div class="col-4">
                     Contact Person
                 </div>
-                <div class="col-8">
+                <div class="col-5">
                     <input name="contact_person" readonly="readonly" value="{{ $customer->contact_person }}" type="text" class="form-control">
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="col-4">
                     Limit
                 </div>
-                <div class="col-8">
+                <div class="col-5">
                     <input name="limit" required="required" readonly="readonly" value="{{ $customer->limit }}" type="text" data-type="number" class="form-control">
                 </div>
             </div>
@@ -89,6 +89,10 @@
                 <i class="fa-solid fa-pencil"></i>
                 Edit
             </button>
+            <button id="deleteButton" class="btn btn-danger btn-icon-lg">
+                <i class="fa-solid fa-trash"></i>
+                Delete
+            </button>
             <button type="back" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-rotate-left"></i>
                 Back
@@ -96,22 +100,6 @@
         </div>
     </div>
 </form>
-    <div class="row">
-        <div class="col mt-2">
-            <button id="listButton" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-file-lines"></i>
-                List
-            </button>
-            <button id="txButton" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-file-invoice-dollar"></i>
-                Transaksi
-            </button>
-            <button id="deleteButton" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-trash"></i>
-                Delete
-            </button>
-        </div>
-    </div>
 @endsection
 
 @section('script')
@@ -120,9 +108,12 @@
         window.location.href='{{ url('admin/master/customer') }}';
     });
     $('#deleteButton').on('click', function(){
-        $('#deleteAction').attr('href', '{{ url('admin/master/customer/delete/'.$customer->customer_code) }}');
+        event.preventDefault();
         $("#deleteModal").modal("show");
     });
+    function enableDelete() {
+        window.location.href = '{{ url('admin/master/customer/delete/'.$customer->customer_code) }}';
+    }
     function enableEdit() {
         $('input').removeAttr('readonly');
         $('textarea').removeAttr('readonly');
