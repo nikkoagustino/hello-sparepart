@@ -19,57 +19,68 @@
     <div class="row mt-5">
         <div class="col-8">
             <div class="row mb-2">
-                <div class="col-4">
-                    Kode Barang
+                <div class="col-3">
+                    Kode Produk
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <input name="product_code" required="required" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
-                    Nama Barang
+                <div class="col-3">
+                    Nama Produk
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <input name="product_name" required="required" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Harga Modal
                 </div>
-                <div class="col-8">
-                    <input data-type="number" name="price_capital" required="required" type="text" class="form-control">
+                <div class="col-3">
+                    <input name="price_capital" type="text" data-type="number" class="form-control">
                 </div>
             </div>
 
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Harga Jual
                 </div>
-                <div class="col-8">
-                    <input data-type="number" name="price_selling" required="required" type="text" class="form-control">
+                <div class="col-3">
+                    <input name="price_selling" type="text" data-type="number" class="form-control">
                 </div>
             </div>
-
             <div class="row mb-2">
-                <div class="col-4">
+                <div class="col-3">
                     Jenis Barang
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <select name="type_code" required="required" class="form-select form-control">
-                        <option value="" selected="selected" disabled="disabled">Pilih Tipe Produk...</option>
                         @foreach ($product_types as $row)
-                        <option value="{{ $row->type_code }}">{{ $row->type_code }} - {{ $row->type_name }}</option>
+                        <option value="{{ $row->type_code }}">{{ $row->type_code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6">
+                    <select name="type_code_name" required="required" class="form-select form-control">
+                        @foreach ($product_types as $row)
+                        <option value="{{ $row->type_code }}">{{ $row->type_name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-
+            <div class="row mb-2">
+                <div class="col-3">
+                    Qty
+                </div>
+                <div class="col-3">
+                    <input name="qty_stok" value="0" type="text" data-type="number" class="form-control">
+                </div>
+            </div>
         </div>
-
         <div class="col-4 text-end">
-            <button type="submit" class="btn btn-danger btn-icon-lg">
+            <button id="saveButton" type="submit" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-save"></i>
                 Save
             </button>

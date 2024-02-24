@@ -26,7 +26,7 @@ class ProductController extends Controller
             'type_code' => 'required|string',
         ]);
 
-        if (ProductModel::insert($request->except('_token'))) {
+        if (ProductModel::insert($request->except(['_token', 'type_code_name']))) {
             return redirect('admin/master/product')->withSuccess('Berhasil Tambah Produk');
         } else {
             return back()->withErrors('Gagal Tambah Produk');
@@ -44,7 +44,9 @@ class ProductController extends Controller
         $data = [
             'products' => ProductModel::getAll(),
         ];
-        return view('admin/print/product')->with($data);
+
+        $pdf = \PDF::loadView('admin/print/product', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 
     function detailProduct(Request $request) {
@@ -123,25 +125,12 @@ class ProductController extends Controller
 
     function exportCSV() {
         $data = ProductModel::getExportProduct();
+        $output = json_decode(json_encode($data), true);
         $csv = Writer::createFromString('');
-
-        // $csv->insertOne(array_keys((array) $data[0]));
-
-        // set header
-        $csv->insertOne(array('Kode Barang', 'Nama Barang', 'Harga Modal', 'Harga Jual', 'Jenis Barang', 'Dibuat Tanggal', 'Diperbarui Tanggal'));
-
-        foreach ($data as $row) {
-            $csv->insertOne((array) $row);
-        }
-
-        // Set the HTTP response headers
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="Data Produk '.date('c').'.csv"',
-        ];
-
-        // Generate the CSV file and return as a response
-        return response($csv->toString(), 200, $headers);
+        $csv->insertOne(array('Kode Barang', 'Nama Barang', 'Harga Modal', 'Harga Jual', 'Jenis Barang', 'Dibuat Tanggal', 'Diperbarui Tanggal', 'Stok'));
+        $csv->insertAll($output);
+        $csv->output('Data Produk '.date('c').'.csv');
+        return;
     }
 
     function searchProduct(Request $request) {

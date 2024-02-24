@@ -602,6 +602,13 @@
         $('select[name=supplier_code]').on('change', function(){
             $('select[name=supplier_code_name]').val($(this).val());
         });
+        
+        $('select[name=type_code_name]').on('change', function(){
+            $('select[name=type_code]').val($(this).val());
+        });
+        $('select[name=type_code]').on('change', function(){
+            $('select[name=type_code_name]').val($(this).val());
+        });
     </script>
     @yield('script')
 </body>
