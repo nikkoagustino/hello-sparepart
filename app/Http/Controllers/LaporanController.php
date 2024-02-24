@@ -293,4 +293,23 @@ class LaporanController extends Controller
         ];
         return view('admin/print/product-transactions')->with($data);
     }
+
+    function showDashboardLabaRugi(Request $request)
+    {
+        return view('admin/dashboard/laba-rugi');
+    }
+
+    function getDashboardLabaRugi(Request $request)
+    {
+        $output = [
+            'success' => true,
+            'data' => [
+                'penjualan_kotor' => (int) LaporanModel::getPenjualanKotor($request) ?? 0,
+                'modal_bersih' => (int) LaporanModel::getModalBersih($request) ?? 0,
+                'komisi_sales' => (int) LaporanModel::getKomisiSales($request) ?? 0,
+                'beban_ops' => (int) LaporanModel::getBebanOps($request) ?? 0,
+            ]
+        ];
+        return response()->json($output, 200);
+    }
 }

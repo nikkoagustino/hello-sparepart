@@ -53,11 +53,11 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/laporan/laba-rugi') }}" class="btn btn-selection btn-green">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/icon/laporan-labarugi.svg') }}" class="icon-lg" alt="">
+                <a href="{{ url('admin/dashboard/laba-rugi') }}" class="btn btn-selection btn-green">
+                    <span class="display-1">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </span>
+                    {{-- <img src="{{ url('assets/img/icon/laporan-labarugi.svg') }}" class="icon-lg" alt=""> --}}
                     Laporan Laba Rugi
                 </a>
             </div>

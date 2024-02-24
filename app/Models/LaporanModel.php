@@ -11,6 +11,38 @@ class LaporanModel extends Model
 {
     use HasFactory;
 
+    static function getPenjualanKotor($request) {
+        $result = DB::table('view_invoice_penjualan_detail')
+                    ->whereRaw('YEAR(invoice_date) = '.$request->year)
+                    ->whereRaw('MONTH(invoice_date) >= '.$request->month_start.' AND MONTH(invoice_date) <= '.$request->month_end)
+                    ->sum('total_price');
+        return $result;
+    }
+
+    static function getModalBersih($request) {
+        $result = DB::table('view_invoice_jual_modal')
+                    ->whereRaw('YEAR(invoice_date) = '.$request->year)
+                    ->whereRaw('MONTH(invoice_date) >= '.$request->month_start.' AND MONTH(invoice_date) <= '.$request->month_end)
+                    ->sum('subtotal_modal');
+        return $result;
+    }
+
+    static function getKomisiSales($request) {
+        $result = DB::table('view_tabel_komisi_sales')
+                    ->whereRaw('YEAR(invoice_date) = '.$request->year)
+                    ->whereRaw('MONTH(invoice_date) >= '.$request->month_start.' AND MONTH(invoice_date) <= '.$request->month_end)
+                    ->sum('paid_amount');
+        return $result;
+    }
+
+    static function getBebanOps($request) {
+        $result = DB::table('tb_transaksi_sales')
+                    ->whereRaw('YEAR(tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(tx_date) >= '.$request->month_start.' AND MONTH(tx_date) <= '.$request->month_end)
+                    ->sum('amount');
+        return $result;
+    }
+
     static function getMonthlyExpense($current_date) {
         $result = DB::table('view_invoice_pembelian_detail')
                     ->whereRaw('YEAR(invoice_date) = '.date('Y', strtotime($current_date)).' AND MONTH(invoice_date) = '.date('m', strtotime($current_date)))

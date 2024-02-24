@@ -121,6 +121,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('pembelian/retur/delete', [PembelianController::class, 'deleteReturItem']);
 
         });
+
+        Route::get('laba-rugi', [LaporanController::class, 'showDashboardLabaRugi']);
     });
 
     Route::prefix('master')->group(function(){
