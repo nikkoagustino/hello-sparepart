@@ -84,6 +84,15 @@ class PembelianController extends Controller
         }
     }
 
+    function showDetailHutang(Request $request) {
+        $data = [
+            'invoice' => PembelianModel::getInvoiceDetail($request->invoice_no),
+            'items' => PembelianModel::getInvoiceItems($request->invoice_no),
+            'payments' => PembelianModel::getPreviousPayment($request->invoice_no),
+        ];
+        return view('admin/pembelian/hutang-detail')->with($data);
+    }
+
     function showInvoiceDetail() {
         $data = [
             'suppliers' => SupplierModel::getAll(),

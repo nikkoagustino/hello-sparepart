@@ -5,21 +5,12 @@
 @endsection
 
 @section('breadcrumb')
-@if (Str::contains(request()->url(), 'dashboard'))
-<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
-</a>
-<a href="{{ url('admin/dashboard/hutang') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
-</a>
-@else
 <a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
 </a>
 <a href="{{ url('admin/pembelian/hutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/hutang.svg') }}"> &nbsp; Hutang
 </a> 
-@endif
 @endsection
 
 @section('content')
@@ -257,11 +248,7 @@
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
 
         if (selected_row) {
-            @if (Str::contains(request()->url(), 'dashboard'))
-            window.location.href='{{ url('admin/dashboard/hutang/bayar') }}?invoice_no='+selected_row;
-            @else
             window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
-            @endif
         } else {
             alert('Pilih Data Terlebih Dahulu');
         }

@@ -69,7 +69,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($retur as $row)
+            <?php
+            $total_retur_price = 0;
+            foreach ($retur as $row):
+                $subtotal_retur = $row->qty * (int) ($row->normal_price - ($row->normal_price * ($row->discount_rate / 100)));
+                $total_retur_price += $subtotal_retur;
+            ?>
             <tr data-id="{{ $row->product_code }}">
                 <td>{{ $row->product_code }}</td>
                 <td>{{ $row->type_code }}</td>
@@ -77,17 +82,17 @@
                 <td>{{ number_format($row->qty, 0) }}</td>
                 <td>{{ number_format($row->normal_price, 0) }}</td>
                 <td>{{ number_format($row->discount_rate, 2) }}</td>
-                <td>{{ number_format($row->qty * (int) ($row->normal_price - ($row->normal_price * ($row->discount_rate / 100))), 0) }}</td>
+                <td>{{ number_format($subtotal_retur, 0) }}</td>
             </tr>
-            @endforeach
+            <?php endforeach; ?>
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="5">
                 </td>
                 <td>TOTAL</td>
-                <td class="text-end">
-                    {{ number_format($invoice->total_price, 0) }}
+                <td>
+                    {{ number_format($invoice->total_retur_price, 0) }}
                 </td>
             </tr>
         </tfoot>
