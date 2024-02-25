@@ -57,5 +57,9 @@
             alert('Pilih Invoice Terlebih Dahulu');
         }
     });
+
+    @if (session('is_print') === 1)
+    window.open('{{ url('admin/print/invoice-buy') }}?invoice_no={{ session('invoice_no') }}', 'printWindow');
+    @endif
 </script>
 @endsection

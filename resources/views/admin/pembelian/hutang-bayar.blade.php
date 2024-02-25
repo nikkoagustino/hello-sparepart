@@ -133,7 +133,7 @@
                         <div class="breadcrumb">
                             <div class="row">
                                 <div class="col">
-                                    <a href="{{ url()->current() }}" class="btn btn-danger">
+                                    <a href="javascript:void(0)" class="btn btn-danger">
                                         <i class="fa-solid fa-coins"></i> &nbsp; Bayar
                                     </a>
                                 </div>
