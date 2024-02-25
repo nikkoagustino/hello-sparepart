@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VBeltController;
@@ -92,17 +93,17 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         });
 
         Route::prefix('hutang')->group(function(){
-            Route::get('/', [PembelianController::class, 'showListHutang']);
-            Route::get('detail', [PembelianController::class, 'showDetailHutang']);
-            Route::get('bayar', [PembelianController::class, 'showPembayaranInvoice']);
-            Route::post('bayar', [PembelianController::class, 'savePembayaran']);
+            Route::get('/', [DashboardController::class, 'showListHutang']);
+            // Route::get('detail', [PembelianController::class, 'showDetailHutang']);
+            Route::get('bayar', [DashboardController::class, 'showPembayaranHutang']);
+            Route::post('bayar', [DashboardController::class, 'savePembayaranHutang']);
         });
 
         Route::prefix('piutang')->group(function(){
-            Route::get('/', [PenjualanController::class, 'showListPiutang']);
-            Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
-            Route::get('bayar', [PenjualanController::class, 'showPembayaranInvoice']);
-            Route::post('bayar', [PenjualanController::class, 'savePembayaran']);
+            Route::get('/', [DashboardController::class, 'showListPiutang']);
+            // Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
+            Route::get('bayar', [DashboardController::class, 'showPembayaranPiutang']);
+            Route::post('bayar', [DashboardController::class, 'savePembayaranPiutang']);
         });
 
         Route::prefix('surat-jalan')->group(function(){
@@ -110,15 +111,15 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         });
 
         Route::prefix('invoice')->group(function(){
-            Route::get('penjualan', [PenjualanController::class, 'showInvoiceDetail']);
-            Route::get('penjualan/retur', [PenjualanController::class, 'showReturDetail']);
-            Route::get('penjualan/retur/delete', [PenjualanController::class, 'deleteReturItem']);
+            Route::get('penjualan', [DashboardController::class, 'showInvoicePenjualanDetail']);
+            Route::get('penjualan/retur', [DashboardController::class, 'showPenjualanReturDetail']);
+            Route::get('penjualan/retur/delete', [DashboardController::class, 'deletePenjualanReturItem']);
 
-            Route::get('pembelian', [PembelianController::class, 'showInvoiceList']);
-            Route::get('pembelian/detail', [PembelianController::class, 'showInvoiceDetail']);
-            Route::get('pembelian/retur', [PembelianController::class, 'showReturDetail']);
-            Route::get('pembelian/delete', [PembelianController::class, 'deleteInvoice']);
-            Route::get('pembelian/retur/delete', [PembelianController::class, 'deleteReturItem']);
+            Route::get('pembelian', [DashboardController::class, 'showInvoicePembelianList']);
+            Route::get('pembelian/detail', [DashboardController::class, 'showInvoicePembelianDetail']);
+            Route::get('pembelian/delete', [DashboardController::class, 'deleteInvoicePembelian']);
+            Route::get('pembelian/retur', [DashboardController::class, 'showPembelianReturDetail']);
+            Route::get('pembelian/retur/delete', [DashboardController::class, 'deletePembelianReturItem']);
 
         });
 

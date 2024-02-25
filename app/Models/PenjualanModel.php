@@ -193,6 +193,9 @@ class PenjualanModel extends Model
                     ->leftJoin('tb_penjualan_invoice_items AS itm', 'inv.invoice_no', '=', 'itm.invoice_no')
                     ->leftJoin('view_piutang_penjualan AS hut', 'inv.invoice_no', '=', 'hut.invoice_no');
 
+        if ($request->invoice_no) {
+            $query->where('inv.invoice_no', 'like', '%'.$request->invoice_no.'%');
+        }
         if ($request->date_start) {
             $query->where('inv.invoice_date', '>=', $request->date_start);
         }
