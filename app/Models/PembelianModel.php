@@ -152,6 +152,40 @@ class PembelianModel extends Model
         return $insert;
     }
 
+    static function updatePayment($request, $payment_proof_path) {
+        if ($payment_proof_path) {
+            $update = DB::table('tb_pembelian_invoice_bayar')
+                        ->where('id', $request->edit_id)
+                        ->update([
+                            'paid_amount' => $request->edit_paid_amount,
+                            'payment_date' => $request->edit_payment_date,
+                            'payment_proof' => $payment_proof_path,
+                        ]);
+        } else {
+            $update = DB::table('tb_pembelian_invoice_bayar')
+                        ->where('id', $request->edit_id)
+                        ->update([
+                            'paid_amount' => $request->edit_paid_amount,
+                            'payment_date' => $request->edit_payment_date,
+                        ]);
+        }
+        return $update;
+    }
+
+    static function getPembayaranID($id) {
+        $result = DB::table('tb_pembelian_invoice_bayar')
+                    ->where('id', $id)
+                    ->first();
+        return $result;
+    }
+
+    static function deletePayment($id) {
+        $delete = DB::table('tb_pembelian_invoice_bayar')
+                    ->where('id', $id)
+                    ->delete();
+        return $delete;
+    }
+
     static function deleteInvoiceItem($request) {
         $delete = DB::table('tb_pembelian_invoice_items')
                     ->where('invoice_no', $request->invoice_no)

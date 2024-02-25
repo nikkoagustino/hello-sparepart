@@ -239,6 +239,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('detail', [PembelianController::class, 'showDetailHutang']);
             Route::get('bayar', [PembelianController::class, 'showPembayaranInvoice']);
             Route::post('bayar', [PembelianController::class, 'savePembayaran']);
+            Route::post('edit-bayar', [PembelianController::class, 'editPembayaran']);
+            Route::get('delete-bayar', [PembelianController::class, 'deletePembayaran']);
         });
 
         Route::prefix('invoice')->group(function(){
