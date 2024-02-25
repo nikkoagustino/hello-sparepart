@@ -30,14 +30,17 @@
             padding-bottom: 7px;
             text-align: left;
         }
-        .table tbody tr:last-child td {
+        th, td {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        .table tbody tr:last-child td,
+        .table tfoot tr:last-child td {
             border-bottom: 2px solid black;
+            padding-bottom: 7px;
         }
         .table tfoot tr td {
             font-weight: bold;
-            border-bottom: 2px solid black;
-            padding-top: 7px;
-            padding-bottom: 7px;
         }
         header {
             font-weight: 400;

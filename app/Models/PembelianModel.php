@@ -365,4 +365,11 @@ class PembelianModel extends Model
                             ->delete();
         return $delete_master;
     }
+
+    static function getHutangByInvoice($invoice_no) {
+        $result = DB::table('view_hutang_pembelian')
+                    ->where('invoice_no', $invoice_no)
+                    ->first();
+        return $result;
+    }
 }

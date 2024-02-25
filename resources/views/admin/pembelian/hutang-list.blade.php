@@ -248,7 +248,7 @@
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
 
         if (selected_row) {
-            window.location.href='{{ url('admin/pembelian/invoice/detail') }}?invoice_no='+selected_row;
+            window.location.href='{{ url('admin/pembelian/hutang/detail') }}?invoice_no='+selected_row;
         } else {
             alert('Pilih Data Terlebih Dahulu');
         }

@@ -93,6 +93,18 @@ class PembelianController extends Controller
         return view('admin/pembelian/hutang-detail')->with($data);
     }
 
+    function printDetailHutang(Request $request) {
+
+        $data = [
+            'invoice' => PembelianModel::getInvoiceDetail($request->invoice_no),
+            'items' => PembelianModel::getInvoiceItems($request->invoice_no),
+            'payments' => PembelianModel::getPreviousPayment($request->invoice_no),
+            'hutang' => PembelianModel::getHutangByInvoice($request->invoice_no),
+        ];
+        $pdf = \PDF::loadView('admin/print/hutang-detail', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
+
     function showInvoiceDetail() {
         $data = [
             'suppliers' => SupplierModel::getAll(),
