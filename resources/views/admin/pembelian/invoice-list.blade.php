@@ -5,14 +5,14 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
-    <i class="fa-solid fa-boxes"></i> &nbsp; Dashboard
+<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
 </a>
-<a href="{{ url('admin/dashboard/invoice') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Invoice
+<a href="{{ url('admin/pembelian/invoice') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; Invoice
 </a>
-<a href="{{ url()->current() }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/icon/pembelian.svg') }}" alt=""> &nbsp; Pembelian
+<a href="{{ url('admin/pembelian/invoice/list') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; List Invoice
 </a>
 @endsection
 
