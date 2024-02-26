@@ -51,7 +51,6 @@
             </div> --}}
         </div>
         <div class="row mb-5">
-            <div class="col"></div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/transaksi') }}" class="btn btn-selection btn-blue">
                     {{-- <span class="display-1">
