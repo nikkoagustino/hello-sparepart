@@ -211,6 +211,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('product', [ProductController::class, 'printProduct']);
         Route::get('vbelt', [VBeltController::class, 'printVBelt']);
         Route::get('invoice-buy', [PembelianController::class, 'printInvoice']);
+        Route::get('invoice-buy-retur', [PembelianController::class, 'printInvoice']);
         Route::get('invoice-sell', [PenjualanController::class, 'printInvoice']);
         Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
         Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);

@@ -1,6 +1,10 @@
 @extends('admin/print/template')
 @section('content')
+@if (Str::contains(request()->url(), 'retur'))
+    <h1>INVOICE RETUR PEMBELIAN</h1>
+@else
     <h1>INVOICE PEMBELIAN</h1>
+@endif
     <table>
         <tr>
             <td width="15%"><b>No. Invoice</b></td>
