@@ -41,7 +41,7 @@
             <div class="col-3">Kode Supplier</div>
             <div class="col-3">
                 <select name="supplier_code" required="required" class="form-select form-control">
-                    <option value="" selected="selected" disabled="disabled"></option>
+                    <option value="" selected="selected"></option>
                     @foreach ($suppliers as $row)
                     <option value="{{ $row->supplier_code }}">{{ $row->supplier_code }}</option>
                     @endforeach
@@ -102,7 +102,6 @@
         var date_start = $('input[name=date_start]').val();
         var date_end = $('input[name=date_end]').val();
         var supplier_code = $('select[name=supplier_code]').val();
-        var product_code = $('select[name=product_code]').val();
         $.ajax({
             url: '{{ url('api/pembelian/transaksi') }}',
             type: 'GET',
@@ -133,6 +132,16 @@
         $('tr').removeClass('selected');
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
         window.location.href = "{{ url('admin/pembelian/transaksi/detail') }}?invoice_no="+selected_row;
+    });
+
+    $('#printButton').on('click', function(){
+        const params = new URLSearchParams({
+            invoice_no : $('input[name=invoice_no]').val(),
+            date_start : $('input[name=date_start]').val(),
+            date_end : $('input[name=date_end]').val(),
+            supplier_code : $('select[name=supplier_code]').val(),
+        });
+        window.open('{{ url('admin/print/transaksi-pembelian') }}?'+params, 'printWindow');
     });
 
 </script>

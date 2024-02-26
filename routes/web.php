@@ -200,37 +200,6 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         });
     });
 
-    Route::prefix('print')->group(function(){
-        Route::get('absen', [AbsensiController::class, 'printAbsensi']);
-        Route::get('customer', [CustomerController::class, 'printCustomer']);
-        Route::get('supplier', [SupplierController::class, 'printSupplier']);
-        Route::get('sales', [SalesController::class, 'printSales']);
-        Route::get('komisi-sales', [KomisiController::class, 'printKomisiSales']);
-        Route::get('transaksi-sales', [SalesTransaksiController::class, 'printTransaksiSales']);
-        Route::get('product-type', [ProductTypeController::class, 'printProductType']);
-        Route::get('product', [ProductController::class, 'printProduct']);
-        Route::get('vbelt', [VBeltController::class, 'printVBelt']);
-        Route::get('invoice-buy', [PembelianController::class, 'printInvoice']);
-        Route::get('invoice-buy-retur', [PembelianController::class, 'printInvoice']);
-        Route::get('invoice-sell', [PenjualanController::class, 'printInvoice']);
-        Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
-        Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
-        Route::get('buy-retur-list', [PembelianController::class, 'printInvoiceRetur']);
-        Route::get('sell-retur-list', [PenjualanController::class, 'printInvoiceRetur']);
-        Route::get('buy-lunas-list', [PembelianController::class, 'printInvoiceLunas']);
-        Route::get('sell-lunas-list', [PenjualanController::class, 'printInvoiceLunas']);
-        Route::get('buy-hutang-list', [PembelianController::class, 'printInvoiceHutang']);
-        Route::get('sell-piutang-list', [PenjualanController::class, 'printInvoicePiutang']);
-        Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
-        Route::get('laba-rugi-bulanan', [LaporanController::class, 'printLabaRugiBulanan']);
-        Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
-        Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
-        Route::get('product/tx', [LaporanController::class, 'printProductTx']);
-        Route::get('surat-jalan', [SuratJalanController::class, 'printSuratJalan']);
-        Route::get('rangkuman-laba-rugi', [LaporanController::class, 'printRangkumanLabaRugi']);
-        Route::get('hutang-detail', [PembelianController::class, 'printDetailHutang']);
-    });
-
     Route::prefix('pembelian')->group(function(){
         Route::get('/', function(){
             return view('admin.pembelian.home');
@@ -317,6 +286,38 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         // Route::post('laba-rugi', [LaporanController::class, 'saveLabaRugi']);
         Route::get('produk', [LaporanController::class, 'showLaporanProduk']);
         Route::get('jenis-barang', [LaporanController::class, 'showLaporanJenisBarang']);
+    });
+
+    Route::prefix('print')->group(function(){
+        Route::get('absen', [AbsensiController::class, 'printAbsensi']);
+        Route::get('customer', [CustomerController::class, 'printCustomer']);
+        Route::get('supplier', [SupplierController::class, 'printSupplier']);
+        Route::get('sales', [SalesController::class, 'printSales']);
+        Route::get('komisi-sales', [KomisiController::class, 'printKomisiSales']);
+        Route::get('transaksi-sales', [SalesTransaksiController::class, 'printTransaksiSales']);
+        Route::get('product-type', [ProductTypeController::class, 'printProductType']);
+        Route::get('product', [ProductController::class, 'printProduct']);
+        Route::get('vbelt', [VBeltController::class, 'printVBelt']);
+        Route::get('invoice-buy', [PembelianController::class, 'printInvoice']);
+        Route::get('invoice-buy-retur', [PembelianController::class, 'printInvoice']);
+        Route::get('invoice-sell', [PenjualanController::class, 'printInvoice']);
+        Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
+        Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
+        Route::get('buy-retur-list', [PembelianController::class, 'printInvoiceRetur']);
+        Route::get('sell-retur-list', [PenjualanController::class, 'printInvoiceRetur']);
+        Route::get('buy-lunas-list', [PembelianController::class, 'printInvoiceLunas']);
+        Route::get('sell-lunas-list', [PenjualanController::class, 'printInvoiceLunas']);
+        Route::get('buy-hutang-list', [PembelianController::class, 'printInvoiceHutang']);
+        Route::get('sell-piutang-list', [PenjualanController::class, 'printInvoicePiutang']);
+        Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
+        Route::get('laba-rugi-bulanan', [LaporanController::class, 'printLabaRugiBulanan']);
+        Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
+        Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
+        Route::get('product/tx', [LaporanController::class, 'printProductTx']);
+        Route::get('surat-jalan', [SuratJalanController::class, 'printSuratJalan']);
+        Route::get('rangkuman-laba-rugi', [LaporanController::class, 'printRangkumanLabaRugi']);
+        Route::get('hutang-detail', [PembelianController::class, 'printDetailHutang']);
+        Route::get('transaksi-pembelian', [PembelianController::class, 'printTransaksi']);
     });
 
     Route::get('backup', [BackupController::class, 'backupDatabase']);

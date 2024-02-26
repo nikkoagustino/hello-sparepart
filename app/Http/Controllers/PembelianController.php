@@ -351,6 +351,14 @@ class PembelianController extends Controller
         return response()->json($transactions);
     }
 
+    function printTransaksi(Request $request) {
+        $data = [
+            'invoices' => PembelianModel::filterTransaksi($request)
+        ];
+        $pdf = \PDF::loadView('admin/print/transaksi-pembelian', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
+
     function generateInvoiceNumber() {
         $number_generated = false;
         $x = 1;
