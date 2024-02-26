@@ -250,10 +250,11 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         });
 
         Route::prefix('invoice')->group(function(){
-        //     Route::get('/', [PenjualanController::class, 'showInvoiceHome']);
+            Route::get('/', [PenjualanController::class, 'showInvoiceHome']);
         //     Route::get('new', [PenjualanController::class, 'formNewInvoice']);
         //     Route::post('new', [PenjualanController::class, 'createInvoice']);
             Route::get('list', [PenjualanController::class, 'showInvoiceList']);
+            Route::get('detail', [PenjualanController::class, 'showInvoiceDetail']);
         //     Route::get('delete-item', [PenjualanController::class, 'deleteInvoiceItem']);
         });
 

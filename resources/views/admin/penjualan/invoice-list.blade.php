@@ -211,7 +211,7 @@
         var selected_row = $(this).data('id');
         $('tr').removeClass('selected');
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
-        window.location.href = "{{ url('admin/dashboard/invoice/penjualan/detail') }}?invoice_no="+selected_row;
+        window.location.href = "{{ url('admin/penjualan/invoice/detail') }}?invoice_no="+selected_row;
     });
 </script>
 @endsection

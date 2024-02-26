@@ -5,15 +5,11 @@
 @endsection
 
 @section('breadcrumb')
-
-<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
-    <i class="fa-solid fa-boxes"></i> &nbsp; Dashboard
+<a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
 </a>
-<a href="{{ url('admin/dashboard/invoice') }}" class="btn btn-danger">
-    <i class="fa-solid fa-store"></i> &nbsp; Invoice
-</a>
-<a href="{{ url()->current() }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/icon/penjualan.svg') }}" alt=""> &nbsp; Penjualan
+<a href="{{ url('admin/penjualan/invoice') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; Invoice
 </a>
 @endsection
 
@@ -25,7 +21,7 @@
                 No Invoice
             </div>
             <div class="col-7">
-                <input type="text" name="invoice_no" class="form-control">
+                <input type="text" name="invoice_no" readonly="readonly" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
@@ -33,11 +29,7 @@
                 Tanggal Invoice
             </div>
             <div class="col-3">
-                <input type="date" name="invoice_date" class="form-control">
-            </div>
-            <div class="col-1">s/d</div>
-            <div class="col-3">
-                <input type="date" name="invoice_date" class="form-control">
+                <input type="date" name="invoice_date" readonly="readonly" class="form-control">
             </div>
         </div>
         <div class="row mt-2">
@@ -45,7 +37,7 @@
                 Kode Customer
             </div>
             <div class="col-3">
-                <select name="customer_code" required="required" class="form-select form-control">
+                <select name="customer_code" readonly="readonly" required="required" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($customers as $row)
                     <option value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
@@ -53,7 +45,7 @@
                 </select>
             </div>
             <div class="col-6">
-                <select name="customer_code_name" required="required" class="form-select form-control">
+                <select name="customer_code_name" readonly="readonly" required="required" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($customers as $row)
                     <option value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
@@ -66,7 +58,7 @@
                 Kode Sales
             </div>
             <div class="col-3">
-                <select name="sales_code" required="required" class="form-select form-control">
+                <select name="sales_code" readonly="readonly" required="required" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($sales as $row)
                     <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
@@ -74,7 +66,7 @@
                 </select>
             </div>
             <div class="col-6">
-                <select name="sales_code_name" required="required" class="form-select form-control">
+                <select name="sales_code_name" readonly="readonly" required="required" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($sales as $row)
                     <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
@@ -82,14 +74,14 @@
                 </select>
             </div>
         </div>
-        {{-- <div class="row mt-2">
+        <div class="row mt-2">
             <div class="col-3">
                 Alamat
             </div>
             <div class="col-9">
                 <textarea name="address" rows="3" readonly="readonly" class="form-control"></textarea>
             </div>
-        </div> --}}
+        </div>
         <div class="row mt-2">
             <div class="col-3">
                 Jatuh Tempo
@@ -593,6 +585,7 @@
             return;
         }
         $('input').removeAttr('readonly');
+        $('input[name=invoice_no]').attr('readonly', 'readonly');
         $('#newItemButton').show();
         $('#itemsTable').addClass('selectable');
     }
