@@ -39,8 +39,9 @@ Route::get('invoice/hutang', [PembelianController::class, 'getInvoiceTerhutang']
 Route::get('pembelian/transaksi', [PembelianController::class, 'getTransaksiFilter']);
 Route::get('invoice/pembelian/lunas', [PembelianController::class, 'getInvoiceLunas']);
 Route::post('pembelian/retur', [PembelianController::class, 'submitRetur']);
-Route::post('pembelian/retur/update', [PembelianController::class, 'updateReturItem']);
 Route::get('pembelian/retur/items', [PembelianController::class, 'getReturItems']);
+Route::post('pembelian/retur/update', [PembelianController::class, 'updateReturItem']);
+Route::get('pembelian/retur/delete', [PembelianController::class, 'deleteReturItemViaAPI']);
 Route::get('pembelian/transaksi', [PembelianController::class, 'getTransaksiFilter']);
 
 Route::post('pembelian/add-item', [PembelianController::class, 'addInvoiceItem']);

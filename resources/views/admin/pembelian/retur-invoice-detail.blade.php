@@ -395,43 +395,35 @@
         });
     });
 
+    function enableDelete() {
+        $.ajax({
+            url: '{{ url('api/pembelian/retur/delete') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                id: selected_row
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                selected_row = null;
+                $('#editReturItemModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
+            }
+        });
+    }
+
     $('#deleteButton').on('click', function(){
         if (!selected_row) {
             alert('Pilih item terlebih dahulu');
             return;
         }
-        $.ajax({
-            url: '{{ url('api/pembelian/retur/delete') }}',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                id: selected_row
-            },
-        })
-        .done(function(result) {
-            if (result.success) {
-                $('#editReturItemModal').modal('hide');
-                $('input[name=invoice_no]').trigger('change');
-            }
-        });
+        $('#deleteModal').modal('show');
     });
 
     $('#deleteEditReturItem').on('click', function(){
-        $.ajax({
-            url: '{{ url('api/pembelian/retur/delete') }}',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                id: selected_row
-            },
-        })
-        .done(function(result) {
-            if (result.success) {
-                $('#editReturItemModal').modal('hide');
-                $('input[name=invoice_no]').trigger('change');
-            }
-        });
-        
+        $('#editReturItemModal').modal('hide');
+        $('#deleteModal').modal('show');
     });
 
     $('#backEditReturItem').on('click', function(){

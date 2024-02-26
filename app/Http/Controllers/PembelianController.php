@@ -466,6 +466,16 @@ class PembelianController extends Controller
         }
     }
 
+    function deleteReturItemViaAPI(Request $request)
+    {
+        $retur_data = PembelianModel::getReturByID($request->id);
+        if (PembelianModel::deleteReturByID($request->id)) {
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false], 400);
+        }
+    }
+
     function deleteInvoice(Request $request)
     {
         $request->validate([
