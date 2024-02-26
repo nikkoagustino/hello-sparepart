@@ -269,6 +269,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::prefix('retur')->group(function(){
             Route::get('/', [PembelianController::class, 'showReturHome']);
+            Route::get('detail', [PembelianController::class, 'showReturInvoice']);
         });
     });
 

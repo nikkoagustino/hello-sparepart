@@ -125,6 +125,14 @@ class PembelianController extends Controller
         return view('admin/pembelian/invoice-detail')->with($data);
     }
 
+    function showReturInvoice() {
+        $data = [
+            'suppliers' => SupplierModel::getAll(),
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/pembelian/retur-invoice-detail')->with($data);
+    }
+
     function showInvoiceList() {
         $data = [
             'invoices' => PembelianModel::getAllInvoice(),

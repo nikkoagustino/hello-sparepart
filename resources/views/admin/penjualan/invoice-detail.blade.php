@@ -267,7 +267,7 @@
                         <div class="breadcrumb">
                             <div class="row pt-3">
                                 <div class="col">
-                                    <a href="{{ url()->current() }}" class="btn btn-danger">
+                                    <a href="javascript:void(0)" class="btn btn-danger">
                                         <img src="{{ url('assets/img/svg/retur.svg') }}"> &nbsp; Retur
                                     </a>
                                 </div>
