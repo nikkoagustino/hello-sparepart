@@ -262,6 +262,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PembelianController::class, 'showTransaksi']);
+            Route::get('detail', [PembelianController::class, 'showDetailTransaksi']);
         });
 
         Route::prefix('lunas')->group(function(){
