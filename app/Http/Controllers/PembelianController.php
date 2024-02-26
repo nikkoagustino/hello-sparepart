@@ -352,7 +352,7 @@ class PembelianController extends Controller
 
     function showReturHome() {
         $data = [
-            'invoices' => PembelianModel::getAllReturInvoice(),
+            'suppliers' => SupplierModel::getAll(),
         ];
         return view('admin/pembelian/retur-home')->with($data);
     }

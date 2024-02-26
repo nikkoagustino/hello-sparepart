@@ -40,6 +40,7 @@ Route::get('pembelian/transaksi', [PembelianController::class, 'getTransaksiFilt
 Route::get('invoice/pembelian/lunas', [PembelianController::class, 'getInvoiceLunas']);
 Route::post('pembelian/retur', [PembelianController::class, 'submitRetur']);
 Route::get('pembelian/retur/items', [PembelianController::class, 'getReturItems']);
+Route::get('pembelian/transaksi', [PembelianController::class, 'getTransaksiFilter']);
 
 Route::post('pembelian/add-item', [PembelianController::class, 'addInvoiceItem']);
 Route::post('pembelian/edit-item', [PembelianController::class, 'updateInvoiceItem']);
@@ -71,8 +72,8 @@ Route::get('laporan/product-type', [LaporanController::class, 'getLaporanProduct
 
 Route::get('dashboard-laba-rugi', [LaporanController::class, 'getDashboardLabaRugi']);
 Route::get('data-laba-rugi', [LaporanController::class, 'getLabaRugi']);
-Route::get('invoice/pembelian/generate', [PembelianController::class, 'generateInvoiceNumber']);
-Route::get('invoice/penjualan/generate', [PenjualanController::class, 'generateInvoiceNumber']);
+// Route::get('invoice/pembelian/generate', [PembelianController::class, 'generateInvoiceNumber']);
+// Route::get('invoice/penjualan/generate', [PenjualanController::class, 'generateInvoiceNumber']);
 
 Route::get('komisi', [KomisiController::class, 'getKomisiViewTable']);
 Route::post('komisi/save', [KomisiController::class, 'updateKomisi']);
