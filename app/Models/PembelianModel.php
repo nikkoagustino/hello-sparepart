@@ -320,6 +320,26 @@ class PembelianModel extends Model
         return $insert;
     }
 
+    static function updateRetur($request) {
+        $result = DB::table('tb_pembelian_invoice_items')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('product_code', $request->product_code)
+                    ->first();
+
+        $update = DB::table('tb_retur_pembelian')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('id', $request->id)
+                    ->update([
+                        'product_code' => $request->product_code,
+                        'qty' => $request->qty,
+                        'normal_price' => $result->normal_price,
+                        'discount_rate' => $result->discount_rate,
+                        'discounted_price' => $result->discounted_price,
+                        'subtotal_price' => $request->qty * $result->discounted_price,
+                    ]);
+        return $update;
+    }
+
     static function getReturnedItems($invoice_no) {
         $result = DB::table('tb_retur_pembelian AS itm')
                     ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code')

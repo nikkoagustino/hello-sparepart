@@ -204,6 +204,54 @@
         </div>
     </div>
 </div>
+<div class="modal modal-lg fade" id="editReturItemModal" tabindex="-1" aria-labelledby="editReturItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumb">
+                            <div class="row pt-3">
+                                <div class="col">
+                                    <a href="javascript:void(0)" class="btn btn-danger">
+                                        <i class="fa-solid fa-pencil"></i> &nbsp; Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-end">
+                        <button id="saveEditReturItem" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-save"></i>
+                            Save
+                        </button>
+                        <button id="deleteEditReturItem" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+                        </button>
+                        <button id="backEditReturItem" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Back
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-2">Kode Barang</div>
+                    <div class="col-6">
+                        <input type="hidden" name="returItemID">
+                        <select name="returItemCode" readonly="readonly" class="form-control form-select"></select>
+                    </div>
+                </div>
+                <div class="row mt-2 mb-5 pb-5">
+                    <div class="col-2">Qty</div>
+                    <div class="col-4">
+                        <input name="returQty" type="number" step="1" min="1" value="1" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('script')
@@ -282,7 +330,7 @@
             var table_row = '';
             var total_returned_price = 0;
             $.each(result.data, function(index, row) {
-                table_row += '<tr data-id="'+row.product_code+'">' +
+                table_row += '<tr data-id="'+row.id+'">' +
                     '<td>'+row.product_code+'</td>' +
                     '<td>'+row.type_code+'</td>' +
                     '<td>'+row.product_name+'</td>' +
@@ -301,23 +349,112 @@
         });
     }
 
-    $('#editButton').on('click', function(){
-        // if (!selected_row) {
-        //     alert('Pilih produk terlebih dahulu');
-        //     return;
-        // }
+    function enableEdit() {
+        if (!selected_row) {
+            alert('Pilih item terlebih dahulu');
+        }
+        var selected_product_code = $('#returItemsTable tr[data-id='+selected_row+'] td:eq(0)').text();
+        var selected_qty = $('#returItemsTable tr[data-id='+selected_row+'] td:eq(3)').text();
+        $('#editReturItemModal input[name=returItemID]').val(selected_row);
+        $('#editReturItemModal select[name=returItemCode]').val(selected_product_code);
+        $('#editReturItemModal input[name=returQty]').val(selected_qty);
+        $('#editReturItemModal').modal('show');
+        $('#editButton').show();
+    }
 
+    $('#saveEditReturItem').on('click', function(){
+        var retur_id = $('#editReturItemModal input[name=returItemID]').val();
+        var retur_product_code = $('#editReturItemModal select[name=returItemCode]').val();
+        var max_qty = $('#editReturItemModal select[name=returItemCode] option:selected').data('max');
+        var retur_qty = $('#editReturItemModal input[name=returQty]').val();
+        var invoice_no = $('input[name=invoice_no]').val();
+        if (retur_qty < 1) {
+            alert('Minimal retur qty = 1');
+            return;
+        }
+        if (retur_qty > max_qty) {
+            alert('Maksimal retur qty = '+max_qty);
+            return;
+        }
+        $.ajax({
+            url: '{{ url('api/pembelian/retur/update') }}',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: retur_id,
+                invoice_no: invoice_no,
+                product_code: retur_product_code,
+                qty: retur_qty
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                $('#editReturItemModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
+            }
+        });
     });
 
     $('#deleteButton').on('click', function(){
-        var invoice_no = $('input[name=invoice_no]').val();
         if (!selected_row) {
-            alert('Pilih produk terlebih dahulu');
+            alert('Pilih item terlebih dahulu');
             return;
         }
-        $('#deleteAction').attr('href', '{{ url('admin/pembelian/invoice/delete-item') }}?invoice_no='+invoice_no+'&product_code='+selected_row);
-        $("#deleteModal").modal("show");
+        $.ajax({
+            url: '{{ url('api/pembelian/retur/delete') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                id: selected_row
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                $('#editReturItemModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
+            }
+        });
     });
+
+    $('#deleteEditReturItem').on('click', function(){
+        $.ajax({
+            url: '{{ url('api/pembelian/retur/delete') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                id: selected_row
+            },
+        })
+        .done(function(result) {
+            if (result.success) {
+                $('#editReturItemModal').modal('hide');
+                $('input[name=invoice_no]').trigger('change');
+            }
+        });
+        
+    });
+
+    $('#backEditReturItem').on('click', function(){
+        $('#editReturItemModal').modal('hide');
+    });
+
+    var selected_row;
+
+    $('body').on('click', '#returItemsTable.selectable tbody tr', function() {
+        selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+    });
+
+    // $('#deleteButton').on('click', function(){
+    //     var invoice_no = $('input[name=invoice_no]').val();
+    //     if (!selected_row) {
+    //         alert('Pilih produk terlebih dahulu');
+    //         return;
+    //     }
+    //     $('#deleteAction').attr('href', '{{ url('admin/pembelian/invoice/delete-item') }}?invoice_no='+invoice_no+'&product_code='+selected_row);
+    //     $("#deleteModal").modal("show");
+    // });
 
     @if ($_GET)
     @if ($_GET['invoice_no'])

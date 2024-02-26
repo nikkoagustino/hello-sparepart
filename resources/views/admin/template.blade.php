@@ -518,6 +518,7 @@
 
         $('#editButton').on('click', function(event){
             event.preventDefault();
+            $('#pinModal input[name=pin]').val('');
             $('#pinModal').modal('show');
         });
 

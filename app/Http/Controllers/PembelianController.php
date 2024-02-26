@@ -374,6 +374,15 @@ class PembelianController extends Controller
         }
     }
 
+    function updateReturItem(Request $request) {
+        if (PembelianModel::updateRetur($request)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil simpan retur',
+            ], 200);
+        }
+    }
+
     function getReturItems(Request $request) {
         $items = PembelianModel::getReturnedItems($request->invoice_no);
         if (count($items) == 0) {
