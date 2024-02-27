@@ -610,6 +610,13 @@
         $('select[name=type_code]').on('change', function(){
             $('select[name=type_code_name]').val($(this).val());
         });
+        
+        $('select[name=returItemCode]').on('change', function(){
+            $('select[name=returItemName]').val($(this).val());
+        });
+        $('select[name=returItemName]').on('change', function(){
+            $('select[name=returItemCode]').val($(this).val());
+        });
     </script>
     @yield('script')
 </body>

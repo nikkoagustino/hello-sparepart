@@ -439,4 +439,32 @@ class PenjualanController extends Controller
         $pdf = \PDF::loadView('admin/print/piutang-detail', $data);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
+
+    function showReturInvoice() {
+        $data = [
+            'customers' => CustomerModel::getAll(),
+            'sales' => SalesModel::getAll(),
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/penjualan/retur-invoice-detail')->with($data);
+    }
+
+    function updateReturItem(Request $request) {
+        if (PenjualanModel::updateRetur($request)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil simpan retur',
+            ], 200);
+        }
+    }
+
+    function deleteReturItemViaAPI(Request $request)
+    {
+        $retur_data = PenjualanModel::getReturByID($request->id);
+        if (PenjualanModel::deleteReturByID($request->id)) {
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false], 400);
+        }
+    }
 }

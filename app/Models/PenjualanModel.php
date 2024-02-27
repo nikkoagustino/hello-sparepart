@@ -334,4 +334,24 @@ class PenjualanModel extends Model
                     ->first();
         return $result;
     }
+
+    static function updateRetur($request) {
+        $result = DB::table('tb_penjualan_invoice_items')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('product_code', $request->product_code)
+                    ->first();
+
+        $update = DB::table('tb_retur_penjualan')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('id', $request->id)
+                    ->update([
+                        'product_code' => $request->product_code,
+                        'qty' => $request->qty,
+                        'normal_price' => $result->normal_price,
+                        'discount_rate' => $result->discount_rate,
+                        'discounted_price' => $result->discounted_price,
+                        'subtotal_price' => $request->qty * $result->discounted_price,
+                    ]);
+        return $update;
+    }
 }

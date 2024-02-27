@@ -58,6 +58,8 @@ Route::get('penjualan/transaksi', [PenjualanController::class, 'getTransaksiFilt
 Route::get('invoice/penjualan/lunas', [PenjualanController::class, 'getInvoiceLunas']);
 Route::post('penjualan/retur', [PenjualanController::class, 'submitRetur']);
 Route::get('penjualan/retur/items', [PenjualanController::class, 'getReturItems']);
+Route::post('penjualan/retur/update', [PenjualanController::class, 'updateReturItem']);
+Route::get('penjualan/retur/delete', [PenjualanController::class, 'deleteReturItemViaAPI']);
 
 Route::post('penjualan/add-item', [PenjualanController::class, 'addInvoiceItem']);
 Route::post('penjualan/edit-item', [PenjualanController::class, 'updateInvoiceItem']);

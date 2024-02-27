@@ -5,10 +5,10 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/pembelian') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}"> &nbsp; Pembelian
+<a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
 </a>
-<a href="{{ url('admin/pembelian/retur') }}" class="btn btn-danger">
+<a href="{{ url('admin/penjualan/retur') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/retur.svg') }}"> &nbsp; Retur
 </a>
 @endsection
@@ -34,13 +34,24 @@
         </div>
         <div class="row mt-1">
             <div class="col-3">
-                Kode Supplier
+                Kode Customer
             </div>
             <div class="col-3">
-                <input name="supplier_code" readonly="readonly" class="form-control">
+                <input name="customer_code" readonly="readonly" class="form-control">
             </div>
             <div class="col-6">
-                <input name="supplier_name" readonly="readonly" class="form-control">
+                <input name="customer_name" readonly="readonly" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-3">
+                Kode Sales
+            </div>
+            <div class="col-3">
+                <input name="sales_code" readonly="readonly" class="form-control">
+            </div>
+            <div class="col-6">
+                <input name="sales_name" readonly="readonly" class="form-control">
             </div>
         </div>
         <div class="row mt-1">
@@ -199,7 +210,7 @@
                 </div>
                 <div class="row mt-2 mb-5 pb-5">
                     <div class="col-2">Qty</div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <input name="returQty" type="number" step="1" min="1" value="1" class="form-control">
                     </div>
                 </div>
@@ -263,7 +274,7 @@
     $('input[name=invoice_no]').on('change paste keyup', function(){
         var invoice_no = $(this).val();
         $.ajax({
-            url: '{{ url('api/invoice/pembelian') }}',
+            url: '{{ url('api/invoice/penjualan') }}',
             type: 'GET',
             dataType: 'json',
             data: {invoice_no: invoice_no},
@@ -272,10 +283,12 @@
             $('input[name=invoice_date]').val(result.data.invoice_date);
             $('input[name=days_expire]').val(result.data.days_expire);
             $('input[name=description]').val(result.data.description);
-            $('input[name=supplier_code]').val(result.data.supplier_code);
-            $('input[name=supplier_name]').val(result.data.supplier_name);
+            $('input[name=customer_code]').val(result.data.customer_code);
+            $('input[name=customer_name]').val(result.data.customer_name);
+            $('input[name=sales_code]').val(result.data.sales_code);
+            $('input[name=sales_name]').val(result.data.sales_name);
             $('input[name=payment_type]').val(result.data.payment_type);
-            $('textarea[name=address]').text(result.data.supplier_address);
+            $('textarea[name=address]').text(result.data.customer_address);
             getInvoiceItems(invoice_no);
             getReturnedItems(invoice_no);
         })
@@ -283,8 +296,10 @@
             $('input[name=invoice_date]').val('');
             $('input[name=days_expire]').val('');
             $('input[name=description]').val('');
-            $('input[name=supplier_code]').val('');
-            $('input[name=supplier_name]').val('');
+            $('input[name=customer_code]').val('');
+            $('input[name=sales_code]').val('');
+            $('input[name=customer_name]').val('');
+            $('input[name=sales_name]').val('');
             $('input[name=payment_type]').val('');
             $('textarea[name=address]').text('');
         })
@@ -294,7 +309,7 @@
 
     function getInvoiceItems(invoice_no) {
         $.ajax({
-            url: '{{ url('api/invoice/pembelian/items') }}',
+            url: '{{ url('api/invoice/penjualan/items') }}',
             type: 'GET',
             dataType: 'json',
             data: {invoice_no: invoice_no},
@@ -328,7 +343,7 @@
 
     function getReturnedItems(invoice_no) {
         $.ajax({
-            url: '{{ url('api/pembelian/retur/items') }}',
+            url: '{{ url('api/penjualan/retur/items') }}',
             type: 'GET',
             dataType: 'json',
             data: {invoice_no: invoice_no},
@@ -385,7 +400,7 @@
             return;
         }
         $.ajax({
-            url: '{{ url('api/pembelian/retur/update') }}',
+            url: '{{ url('api/penjualan/retur/update') }}',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -405,7 +420,7 @@
 
     function enableDelete() {
         $.ajax({
-            url: '{{ url('api/pembelian/retur/delete') }}',
+            url: '{{ url('api/penjualan/retur/delete') }}',
             type: 'GET',
             dataType: 'json',
             data: {
@@ -452,7 +467,7 @@
     //         alert('Pilih produk terlebih dahulu');
     //         return;
     //     }
-    //     $('#deleteAction').attr('href', '{{ url('admin/pembelian/invoice/delete-item') }}?invoice_no='+invoice_no+'&product_code='+selected_row);
+    //     $('#deleteAction').attr('href', '{{ url('admin/penjualan/invoice/delete-item') }}?invoice_no='+invoice_no+'&product_code='+selected_row);
     //     $("#deleteModal").modal("show");
     // });
 
@@ -484,7 +499,7 @@
             return;
         }
         $.ajax({
-            url: '{{ url('api/pembelian/retur') }}',
+            url: '{{ url('api/penjualan/retur') }}',
             type: 'POST',
             dataType: 'json',
             data: {
