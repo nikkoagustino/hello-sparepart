@@ -5,10 +5,10 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ url('admin/dashboard') }}" class="btn btn-danger">
-    <img src="{{ url('assets/img/svg/sidebar-dashboard.svg') }}"> &nbsp; Dashboard
+<a href="{{ url('admin/penjualan') }}" class="btn btn-danger">
+    <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
 </a>
-<a href="{{ url('admin/dashboard/piutang') }}" class="btn btn-danger">
+<a href="{{ url('admin/penjualan/piutang') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/piutang.svg') }}"> &nbsp; Piutang
 </a>
 @endsection

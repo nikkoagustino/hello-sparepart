@@ -327,4 +327,11 @@ class PenjualanModel extends Model
                     ->delete();
         return $delete;
     }
+
+    static function getPiutangByInvoice($invoice_no) {
+        $result = DB::table('view_piutang_penjualan')
+                    ->where('invoice_no', $invoice_no)
+                    ->first();
+        return $result;
+    }
 }

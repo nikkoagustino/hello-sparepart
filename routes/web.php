@@ -328,6 +328,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('rangkuman-laba-rugi', [LaporanController::class, 'printRangkumanLabaRugi']);
         Route::get('hutang-detail', [PembelianController::class, 'printDetailHutang']);
         Route::get('transaksi-pembelian', [PembelianController::class, 'printTransaksi']);
+        Route::get('piutang-detail', [PenjualanController::class, 'printDetailPiutang']);
     });
 
     Route::get('backup', [BackupController::class, 'backupDatabase']);

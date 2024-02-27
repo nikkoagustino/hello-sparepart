@@ -134,7 +134,9 @@ class PenjualanController extends Controller
         $data = [
             'invoices' => PenjualanModel::getInvoicePiutang($request),
         ];
-        return view('admin/print/invoice-sell-list')->with($data);
+
+        $pdf = \PDF::loadView('admin/print/invoice-sell-list', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 
     function printInvoice(Request $request) {
@@ -424,5 +426,16 @@ class PenjualanController extends Controller
         } else {
             return back()->withErrors(['Failed to delete']);
         }
+    }
+
+    function printDetailPiutang(Request $request) {
+        $data = [
+            'invoice' => PenjualanModel::getInvoiceDetail($request->invoice_no),
+            'items' => PenjualanModel::getInvoiceItems($request->invoice_no),
+            'payments' => PenjualanModel::getPreviousPayment($request->invoice_no),
+            'piutang' => PenjualanModel::getPiutangByInvoice($request->invoice_no),
+        ];
+        $pdf = \PDF::loadView('admin/print/piutang-detail', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 }
