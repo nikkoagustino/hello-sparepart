@@ -51,10 +51,6 @@
         window.location.href = '{{ url('admin/penjualan/invoice/new') }}';
     });
 
-    $('#printButton').on('click', function(){
-        window.open('{{ url('admin/print/invoice') }}');
-    });
-
     $('#detailButton').on('click', function(){
         if (selected_row) {
             window.location.href='{{ url('admin/penjualan/invoice/detail') }}?invoice_no='+selected_row;
@@ -62,5 +58,9 @@
             alert('Pilih Invoice Terlebih Dahulu');
         }
     });
+
+    @if (session('is_print') === 1)
+    window.open('{{ url('admin/print/invoice-sell') }}?invoice_no={{ session('invoice_no') }}', 'printWindow');
+    @endif
 </script>
 @endsection

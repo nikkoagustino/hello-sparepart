@@ -31,8 +31,8 @@
     <thead>
         <tr>
             <th width="20%">Kode Barang</th>
-            <th width="10%">Jenis Barang</th>
-            <th width="40%">Nama Barang</th>
+            <th width="13%">Jenis Barang</th>
+            <th width="37%">Nama Barang</th>
             <th width="5%">Qty</th>
             <th width="10%">Harga</th>
             <th width="5%">Disc</th>
@@ -50,12 +50,11 @@
             <td>{{ number_format($row->normal_price, 0) }}</td>
             <td>{{ number_format($row->discount_rate, 2) }}%</td>
             <td>{{ number_format($row->subtotal_price, 0) }}</td>
-            <td></td>
         </tr>
         @php $total_price += $row->subtotal_price; @endphp
         @endforeach
     </tbody>
-    <tfoot>
+    <tfoot class="border-bottom">
         <tr>
             <td colspan="4">Jatuh Tempo : {{ date('d F Y', strtotime($master->expiry_date)) }}</td>
             <td colspan="2"><center>TOTAL</center></td>

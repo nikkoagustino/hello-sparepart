@@ -308,7 +308,7 @@
         var qty = $('input[name=qty]').val();
         var discounted_price = $('input[name=discounted_price]').val().replace(/,/g, '');
         var subtotal_price = $('input[name=subtotal_price]').val().replace(/,/g, '');
-        total_price = total_price + subtotal_price;
+        total_price = parseInt(total_price) + parseInt(subtotal_price);
 
         var newInput = '<input type="hidden" name="product_code['+row_counter+']" value="'+product_code+'">'+
                        '<input type="hidden" name="product_name['+row_counter+']" value="'+product_name+'">'+

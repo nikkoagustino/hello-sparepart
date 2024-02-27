@@ -34,6 +34,10 @@
             padding-left: 4px;
             padding-right: 4px;
         }
+        .border-bottom td {
+            padding-bottom: 7px;
+            border-bottom: 2px solid black;
+        }
         .table tbody tr:last-child td{
             border-bottom: 2px solid black;
             padding-bottom: 7px;

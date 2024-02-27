@@ -36,7 +36,7 @@
             <div class="col-3">
                 Kode Customer
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <select name="customer_code" readonly="readonly" required="required" class="form-select form-control">
                     <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($customers as $row)

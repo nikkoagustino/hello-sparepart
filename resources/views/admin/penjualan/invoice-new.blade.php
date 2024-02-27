@@ -9,7 +9,10 @@
     <img src="{{ url('assets/img/svg/sidebar-penjualan.svg') }}"> &nbsp; Penjualan
 </a>
 <a href="{{ url('admin/penjualan/invoice') }}" class="btn btn-danger">
-    <i class="fa-solid fa-file-invoice-dollar"></i> &nbsp; Invoice
+    <img src="{{ url('assets/img/svg/invoice-list.svg') }}"> &nbsp; Invoice
+</a>
+<a href="{{ url('admin/penjualan/invoice') }}" class="btn btn-danger">
+    <i class="fa-solid fa-plus-circle"></i> &nbsp; Invoice Baru
 </a>
 @endsection
 
@@ -17,78 +20,87 @@
 <form action="{{ url('admin/penjualan/invoice/new') }}" method="POST">
     @csrf
     <div class="row mt-5">
-        <div class="col-8">
-            <div class="row mb-2">
-                <div class="col-4">
+        <div class="col-9">
+            <div class="row mt-2">
+                <div class="col-3">
                     No. Invoice
                 </div>
-                <div class="col-8">
-                    <div class="input-group">
-                        <button class="btn btn-danger btn-form" type="button" id="generateInvoiceNo">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                        <input name="invoice_no" required="required" type="text" class="form-control">
-                    </div>
+                <div class="col-6">
+                    <input name="invoice_no" required="required" type="text" class="form-control">
                 </div>
             </div>
-            <div class="row mb-2">
-                <div class="col-4">
+            <div class="row mt-2">
+                <div class="col-3">
                     Tanggal Invoice
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <input name="invoice_date" required="required" type="date" class="form-control">
                 </div>
             </div>
-            <div class="row mb-2">
-                <div class="col-4">
+            <div class="row mt-2">
+                <div class="col-3">
                     Kode Customer
                 </div>
-                <div class="col-8">
+                <div class="col-2">
                     <select name="customer_code" required="required" class="form-select form-control">
-                        <option value="" selected="selected" disabled="disabled">Pilih Customer...</option>
+                        <option value="" selected="selected" disabled="disabled"></option>
                         @foreach ($customers as $row)
-                        <option value="{{ $row->customer_code }}">{{ $row->customer_code }} - {{ $row->customer_name }}</option>
+                        <option value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6">
+                    <select name="customer_code_name" required="required" class="form-select form-control">
+                        <option value="" selected="selected" disabled="disabled"></option>
+                        @foreach ($customers as $row)
+                        <option value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            <div class="row mb-2">
-                <div class="col-4">
+            <div class="row mt-2">
+                <div class="col-3">
                     Kode Sales
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <select name="sales_code" required="required" class="form-select form-control">
-                        <option value="" selected="selected" disabled="disabled">Pilih Sales...</option>
+                        <option value="" selected="selected" disabled="disabled"></option>
                         @foreach ($sales as $row)
-                        <option value="{{ $row->sales_code }}">{{ $row->sales_code }} - {{ $row->sales_name }}</option>
+                        <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6">
+                    <select name="sales_code_name" required="required" class="form-select form-control">
+                        <option value="" selected="selected" disabled="disabled"></option>
+                        @foreach ($sales as $row)
+                        <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            <div class="row mb-2">
-                <div class="col-4">
+            <div class="row mt-2">
+                <div class="col-3">
                     Jatuh Tempo
                 </div>
                 <div class="col-2">
-                    <input name="days_expire" required="required" type="number" step="1" class="form-control">
+                    <input name="days_expire" class="form-control">
                 </div>
-                <div class="col-4">Hari</div>
+                <div class="col-1">
+                    Hari
+                </div>
+                <div class="col-1">
+                    Ket
+                </div>
+                <div class="col-5">
+                    <input name="description" class="form-control">
+                </div>
             </div>
-
-            <div class="row mb-2">
-                <div class="col-4">
-                    Keterangan
-                </div>
-                <div class="col-8">
-                    <input name="description" type="text" class="form-control">
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-4">
+            <div class="row mt-2">
+                <div class="col-3">
                     Status
                 </div>
-                <div class="col-8">
+                <div class="col-3">
                     <select name="payment_type" required="required" class="form-select form-control">
                         <option value="" disabled="disabled" selected="selected">Pilih Status...</option>
                         <option value="TUNAI">TUNAI</option>
@@ -96,17 +108,18 @@
                     </select>
                 </div>
             </div>
-
         </div>
 
-        <div class="col-4 text-end">
-            <button type="submit" class="btn btn-danger btn-icon-lg">
+        <div class="col text-end">
+            <div class="inputWrapper"></div>
+            <button type="submit" id="saveInvoiceButton" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-save"></i>
                 Save
             </button>
-            <button type="back" class="btn btn-danger btn-icon-lg">
-                <i class="fa-solid fa-rotate-left"></i>
-                Back
+            <input type="hidden" name="is_print" value="0">
+            <button id="saveAndPrintButton" class="btn btn-danger btn-icon-lg">
+                <i class="fa-solid fa-print"></i>
+                Print
             </button>
         </div>
     </div>
@@ -115,61 +128,238 @@
             <hr>
         </div>
     </div>
-    <div class="row mb-2">
-        <div class="col-2">Kode Barang</div>
-        <div class="col-3 position-relative">
-            <input type="text" name="product_code" class="form-control">
-            <ul class="floating-select" id="product_code_list"></ul>
-        </div>
-        <div class="col-2">
-            <input type="text" name="type_code" readonly="readonly" class="form-control">
-        </div>
-        <div class="col-5 position-relative">
-            <input type="text" name="product_name" class="form-control">
-            <ul class="floating-select" id="product_name_list"></ul>
-        </div>
-    </div>
-    
-    <div class="row mb-2">
-        <div class="col-2">Harga</div>
-        <div class="col-3">
-            <input type="text" data-type="number" name="normal_price" class="form-control">
-        </div>
-    </div>
-    
-    <div class="row mb-2">
-        <div class="col-2">Discount</div>
-        <div class="col-3">
-            <input type="number" step="0.01" value="0" name="discount_rate" class="form-control">
-        </div>
-    </div>
-    
-    <div class="row mb-2">
-        <div class="col-2">Harga Discount</div>
-        <div class="col-3">
-            <input type="text" data-type="number" name="discounted_price" readonly="readonly" class="form-control">
-        </div>
-    </div>
-    
-    <div class="row mb-2">
-        <div class="col-2">Qty</div>
-        <div class="col-3">
-            <input type="number" name="qty" value="1" class="form-control">
-        </div>
-    </div>
-    
-    <div class="row mb-2">
-        <div class="col-2">Total</div>
-        <div class="col-3">
-            <input type="text" data-type="number" name="subtotal_price" readonly="readonly" class="form-control">
-        </div>
-    </div>
 
+
+    <div class="row mt-2">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Kode Barang</th>
+                        <th>Jenis Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Qty</th>
+                        <th>Harga/pc</th>
+                        <th>Disc (%)</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <button id="addItemButton" class="btn btn-danger btn-icon-lg">
+                <i class="fa-solid fa-plus-circle"></i>
+                New
+            </button>
+        </div>
+        <div class="col text-end">Total</div>
+        <div class="col-3">
+            <input type="text" data-type="number" value="0" name="total_price" class="form-control bg-khaki" readonly="readonly">
+        </div>
+    </div>
 </form>
+
+
+
+<div class="modal modal-lg fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumb">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="javascript:void(0)" class="btn btn-danger">
+                                        <i class="fa-solid fa-plus-circle"></i> &nbsp; New
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-end">
+                        <button id="submitAddItem" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-save"></i>
+                            Save
+                        </button>
+                        <button id="backAddItem" class="btn btn-danger btn-icon-lg">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Back
+                        </button>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-3">Kode Barang</div>
+                    <div class="col-3 position-relative">
+                        <input type="text" name="product_code" class="form-control">
+                        <ul class="floating-select" id="product_code_list"></ul>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" name="type_code" readonly="readonly" class="form-control">
+                    </div>
+                    <div class="col-4 position-relative">
+                        <input type="text" name="product_name" class="form-control">
+                        <ul class="floating-select" id="product_name_list"></ul>
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-3">Harga</div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" name="normal_price" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-3">Discount</div>
+                    <div class="col-3">
+                        <input type="number" step="0.01" value="0" name="discount_rate" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-3">Harga Discount</div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" name="discounted_price" readonly="readonly" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-3">Qty</div>
+                    <div class="col-3">
+                        <input type="number" name="qty" value="1" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-3">Total</div>
+                    <div class="col-3">
+                        <input type="text" data-type="number" name="subtotal_price" readonly="readonly" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
 <script>
+    var is_item_added = false;
+    var total_price = 0;
+    var row_counter = 0;
+
+    $('#addItemButton').on('click', function(){
+        event.preventDefault();
+        $('#addItemModal').modal('show');
+    })
+    $('#backAddItem').on('click', function(){
+        resetAddItemModal();
+    });
+
+    $('#saveAndPrintButton').on('click', function(){
+        event.preventDefault();
+        $('input[name=is_print]').val(1);
+        $('#saveInvoiceButton').trigger('click');
+    });
+
+    $('#submitAddItem').on('click', function(){
+        if (!is_item_added) {
+            $('tbody').html('');
+            is_item_added = true;
+        }
+        var product_code = $('input[name=product_code]').val();
+        var type_code = $('input[name=type_code]').val();
+        var product_name = $('input[name=product_name]').val();
+        var normal_price = $('input[name=normal_price]').val().replace(/,/g, '');
+        var discount_rate = $('input[name=discount_rate]').val();
+        var qty = $('input[name=qty]').val();
+        var discounted_price = $('input[name=discounted_price]').val().replace(/,/g, '');
+        var subtotal_price = $('input[name=subtotal_price]').val().replace(/,/g, '');
+        total_price = parseInt(total_price) + parseInt(subtotal_price);
+
+        var newInput = '<input type="hidden" name="product_code['+row_counter+']" value="'+product_code+'">'+
+                       '<input type="hidden" name="product_name['+row_counter+']" value="'+product_name+'">'+
+                       '<input type="hidden" name="type_code['+row_counter+']" value="'+type_code+'">'+
+                       '<input type="hidden" name="normal_price['+row_counter+']" value="'+normal_price+'">'+
+                       '<input type="hidden" name="discount_rate['+row_counter+']" value="'+discount_rate+'">'+
+                       '<input type="hidden" name="discounted_price['+row_counter+']" value="'+discounted_price+'">'+
+                       '<input type="hidden" name="qty['+row_counter+']" value="'+qty+'">'+
+                       '<input type="hidden" name="subtotal_price['+row_counter+']" value="'+subtotal_price+'">';
+        $('.inputWrapper').append(newInput);
+
+        var newRow = '<tr>'+
+                    '<td>'+product_code+'</td>'+
+                    '<td>'+type_code+'</td>'+
+                    '<td>'+product_name+'</td>'+
+                    '<td>'+qty+'</td>'+
+                    '<td>'+$.number(normal_price, 0)+'</td>'+
+                    '<td>'+$.number(discount_rate, 2)+'</td>'+
+                    '<td>'+$.number(subtotal_price, 0)+'</td>'+
+                    '</tr>';
+        $('tbody').append(newRow);
+        resetAddItemModal();
+        $('input[name=total_price]').val(total_price).change();
+        row_counter++;
+    });
+
+    function resetAddItemModal()
+    {
+        $('#addItemModal').modal('hide');
+        $('#addItemModal input').val('').change();
+        $('#addItemModal input[name=qty]').val(1);
+        $('#addItemModal input[name=discount_rate]').val(0);
+        $('.floating-select').html('');
+    }
+
+
     var normal_price;
 
     function selectProduct(product_code) {
@@ -185,7 +375,7 @@
             $('input[name=product_code]').val(result.data.product_code);
             $('input[name=product_name]').val(result.data.product_name);
             $('input[name=type_code]').val(result.data.type_code).attr('readonly', 'readonly');
-            normal_price = result.data.price_selling;
+            normal_price = result.data.price_capital;
             $('input[name=normal_price]').val(normal_price);
             calculatePrice();
         })

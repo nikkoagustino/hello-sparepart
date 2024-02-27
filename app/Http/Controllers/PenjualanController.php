@@ -29,7 +29,7 @@ class PenjualanController extends Controller
 
     function createInvoice(Request $request) {
         $request->validate([
-            'invoice_no' => 'required|regex:/^[a-zA-Z0-9_\.\-\/]+$/',
+            'invoice_no' => 'required|unique:tb_penjualan_invoice_master,invoice_no|regex:/^[a-zA-Z0-9_\.\-\/]+$/',
             'customer_code' => 'required|string',
             'sales_code' => 'required|string',
             'invoice_date' => 'required|date',
@@ -37,19 +37,31 @@ class PenjualanController extends Controller
             'description' => 'nullable|string',
             'payment_type' => 'required|string',
 
-            'product_code' => 'required|string',
-            'normal_price' => 'required|string',
-            'discount_rate' => 'required|string',
-            'qty' => 'required|string',
+            'product_code.*' => 'required|string',
+            'normal_price.*' => 'required|integer',
+            'discount_rate.*' => 'required|numeric',
+            'qty.*' => 'required|integer',
+
+            'is_print' => 'required|boolean',
         ]);
 
-        // Check if invoice number exists, if not exist create new
-        if (!PenjualanModel::getInvoice($request->invoice_no)) {
-            PenjualanModel::createInvoice($request);
-        }
+        $master_add = PenjualanModel::createInvoice($request);
 
         // Insert invoice data
-        if (PenjualanModel::addInvoiceItem($request)) {
+        foreach ($request->input('product_code') as $index => $value) {
+            $data = [
+                'invoice_no' => $request->invoice_no,
+                'product_code' => $request->input('product_code')[$index],
+                'normal_price' => $request->input('normal_price')[$index],
+                'discount_rate' => $request->input('discount_rate')[$index],
+                'qty' => $request->input('qty')[$index],
+            ];
+            $data = (object) $data;
+            $item_add = PenjualanModel::addInvoiceItem($data);
+        }
+        if ($master_add) {
+            $request->session()->flash('is_print', (int) $request->is_print);
+            $request->session()->flash('invoice_no', $request->invoice_no);
             return redirect('admin/penjualan/invoice')->withSuccess('Berhasil membuat invoice');
         } else {
             return redirect()->back()->withErrors('Gagal membuat invoice');
