@@ -68,7 +68,7 @@
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col">
+    <div class="col-12">
         <table class="table table-striped print table-condensed selectable">
             <thead>
                 <tr>
@@ -79,7 +79,7 @@
                     <th>Jatuh Tempo</th>
                     <th>Qty Beli</th>
                     <th>Qty Retur</th>
-                    <th>Total</th>
+                    <th>Total Retur</th>
                 </tr>
             </thead>
             <tbody>
@@ -146,6 +146,11 @@
             </tbody>
         </table>
     </div>
+    <div class="col"></div>
+    <div class="col-1">Total</div>
+    <div class="col-2">
+        <input type="text" name="sum_retur_price" readonly="readonly" class="form-control bg-khaki">
+    </div>
 </div>
 @endsection
 @section('script')
@@ -171,6 +176,7 @@
         })
         .done(function(result) {
             $('tbody').html('');
+            var sum_retur_price = 0;
             $.each(result, function(index, val) {
                 var inv_date = new Date(val.invoice_date);
                 var exp_date = new Date(val.expiry_date);
@@ -182,12 +188,12 @@
                                 '<td>'+exp_date.toString('dd-MM-yyyy')+'</td>'+
                                 '<td>'+val.total_qty+'</td>'+
                                 '<td>'+val.total_retur_qty+'</td>'+
-                                '<td>'+val.total_retur_price+'</td>'+
+                                '<td>'+$.number(val.total_retur_price, 0)+'</td>'+
                                 '</tr>';
                 $('tbody').append(newRow);
+                sum_retur_price += parseInt(val.total_retur_price);
             });
-            console.log(result);
-            console.log("success");
+            $('input[name=sum_retur_price]').val($.number(sum_retur_price, 0));
         });
         
     }

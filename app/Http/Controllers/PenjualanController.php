@@ -338,7 +338,8 @@ class PenjualanController extends Controller
 
     function showReturHome() {
         $data = [
-            'invoices' => PenjualanModel::getAllReturInvoice(),
+            'customers' => CustomerModel::getAll(),
+            'sales' => SalesModel::getAll(),
         ];
         return view('admin/penjualan/retur-home')->with($data);
     }

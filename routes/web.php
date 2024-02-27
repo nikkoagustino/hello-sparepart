@@ -283,6 +283,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         Route::prefix('retur')->group(function(){
             Route::get('/', [PenjualanController::class, 'showReturHome']);
+            Route::get('detail', [PenjualanController::class, 'showReturInvoice']);
         });
     });
 

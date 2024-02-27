@@ -15,15 +15,71 @@
 
 @section('content')
 <div class="row mt-5">
+    <div class="col-9">
+        <div class="row">
+            <div class="col-3">No. Invoice</div>
+            <div class="col-7">
+                <input type="text" name="invoice_no" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">Tanggal Invoice</div>
+            <div class="col-3">
+                <input type="date" name="date_start" class="form-control">
+            </div>
+            <div class="col-1">s/d</div>
+            <div class="col-3">
+                <input type="date" name="date_end" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">Kode Customer</div>
+            <div class="col-3">
+                <select name="customer_code" class="form-select form-control">
+                    <option value=""></option>
+                    @foreach ($customers as $row)
+                    <option value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6">
+                <select name="customer_code_name" class="form-select form-control">
+                    <option value=""></option>
+                    @foreach ($customers as $row)
+                    <option value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">Kode Sales</div>
+            <div class="col-3">
+                <select name="sales_code" class="form-select form-control">
+                    <option value=""></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6">
+                <select name="sales_code_name" class="form-select form-control">
+                    <option value=""></option>
+                    @foreach ($sales as $row)
+                    <option value="{{ $row->sales_code }}">{{ $row->sales_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="col text-end">
-        <button id="detailButton" class="btn btn-danger btn-icon-lg">
+        {{-- <button id="detailButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-arrow-pointer"></i>
             Detail
         </button>
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
-        </button>
+        </button> --}}
         <button type="back" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-rotate-left"></i>
             Back
@@ -31,51 +87,151 @@
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col">
+    <div class="col-12">
         <table class="table table-striped print table-condensed selectable">
             <thead>
                 <tr>
                     <th>No Invoice</th>
-                    <th>Tanggal Invoice</th>
-                    <th>Kode Customer</th>
+                    <th>Tgl. Invoice</th>
+                    <th>Kode Cust.</th>
                     <th>Nama Customer</th>
-                    <th>Kode Sales</th>
-                    <th>Nama Sales</th>
                     <th>Jatuh Tempo</th>
-                    <th>Qty Barang</th>
+                    <th>Qty Beli</th>
                     <th>Qty Retur</th>
-                    <th>Total</th>
+                    <th>Total Retur</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($invoices as $row)
-                <tr data-id="{{ $row->invoice_no }}">
-                    <td>{{ $row->invoice_no }}</td>
-                    <td>{{ $row->invoice_date }}</td>
-                    <td>{{ $row->customer_code }}</td>
-                    <td>{{ $row->customer_name }}</td>
-                    <td>{{ $row->sales_code }}</td>
-                    <td>{{ $row->sales_name }}</td>
-                    <td>{{ $row->expiry_date }}</td>
-                    <td>{{ number_format($row->total_qty, 0) }}</td>
-                    <td>{{ number_format($row->total_retur_qty, 0) }}</td>
-                    <td>{{ number_format($row->total_price, 0) }}</td>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                @endforeach
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
+    </div>
+    <div class="col"></div>
+    <div class="col-1">Total</div>
+    <div class="col-2">
+        <input type="text" name="sum_retur_price" readonly="readonly" class="form-control bg-khaki">
     </div>
 </div>
 @endsection
 @section('script')
 <script>
-    $('#detailButton').on('click', function(){
-        if (!selected_row) {
-            alert('Pilih invoice terlebih dahulu');
-            return;
-        }
-        window.location.href="{{ url('admin/penjualan/invoice/detail') }}?invoice_no="+selected_row;
+    $('input').on('change keyup', function(){
+        refreshData();
     });
+    $('select').on('change', function(){
+        refreshData();
+    });
+
+    function refreshData() {
+        $.ajax({
+            url: '{{ url('api/penjualan/transaksi') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                invoice_no: $('input[name=invoice_no]').val(),
+                date_start: $('input[name=date_start]').val(),
+                date_end: $('input[name=date_end]').val(),
+                customer_code: $('select[name=customer_code]').val(),
+                sales_code: $('select[name=sales_code]').val(),
+            },
+        })
+        .done(function(result) {
+            $('tbody').html('');
+            var sum_retur_price = 0;
+            $.each(result, function(index, val) {
+                var inv_date = new Date(val.invoice_date);
+                var exp_date = new Date(val.expiry_date);
+                var newRow = '<tr data-id="'+val.invoice_no+'">'+
+                                '<td>'+val.invoice_no+'</td>'+
+                                '<td>'+inv_date.toString('dd-MM-yyyy')+'</td>'+
+                                '<td>'+val.customer_code+'</td>'+
+                                '<td>'+val.customer_name+'</td>'+
+                                '<td>'+exp_date.toString('dd-MM-yyyy')+'</td>'+
+                                '<td>'+val.total_qty+'</td>'+
+                                '<td>'+val.total_retur_qty+'</td>'+
+                                '<td>'+$.number(val.total_retur_price, 0)+'</td>'+
+                                '</tr>';
+                $('tbody').append(newRow);
+                sum_retur_price += parseInt(val.total_retur_price);
+            });
+            $('input[name=sum_retur_price]').val($.number(sum_retur_price, 0));
+        });
+        
+    }
+
+    $('body').on('click', '.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        window.location.href = "{{ url('admin/penjualan/retur/detail') }}?invoice_no="+selected_row;
+    });
+    // $('#detailButton').on('click', function(){
+    //     if (!selected_row) {
+    //         alert('Pilih invoice terlebih dahulu');
+    //         return;
+    //     }
+    //     window.location.href="{{ url('admin/penjualan/invoice/detail') }}?invoice_no="+selected_row;
+    // });
+
     $('#printButton').on('click', function(){
         window.open('{{ url('admin/print/sell-retur-list') }}', 'printWindow');
     });
