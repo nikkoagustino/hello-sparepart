@@ -203,6 +203,52 @@ class PenjualanController extends Controller
         }
     }
 
+    function editPembayaran(Request $request) {
+        $request->validate([
+            'edit_id' => 'required|exists:tb_penjualan_invoice_bayar,id',
+            'invoice_no' => 'required|string',
+            'edit_paid_amount' => 'required|integer',
+            'edit_payment_date' => 'required|date',
+            'edit_payment_proof_file' => 'nullable|image'
+        ]);
+
+        // Upload file
+        $upload_path = null;
+        if ($request->hasFile('edit_payment_proof_file')) {
+            $file = $request->file('edit_payment_proof_file');
+            $file_path = 'pembelian_payment_proof';
+            $file_name = time().' '.$request->invoice_no.' '.$request->payment_date.'.webp';
+
+            $img = Image::make($file)
+                        ->encode('webp', 80)
+                        ->resize(800, 800, function($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        })
+                        ->stream();
+            $upload = Storage::put($file_path.'/'.$file_name, $img);
+            $upload_path = $file_path.'/'.$file_name;
+        }
+        // Insert pembayaran
+        if (PenjualanModel::updatePayment($request, $upload_path)) {
+            return redirect('admin/penjualan/piutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+        } else {
+            return redirect()->back()->withErrors('Gagal menyimpan pembayaran');
+        }
+    }
+
+    function deletePembayaran(Request $request) {
+        $request->validate([
+            'id' => 'required|exists:tb_penjualan_invoice_bayar,id',
+        ]);
+        $bayar_data = PenjualanModel::getPembayaranID($request->id);
+        if (PenjualanModel::deletePayment($request->id)) {
+            return redirect('admin/penjualan/piutang/bayar?invoice_no='.$bayar_data->invoice_no)->withSuccess('Berhasil menghapus pembayaran');
+        } else {
+            return redirect()->back()->withErrors('Gagal menghapus pembayaran');
+        }
+    }
+
     function getPreviousPaymentByInvNo(Request $request) {
         $response = PenjualanModel::getPreviousPayment($request->invoice_no);
         return response()->json([

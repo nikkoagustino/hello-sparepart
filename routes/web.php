@@ -263,8 +263,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
             Route::get('bayar', [PenjualanController::class, 'showPembayaranInvoice']);
             Route::post('bayar', [PenjualanController::class, 'savePembayaran']);
-            // Route::post('edit-bayar', [PenjualanController::class, 'editPembayaran']);
-            // Route::get('delete-bayar', [PenjualanController::class, 'deletePembayaran']);
+            Route::post('edit-bayar', [PenjualanController::class, 'editPembayaran']);
+            Route::get('delete-bayar', [PenjualanController::class, 'deletePembayaran']);
         });
 
         // Route::prefix('pembayaran')->group(function(){

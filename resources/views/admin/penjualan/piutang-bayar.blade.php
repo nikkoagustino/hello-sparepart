@@ -129,33 +129,31 @@
                 @csrf
                 <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-8">
+                <div class="row mt-3">
+                    <div class="col-7">
+                        <div class="breadcrumb">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="javascript:void(0)" class="btn btn-danger">
+                                        <i class="fa-solid fa-pencil"></i> &nbsp; Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-1">
-                            <div class="col-3">
+                            <div class="col-4">
                                 No. Invoice
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 <input type="text" value="{{ $invoice->invoice_no }}" name="invoice_no" readonly="readonly" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-3">
+                            <div class="col-4">
                                 Tanggal Invoice
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 <input type="date" name="invoice_date" value="{{ $invoice->invoice_date }}" readonly="readonly" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row mb-1">
-                            <div class="col-3">
-                                Kode Customer
-                            </div>
-                            <div class="col-2">
-                                <input type="text" name="customer_code" value="{{ $invoice->customer_code }}" readonly="readonly" class="form-control">
-                            </div>
-                            <div class="col-7">
-                                <input type="text" name="customer_name" value="{{ $invoice->customer_name }}" readonly="readonly" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -178,36 +176,36 @@
                     </div>
                 </div>
                 <div class="row mb-1">
-                    <div class="col-8">
+                    <div class="col-7">
                         <div class="row mb-1">
-                            <div class="col-3">
+                            <div class="col-4">
                                 Tanggal Bayar
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <input type="date" name="payment_date" required="required" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-3">
+                            <div class="col-4">
                                 Total Bayar
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <input type="text" data-type="number" required="required" name="paid_amount" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-3">
-                                Sisa Hutang
+                            <div class="col-4">
+                                Sisa Piutang
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <input type="text" data-type="number" value="{{ number_format($invoice->total_price - $total_paid_amount, 0) }}" readonly="readonly" name="payment_left" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-3">
+                            <div class="col-4">
                                 Bukti Bayar
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <input type="file" accept="image/*" name="payment_proof_file" class="form-control">
                             </div>
                         </div>
@@ -341,6 +339,7 @@
     var selected_row;
     $('#deletePayment').on('click', function(){
         event.preventDefault();
+        $('#editPaymentModal').modal('hide');
         $('#deleteModal').modal('show');
     });
     function enableDelete()

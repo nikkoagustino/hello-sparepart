@@ -350,6 +350,7 @@
     var selected_row;
     $('#deletePayment').on('click', function(){
         event.preventDefault();
+        $('#editPaymentModal').modal('hide');
         $('#deleteModal').modal('show');
     });
     function enableDelete()
