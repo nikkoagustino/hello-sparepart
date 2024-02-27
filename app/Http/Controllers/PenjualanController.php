@@ -150,6 +150,18 @@ class PenjualanController extends Controller
         return $pdf->setPaper('a4', 'landscape')->stream();
         // return view('admin/print/invoice-sell')->with($data);
     }
+    
+    function printInvoiceReturDetail(Request $request) {
+        $data = [
+            'invoice' => PenjualanModel::getInvoiceDetail($request->invoice_no),
+            'master' => PenjualanModel::getInvoiceDetail($request->invoice_no),
+            'items' => PenjualanModel::getInvoiceItems($request->invoice_no),
+            'retur' => PenjualanModel::getReturnedItems($request->invoice_no)
+        ];
+        $pdf = \PDF::loadView('admin/print/invoice-sell-retur', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+        // return view('admin/print/invoice-sell')->with($data);
+    }
 
     function showPembayaranHome() {
         $data = [

@@ -312,6 +312,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('invoice-buy', [PembelianController::class, 'printInvoice']);
         Route::get('invoice-buy-retur', [PembelianController::class, 'printInvoice']);
         Route::get('invoice-sell', [PenjualanController::class, 'printInvoice']);
+        Route::get('invoice-sell-retur', [PenjualanController::class, 'printInvoiceReturDetail']);
         Route::get('invoice-buy-list', [PembelianController::class, 'printInvoiceList']);
         Route::get('invoice-sell-list', [PenjualanController::class, 'printInvoiceList']);
         Route::get('buy-retur-list', [PembelianController::class, 'printInvoiceRetur']);
