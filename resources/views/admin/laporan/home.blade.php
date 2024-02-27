@@ -10,162 +10,100 @@
 </a>
 @endsection
 @section('content')
-<div class="row mt-5">
-    <div class="col-4"><h3>LAPORAN BULANAN</h3></div>
-    <div class="col-2">
-        <select name="month" class="form-control form-select">
-            <option value="1">JANUARI</option>
-            <option value="2">FEBRUARI</option>
-            <option value="3">MARET</option>
-            <option value="4">APRIL</option>
-            <option value="5">MEI</option>
-            <option value="6">JUNI</option>
-            <option value="7">JULI</option>
-            <option value="8">AGUSTUS</option>
-            <option value="9">SEPTEMBER</option>
-            <option value="10">OKTOBER</option>
-            <option value="11">NOVEMBER</option>
-            <option value="12">DESEMBER</option>
-        </select>
-    </div>
-    <div class="col-2">
-        <input type="number" name="year" step="1" class="form-control" value="{{ date('Y') }}">
-    </div>
-</div>
-<div class="row mt-3">
-    <div class="col-4">
-        <div class="row laporan-head">
-            <div class="col-3 pt-2">
-                {{-- <i class="fa-solid fa-scale-balanced fs-1"></i> --}}
-                <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
-            </div>
-            <div class="col-9">
-                <span id="monthly_profit" class="d-block fs-2">{{ number_format($monthly['profit'], 0) }}</span>
-                <span>Keuntungan</span>
-            </div>
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col"><h3>LAPORAN</h3></div>
+        <div class="col-1">
+            Periode
+        </div>
+        <div class="col-3">
+            @include('shared.select-month')
+        </div>
+        <div class="col-2">
+            @include('shared.select-year')
         </div>
     </div>
-    <div class="col-4">
-        <div class="row laporan-head">
-            <div class="col-3 pt-2">
-                {{-- <i class="fa-solid fa-scale-balanced fs-1"></i> --}}
-                <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
-            </div>
-            <div class="col-9">
-                <span id="monthly_income" class="d-block fs-2">{{ number_format($monthly['income'], 0) }}</span>
-                <span>Total Pemasukan</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="row laporan-head">
-            <div class="col-3 pt-2">
-                {{-- <i class="fa-solid fa-scale-balanced fs-1"></i> --}}
-                <img src="{{ url('assets/img/svg/laporan.svg') }}" alt="">
-            </div>
-            <div class="col-9">
-                <span id="monthly_expense" class="d-block fs-2">{{ number_format($monthly['expense'], 0) }}</span>
-                <span>Total Pengeluaran</span>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="row mt-5 p-3 laporan-head">
-    <div class="col-12">
-        <h2>Laporan Penjualan Per Periode</h2>
-    </div>
-    <div class="col-12">
-        <button class="btn btn-light" onclick="refreshChart(3)">3 Bulan</button>
-        <button class="btn btn-light" onclick="refreshChart(6)">6 Bulan</button>
-        <button class="btn btn-light" onclick="refreshChart(12)">12 Bulan</button>
-    </div>
-    <div class="col-12">
-        <div id="chart"></div>
-    </div>
-</div>
+    @include('shared.tabs-laporan')
 
-<div class="row mt-5 p-3 laporan-head">
-    <div class="col-12">
-        <h2>Top #10 Best Seller</h2>
+    <div class="row mt-5">
+        <div class="col-4 px-4">
+            <div class="row laporan-head rounded">
+                <div class="col-12">
+                    <span id="monthly_profit" class="d-block fs-2">{{ number_format($monthly['profit'], 0) }}</span>
+                    <span>Keuntungan</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 px-4">
+            <div class="row laporan-head rounded">
+                <div class="col-12">
+                    <span id="monthly_income" class="d-block fs-2">{{ number_format($monthly['income'], 0) }}</span>
+                    <span>Total Pemasukan</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 px-4">
+            <div class="row laporan-head rounded">
+                <div class="col-12">
+                    <span id="monthly_expense" class="d-block fs-2">{{ number_format($monthly['expense'], 0) }}</span>
+                    <span>Total Pengeluaran</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-6">
-        <table class="table table-striped print">
-            <tbody>
-                @php
-                list($left_array, $right_array) = array_chunk($best_seller, 5);
-                @endphp
-                @foreach($left_array as $row)
-                <tr>
-                    <td>{{ $row->product_code }}</td>
-                    <td>{{ number_format($row->total_qty, 0) }} pcs</td>
-                </tr>
+
+    <div class="row mt-5 p-3 laporan-head">
+        <div class="col-12">
+            <h2>Laporan Penjualan Per Periode</h2>
+        </div>
+        <div class="col-12 periode-selector">
+            <button class="btn btn-light" onclick="refreshChart(3)">3 Bulan</button>
+            <button class="btn btn-light" onclick="refreshChart(6)">6 Bulan</button>
+            <button class="btn btn-light" onclick="refreshChart(12)">12 Bulan</button>
+        </div>
+        <div class="col-12">
+            <div id="chart"></div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-6 pe-3">
+            <div class="laporan-head p-3">
+                <h2>Top #10 Best Seller</h2>
+                <?php $x = 1; ?>
+                @foreach ($best_seller as $row)
+                <div class="row top-ten">
+                    <div class="col-1">{{ $x }}</div>
+                    <div class="col text-start">{{ $row->product_code }}</div>
+                    <div class="col-3 text-start">{{ $row->total_qty }}</div>
+                </div>
+                <?php $x++; ?>
                 @endforeach
-            </tbody>
-        </table>
-    </div>
-    <div class="col-6">
-        <table class="table table-striped print">
-            <tbody>
-                @foreach($right_array as $row)
-                <tr>
-                    <td>{{ $row->product_code }}</td>
-                    <td>{{ number_format($row->total_qty, 0) }} pcs</td>
-                </tr>
+            </div>
+        </div>
+        <div class="col-6 ps-3">
+            <div class="laporan-head p-3">
+                <h2>Top #10 Customer</h2>
+                <?php $x = 1; ?>
+                @foreach ($best_customer as $row)
+                <div class="row top-ten">
+                    <div class="col-1">{{ $x }}</div>
+                    <div class="col text-start">{{ $row->customer_name }}</div>
+                    <div class="col-3 text-start">{{ number_format($row->total_price, 0) }}</div>
+                </div>
+                <?php $x++; ?>
                 @endforeach
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="row mt-5">
-    <div class="col-11 mx-5 px-5">
-        <div class="row mb-4">
-            <div class="col">
-                <a href="{{ url('admin/laporan/penjualan') }}" class="btn btn-selection btn-purple">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-download"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/svg/dash-penjualan.svg') }}" class="icon-lg" alt="">
-                    Penjualan
-                </a>
-            </div>
-            <div class="col">
-                <a href="{{ url('admin/laporan/pembelian') }}" class="btn btn-selection btn-blue">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-upload"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/svg/dash-pembelian.svg') }}" class="icon-lg" alt="">
-                    Pembelian
-                </a>
-            </div>
-            <div class="col">
-                <a href="{{ url('admin/laporan/laba-rugi') }}" class="btn btn-selection btn-yellow">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/svg/laba-rugi.svg') }}" class="icon-lg" alt="">
-                    Laba Rugi
-                </a>
-            </div>
-            <div class="col">
-                <a href="{{ url('admin/laporan/produk') }}" class="btn btn-selection btn-pink">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/svg/product.svg') }}" class="icon-lg" alt="">
-                    Produk
-                </a>
-            </div>
-            <div class="col">
-                <a href="{{ url('admin/laporan/jenis-barang') }}" class="btn btn-selection btn-green">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/svg/jenis-barang.svg') }}" class="icon-lg" alt="">
-                    Jenis Barang
-                </a>
-            </div>
+    <div class="row">
+        <div class="col">
+            <button id="printButton" class="btn btn-danger btn-icon-lg">
+                <i class="fa-solid fa-print"></i>
+                Print
+            </button>
         </div>
     </div>
 </div>
@@ -177,6 +115,7 @@ let chartInitialized = false;
 
 $(document).ready(function(){
     $('select[name=month]').val({{ date('m') }});
+    $('select[name=year]').val({{ date('Y') }});
     refreshNumbers();
     refreshChart(3);
 });
@@ -216,10 +155,10 @@ function refreshChart(range) {
         data: {range: range},
     })
     .done(function(result) {
-        const incomeData = result.incomes.map(item => item.amount);
+        const profitData = result.profit.map(item => item.amount);
         const expenseData = result.expenses.map(item => item.amount);
-        const labels = result.incomes.map(item => item.year_month);
-        createApexChart(incomeData, expenseData, labels);
+        const labels = result.profit.map(item => item.year_month);
+        createApexChart(profitData, expenseData, labels);
     })
     .fail(function() {
     })
@@ -227,11 +166,11 @@ function refreshChart(range) {
     });
 }
 
-function createApexChart(incomes, expenses, labels) {
+function createApexChart(profit, expenses, labels) {
       const options = {
         series: [
-          { name: 'Pemasukan', data: incomes },
-          { name: 'Pengeluaran', data: expenses }
+          { name: 'Pengeluaran', data: expenses, },
+          { name: 'Keuntungan', data: profit }
         ],
         chart: {
           type: 'bar',
@@ -280,5 +219,8 @@ function createApexChart(incomes, expenses, labels) {
       chartInitialized = true;
     }
 
+$('#printButton').on('click', function(){
+    alert('Fitur belum tersedia');
+});
 </script>
 @endsection

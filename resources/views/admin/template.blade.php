@@ -189,19 +189,43 @@
             padding: 10px 20px;
         }
         .modal-body {
-            border: 4px solid crimson;
+            border: 4px solid var(--bs-danger);
         }
         .laporan-head {
-            margin: 10px;
             text-align: center;
             background-color: antiquewhite;
-            border: 1px solid crimson;
+            border: 2px solid var(--bs-danger);
+        }
+        .laporan-head.rounded {
+            border-radius: 50px !important;
         }
         .laporan-head .fa-solid {
             padding-top: 10px;
         }
         .laporan-head .col-3 {
-            border-right: 1px solid crimson;
+            border-right: 1px solid var(--bs-danger);
+        }
+        .top-ten div {
+            background: white;
+            border: 1px solid var(--bs-danger);
+            border-radius: 25px;
+            margin: 2px;
+        }
+        .laporan-nav .btn {
+            background: white;
+            width: 100%;
+            border-radius: 25px;
+            border: 2px solid var(--bs-danger);
+            margin-top: 1rem;
+        }
+        .laporan-nav .btn.active {
+            background: var(--bs-danger);
+            color: white;
+        }
+        .periode-selector .btn {
+            border-radius: 20px;
+            border: 1px solid black;
+            padding: 5px 50px;
         }
         .alert {
             position: fixed;
@@ -260,6 +284,7 @@
         }
         :root {
           --bs-danger-rgb: 170,30,36;
+          --bs-danger: #aa1e24;
         }
         .bg-khaki {
             background-color: khaki !important;

@@ -69,6 +69,16 @@ class LaporanModel extends Model
         return $result;
     }
 
+    static function getBestCustomer() {
+        $result = DB::table('view_invoice_penjualan_detail')
+                    ->select('customer_code', 'customer_name', DB::raw('SUM(total_invoice_price) AS total_price'))
+                    ->orderBy('total_price', 'DESC')
+                    ->groupBy('customer_code')
+                    ->limit(10)
+                    ->get();
+        return $result;
+    }
+
     static function getExpenseBulanan($range) {
         $result = DB::table('view_invoice_pembelian_detail')
                     ->where('invoice_date', '>=', Carbon::now()->subMonths($range)->startOfMonth())

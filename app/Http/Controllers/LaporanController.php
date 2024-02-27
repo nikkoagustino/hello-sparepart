@@ -105,6 +105,7 @@ class LaporanController extends Controller
                 'profit' => $monthly_profit,
             ],
            'best_seller' => (array) LaporanModel::getBestSeller()->toArray(),
+           'best_customer' => (array) LaporanModel::getBestCustomer()->toArray(),
         ];
         // dd($data);
         return view('admin.laporan.home')->with($data);
@@ -153,6 +154,7 @@ class LaporanController extends Controller
         $range = $request->range;
         $income_data = [];
         $expense_data = [];
+        $profit_data = [];
         while ($range > 0) {
             $start_date = Carbon::now()->subMonths($range - 1)->startOfMonth();
             $year = date('Y', strtotime($start_date));
@@ -165,14 +167,20 @@ class LaporanController extends Controller
                 'year_month' => $year.'-'.$month,
                 'amount' => (int) LaporanModel::getExpenseByMonth($year, $month)->amount ?? 0,
             ];
+            $profit_row = [
+                'year_month' => $year.'-'.$month,
+                'amount' => $income_row['amount'] - $expense_row['amount'],
+            ];
             array_push($income_data, $income_row);
             array_push($expense_data, $expense_row);
+            array_push($profit_data, $profit_row);
 
             $range--;
         }
         $data = [
             'incomes' => $income_data,
             'expenses' => $expense_data,
+            'profit' => $profit_data,
         ];
 
         return response()->json($data, 200);
