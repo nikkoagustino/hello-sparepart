@@ -229,6 +229,15 @@ class PenjualanController extends Controller
         return view('admin/penjualan/piutang-list')->with($data);
     }
 
+    function showDetailPiutang(Request $request) {
+        $data = [
+            'invoice' => PenjualanModel::getInvoiceDetail($request->invoice_no),
+            'items' => PenjualanModel::getInvoiceItems($request->invoice_no),
+            'payments' => PenjualanModel::getPreviousPayment($request->invoice_no),
+        ];
+        return view('admin/penjualan/piutang-detail')->with($data);
+    }
+
     function getInvoicePiutang(Request $request) {
         $data = PenjualanModel::getInvoicePiutang($request);
         return response()->json($data, 200);

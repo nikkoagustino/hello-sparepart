@@ -40,7 +40,7 @@
         </div>
         <div class="row mt-1">
             <div class="col-2">
-                Kode Supplier
+                Kode Customer
             </div>
             <div class="col-3">
                 <select name="customer_code" class="form-select form-control">
@@ -269,7 +269,7 @@
         $('tr[data-id="'+selected_row+'"]').addClass('selected');
 
         if (selected_row) {
-            window.location.href='{{ url('admin/dashboard/piutang/bayar') }}?invoice_no='+selected_row;
+            window.location.href='{{ url('admin/penjualan/piutang/detail') }}?invoice_no='+selected_row;
         } else {
             alert('Pilih Data Terlebih Dahulu');
         }

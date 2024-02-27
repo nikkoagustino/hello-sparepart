@@ -258,11 +258,18 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             Route::get('delete-item', [PenjualanController::class, 'deleteInvoiceItem']);
         });
 
-        Route::prefix('pembayaran')->group(function(){
-            Route::get('/', [PenjualanController::class, 'showPembayaranHome']);
-            Route::get('invoice', [PenjualanController::class, 'showPembayaranInvoice']);
-            Route::post('add', [PenjualanController::class, 'savePembayaran']);
+        Route::prefix('piutang')->group(function(){
+            Route::get('/', [PenjualanController::class, 'showListPiutang']);
+            Route::get('detail', [PenjualanController::class, 'showDetailPiutang']);
+            Route::get('bayar', [PenjualanController::class, 'showPembayaranPiutang']);
+            Route::post('bayar', [PenjualanController::class, 'savePembayaranPiutang']);
         });
+
+        // Route::prefix('pembayaran')->group(function(){
+        //     Route::get('/', [PenjualanController::class, 'showPembayaranHome']);
+        //     Route::get('invoice', [PenjualanController::class, 'showPembayaranInvoice']);
+        //     Route::post('add', [PenjualanController::class, 'savePembayaran']);
+        // });
         
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PenjualanController::class, 'showTransaksi']);

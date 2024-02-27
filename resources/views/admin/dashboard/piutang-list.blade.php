@@ -40,7 +40,7 @@
         </div>
         <div class="row mt-1">
             <div class="col-2">
-                Kode Supplier
+                Kode Customer
             </div>
             <div class="col-3">
                 <select name="customer_code" class="form-select form-control">
