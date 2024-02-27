@@ -11,6 +11,7 @@ use App\Models\ProductModel;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Str;
 
 class PenjualanController extends Controller
 {
@@ -161,7 +162,7 @@ class PenjualanController extends Controller
             'invoice' => PenjualanModel::getInvoiceDetail($request->invoice_no),
             'payments' => PenjualanModel::getPreviousPayment($request->invoice_no),
         ];
-        return view('admin/penjualan/invoice-payment-show')->with($data);
+        return view('admin/penjualan/piutang-bayar')->with($data);
     }
 
     function savePembayaran(Request $request) {
@@ -192,7 +193,11 @@ class PenjualanController extends Controller
 
         // Insert pembayaran
         if (PenjualanModel::insertPayment($request, $upload_path)) {
-            return redirect('admin/dashboard/piutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            if (Str::contains($request->redirect_to, 'dashboard')) {
+                return redirect('admin/dashboard/piutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            } else {
+                return redirect('admin/penjualan/piutang/bayar?invoice_no='.$request->invoice_no)->withSuccess('Berhasil menyimpan pembayaran');
+            }
         } else {
             return redirect()->back()->withErrors('Gagal menyimpan pembayaran');
         }
