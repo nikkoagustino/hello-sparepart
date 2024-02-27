@@ -232,6 +232,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PembelianController::class, 'showTransaksi']);
             Route::get('detail', [PembelianController::class, 'showDetailTransaksi']);
+            Route::get('detail', [PembelianController::class, 'showDetailTransaksi']);
         });
 
         Route::prefix('lunas')->group(function(){
@@ -275,6 +276,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         
         Route::prefix('transaksi')->group(function(){
             Route::get('/', [PenjualanController::class, 'showTransaksi']);
+            Route::get('detail', [PenjualanController::class, 'showDetailTransaksi']);
         });
 
         Route::prefix('lunas')->group(function(){
@@ -331,6 +333,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('hutang-detail', [PembelianController::class, 'printDetailHutang']);
         Route::get('transaksi-pembelian', [PembelianController::class, 'printTransaksi']);
         Route::get('piutang-detail', [PenjualanController::class, 'printDetailPiutang']);
+        Route::get('transaksi-penjualan', [PenjualanController::class, 'printTransaksi']);
     });
 
     Route::get('backup', [BackupController::class, 'backupDatabase']);

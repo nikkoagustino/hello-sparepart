@@ -150,6 +150,14 @@ class PenjualanController extends Controller
         return $pdf->setPaper('a4', 'landscape')->stream();
         // return view('admin/print/invoice-sell')->with($data);
     }
+
+    function printTransaksi(Request $request) {
+        $data = [
+            'invoices' => PenjualanModel::filterTransaksi($request)
+        ];
+        $pdf = \PDF::loadView('admin/print/transaksi-penjualan', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
     
     function printInvoiceReturDetail(Request $request) {
         $data = [
@@ -320,6 +328,15 @@ class PenjualanController extends Controller
         ];
         return view('admin/penjualan/transaksi')->with($data);
     }
+
+    function showDetailTransaksi() {
+        $data = [
+            'customers' => CustomerModel::getAll(),
+            'products' => ProductModel::getAll(),
+        ];
+        return view('admin/penjualan/transaksi-detail')->with($data);
+    }
+
     function showTransaksiLunas() {
         $data = [
             'customers' => CustomerModel::getAll(),

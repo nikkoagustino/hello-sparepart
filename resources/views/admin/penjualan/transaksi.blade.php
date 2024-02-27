@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('meta')
-<title>List Penjualan - {{ config('app.name') }}</title>
+<title>List Transaksi - {{ config('app.name') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -11,12 +11,19 @@
 <a href="{{ url('admin/penjualan/transaksi') }}" class="btn btn-danger">
     <img src="{{ url('assets/img/svg/transaksi.svg') }}"> &nbsp; Transaksi
 </a>
+
 @endsection
 
 @section('content')
 <div class="row mt-5">
     <div class="col-9">
         <div class="row">
+            <div class="col-3">No. Invoice</div>
+            <div class="col-7">
+                <input type="text" name="invoice_no" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-2">
             <div class="col-3">
                 Periode
             </div>
@@ -30,44 +37,21 @@
                 <input type="date" value="{{ $_GET['date_end'] ?? '' }}" name="date_end" class="form-control">
             </div>
         </div>
-        <div class="row mt-1">
+        <div class="row mt-2">
+            <div class="col-3">Kode Customer</div>
             <div class="col-3">
-                Kode Customer
-            </div>
-            <div class="col-3">
-                <select name="customer_code" class="form-select form-control">
-                    <option data-code="" data-name="" value=""></option>
+                <select name="customer_code" required="required" class="form-select form-control">
+                    <option value="" selected="selected"></option>
                     @foreach ($customers as $row)
-                    <option data-code="{{ $row->customer_code }}" data-name="{{ $row->customer_name }}" value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
+                    <option value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-6">
-                <select name="customer_name" class="form-select form-control">
-                    <option data-code="" data-name="" value=""></option>
+                <select name="customer_code_name" required="required" class="form-select form-control">
+                    <option value="" selected="selected" disabled="disabled"></option>
                     @foreach ($customers as $row)
-                    <option data-code="{{ $row->customer_code }}" data-name="{{ $row->customer_name }}" value="{{ $row->customer_name }}">{{ $row->customer_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="row mt-1">
-            <div class="col-3">
-                Jenis Barang
-            </div>
-            <div class="col-3">
-                <select name="product_code" class="form-select form-control">
-                    <option data-code="" data-name="" value=""></option>
-                    @foreach ($products as $row)
-                    <option data-code="{{ $row->product_code }}" data-name="{{ $row->product_name }}" value="{{ $row->product_code }}">{{ $row->product_code }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-6">
-                <select name="product_name" class="form-select form-control">
-                    <option data-code="" data-name="" value=""></option>
-                    @foreach ($products as $row)
-                    <option data-code="{{ $row->product_code }}" data-name="{{ $row->product_name }}" value="{{ $row->product_name }}">{{ $row->product_name }}</option>
+                    <option value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -91,29 +75,13 @@
                 <tr>
                     <th>No Invoice</th>
                     <th>Tgl Invoice</th>
-                    <th>Kode Cust</th>
-                    <th>Nama Cust</th>
+                    <th>Kode Customer</th>
+                    <th>Nama Customer</th>
                     <th>Total Invoice</th>
-                    <th>Total Pembayaran</th>
-                    <th>Sisa Piutang</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">Total</td>
-                    <td class="total_invoice_price">
-                    0
-                    </td>
-                    <td class="total_pembayaran">
-                    0
-                    </td>
-                    <td class="total_piutang">
-                    0
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     </div>
 </div>
@@ -122,57 +90,31 @@
 
 @section('script')
 <script>
-    $(document).ready(function() {
-        $('input').attr('autocomplete', 'off');
+    $('input').on('change keyup', function() {
         refreshData();
     });
-
-    $('input').on('change', function() {
-        refreshData();
-    });
-
-    $('select[name=product_code]').on('change', function(){
-        var product_name = $(this).find(':selected').data('name');
-        $('select[name=product_name]').val(product_name);
-        refreshData();
-    });
-    $('select[name=product_name]').on('change', function(){
-        var product_code = $(this).find(':selected').data('code');
-        $('select[name=product_code]').val(product_code);
-        refreshData();
-    });
-    $('select[name=customer_code]').on('change', function(){
-        var customer_name = $(this).find(':selected').data('name');
-        $('select[name=customer_name]').val(customer_name);
-        refreshData();
-    });
-    $('select[name=customer_name]').on('change', function(){
-        var customer_code = $(this).find(':selected').data('name');
-        $('select[name=customer_code]').val(customer_code);
+    $('select').on('change', function() {
         refreshData();
     });
 
     function refreshData() {
+        var invoice_no = $('input[name=invoice_no]').val();
         var date_start = $('input[name=date_start]').val();
         var date_end = $('input[name=date_end]').val();
         var customer_code = $('select[name=customer_code]').val();
-        var product_code = $('select[name=product_code]').val();
         $.ajax({
             url: '{{ url('api/penjualan/transaksi') }}',
             type: 'GET',
             dataType: 'json',
             data: {
+                invoice_no: invoice_no,
                 date_start: date_start,
                 date_end: date_end,
                 customer_code: customer_code,
-                product_code: product_code,
             }
         })
         .done(function(result) {
             $('#itemsTable tbody').html('');
-            var total_invoice_price = 0;
-            var total_pembayaran = 0;
-            var total_piutang = 0;
             $.each(result, function(index, val) {
                 $('#itemsTable tbody').append('<tr data-id="'+val.invoice_no+'">' +
                     '<td>'+val.invoice_no+'</td>' +
@@ -180,21 +122,27 @@
                     '<td>'+val.customer_code+'</td>' +
                     '<td>'+val.customer_name+'</td>' +
                     '<td>'+$.number(val.total_price, 0)+'</td>' +
-                    '<td>'+$.number(val.total_paid_amount, 0)+'</td>' +
-                    '<td>'+$.number(val.piutang, 0)+'</td>' +
                     '</tr>');
-                    total_invoice_price = total_invoice_price + parseInt(val.total_price);
-                    total_pembayaran = total_pembayaran + parseInt(val.total_paid_amount);
-                    total_piutang = total_piutang + parseInt(val.piutang);
             });
-            $('.total_invoice_price').text($.number(total_invoice_price, 0));
-            $('.total_pembayaran').text($.number(total_pembayaran, 0));
-            $('.total_hutang').text($.number(total_hutang, 0));
-        })
-        .fail(function() {
-        })
-        .always(function(result) {
         });
     }
+
+    $('body').on('click', '.selectable tbody tr', function() {
+        var selected_row = $(this).data('id');
+        $('tr').removeClass('selected');
+        $('tr[data-id="'+selected_row+'"]').addClass('selected');
+        window.location.href = "{{ url('admin/penjualan/transaksi/detail') }}?invoice_no="+selected_row;
+    });
+
+    $('#printButton').on('click', function(){
+        const params = new URLSearchParams({
+            invoice_no : $('input[name=invoice_no]').val(),
+            date_start : $('input[name=date_start]').val(),
+            date_end : $('input[name=date_end]').val(),
+            customer_code : $('select[name=customer_code]').val(),
+        });
+        window.open('{{ url('admin/print/transaksi-penjualan') }}?'+params, 'printWindow');
+    });
+
 </script>
 @endsection
