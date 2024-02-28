@@ -194,34 +194,34 @@ class LaporanController extends Controller
         return view('admin.laporan.laba-rugi-tahunan');
     }
 
-    function showLabaRugiBulanan() {
-        $data = [
-            'sales' => SalesModel::getAll(),
-        ];
-        return view('admin.laporan.laba-rugi-bulanan')->with($data);
-    }
+    // function showLabaRugiBulanan() {
+    //     $data = [
+    //         'sales' => SalesModel::getAll(),
+    //     ];
+    //     return view('admin.laporan.laba-rugi-bulanan')->with($data);
+    // }
 
-    function getLabaRugi(Request $request) {
-        $data = [
-            'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
-            'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
-            'gaji' => LaporanModel::getGajiSalesByMonth($request->year, $request->month),
-            'beban' => LaporanModel::getBebanOpsByMonth($request->year, $request->month) ?? [],
-            'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
-        ];
-        return response()->json($data, 200);
-    }
+    // function getLabaRugi(Request $request) {
+    //     $data = [
+    //         'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
+    //         'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
+    //         'gaji' => LaporanModel::getGajiSalesByMonth($request->year, $request->month),
+    //         'beban' => LaporanModel::getBebanOpsByMonth($request->year, $request->month) ?? [],
+    //         'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
+    //     ];
+    //     return response()->json($data, 200);
+    // }
 
-    function printLabaRugiBulanan(Request $request) {
-        $data = [
-            'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
-            'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
-            'gaji' => LaporanModel::getGajiSalesByMonth($request->year, $request->month),
-            'beban' => LaporanModel::getBebanOpsByMonth($request->year, $request->month) ?? [],
-            'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
-        ];
-        return view('admin/print/laba-rugi-bulanan')->with($data);
-    }
+    // function printLabaRugiBulanan(Request $request) {
+    //     $data = [
+    //         'penjualan' => LaporanModel::getIncomeByMonth($request->year, $request->month),
+    //         'komisi' => LaporanModel::getKomisiSalesByMonth($request->year, $request->month),
+    //         'gaji' => LaporanModel::getGajiSalesByMonth($request->year, $request->month),
+    //         'beban' => LaporanModel::getBebanOpsByMonth($request->year, $request->month) ?? [],
+    //         'modal' => LaporanModel::getModalByMonth($request->year, $request->month),
+    //     ];
+    //     return view('admin/print/laba-rugi-bulanan')->with($data);
+    // }
 
     function saveLabaRugi(Request $request) {
         $request->validate([
@@ -316,6 +316,17 @@ class LaporanController extends Controller
                 'modal_bersih' => (int) LaporanModel::getModalBersih($request) ?? 0,
                 'komisi_sales' => (int) LaporanModel::getKomisiSales($request) ?? 0,
                 'beban_ops' => (int) LaporanModel::getBebanOps($request) ?? 0,
+                'gaji' => (int) LaporanModel::getGajiSales($request) ?? 0,
+            ],
+            'breakdown' => [
+                'komisi' => LaporanModel::getKomisiSalesDetail($request),
+                'gaji' => LaporanModel::getGajiSalesDetail($request),
+                'beban_ops' => [
+                    'inventaris' => LaporanModel::getInventarisSum($request),
+                    'reimburse' => LaporanModel::getReimburseSum($request),
+                    'pulsa' => LaporanModel::getPulsaSum($request),
+                    'other' => LaporanModel::getBebanOpsOtherSum($request),
+                ],
             ]
         ];
         return response()->json($output, 200);

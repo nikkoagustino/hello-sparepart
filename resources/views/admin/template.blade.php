@@ -202,8 +202,8 @@
         .laporan-head .fa-solid {
             padding-top: 10px;
         }
-        .laporan-head .col-3 {
-            border-right: 1px solid var(--bs-danger);
+        .laporan-head .form-control {
+            text-align: right;
         }
         .top-ten div {
             background: white;

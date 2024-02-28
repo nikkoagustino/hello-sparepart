@@ -75,7 +75,7 @@ Route::get('laporan/product', [LaporanController::class, 'getLaporanProduct']);
 Route::get('laporan/product-type', [LaporanController::class, 'getLaporanProductType']);
 
 Route::get('dashboard-laba-rugi', [LaporanController::class, 'getDashboardLabaRugi']);
-Route::get('data-laba-rugi', [LaporanController::class, 'getLabaRugi']);
+// Route::get('data-laba-rugi', [LaporanController::class, 'getLabaRugi']);
 // Route::get('invoice/pembelian/generate', [PembelianController::class, 'generateInvoiceNumber']);
 // Route::get('invoice/penjualan/generate', [PenjualanController::class, 'generateInvoiceNumber']);
 

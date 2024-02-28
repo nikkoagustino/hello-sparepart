@@ -35,10 +35,95 @@ class LaporanModel extends Model
         return $result;
     }
 
+    static function getGajiSales($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(trx.tx_date) >= '.$request->month_start.' AND MONTH(trx.tx_date) <= '.$request->month_end)
+                    ->where('trx.description', 'like', '%gaji%')
+                    ->sum('trx.amount');
+        return $result;
+    }
+
+    static function getKomisiSalesDetail($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('view_tabel_komisi_sales AS vw')
+                    ->join('tb_sales AS sal', 'vw.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(vw.invoice_date) = '.$request->year)
+                    ->whereRaw('MONTH(vw.invoice_date) >= '.$request->month_start.' AND MONTH(vw.invoice_date) <= '.$request->month_end)
+                    ->groupBy('vw.sales_code')
+                    ->select('vw.sales_code', 'sal.sales_name', DB::raw('SUM(vw.paid_amount) AS komisi'))
+                    ->get();
+        return $result;
+    }
+
+    static function getGajiSalesDetail($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(trx.tx_date) >= '.$request->month_start.' AND MONTH(trx.tx_date) <= '.$request->month_end)
+                    ->where('trx.description', 'like', '%gaji%')
+                    ->groupBy('trx.sales_code')
+                    ->select('trx.sales_code', 'sal.sales_name', DB::raw('SUM(trx.amount) AS gaji'))
+                    ->get();
+        return $result;
+    }
+
+    static function getInventarisSum($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(trx.tx_date) >= '.$request->month_start.' AND MONTH(trx.tx_date) <= '.$request->month_end)
+                    ->where('trx.description', 'like', '%inventaris%')
+                    ->sum('trx.amount');
+        return $result;
+    }
+
+    static function getReimburseSum($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(trx.tx_date) >= '.$request->month_start.' AND MONTH(trx.tx_date) <= '.$request->month_end)
+                    ->where('trx.description', 'like', '%reimburse%')
+                    ->sum('trx.amount');
+        return $result;
+    }
+
+    static function getPulsaSum($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(trx.tx_date) >= '.$request->month_start.' AND MONTH(trx.tx_date) <= '.$request->month_end)
+                    ->where('trx.description', 'like', '%pulsa%')
+                    ->sum('trx.amount');
+        return $result;
+    }
+
+    static function getBebanOpsOtherSum($request) {
+        DB::statement('SET SQL_MODE=""');
+        $result = DB::table('tb_transaksi_sales AS trx')
+                    ->join('tb_sales AS sal', 'trx.sales_code', '=', 'sal.sales_code')
+                    ->whereRaw('YEAR(trx.tx_date) = '.$request->year)
+                    ->whereRaw('MONTH(trx.tx_date) >= '.$request->month_start.' AND MONTH(trx.tx_date) <= '.$request->month_end)
+                    ->where('trx.description', 'not like', '%inventaris%')
+                    ->where('trx.description', 'not like', '%reimburse%')
+                    ->where('trx.description', 'not like', '%pulsa%')
+                    ->where('trx.description', 'not like', '%gaji%')
+                    ->sum('trx.amount');
+        return $result;
+    }
+
     static function getBebanOps($request) {
+        DB::statement('SET SQL_MODE=""');
         $result = DB::table('tb_transaksi_sales')
                     ->whereRaw('YEAR(tx_date) = '.$request->year)
                     ->whereRaw('MONTH(tx_date) >= '.$request->month_start.' AND MONTH(tx_date) <= '.$request->month_end)
+                    ->where('description', 'not like', '%gaji%')
                     ->sum('amount');
         return $result;
     }
