@@ -292,8 +292,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
     Route::prefix('laporan')->group(function() {
         Route::get('/', function(){ return redirect('admin/laporan/general'); });
         Route::get('general', [LaporanController::class, 'showLaporanHomepage']);
+        Route::get('penjualan', [LaporanController::class, 'showLaporanPenjualan']);
         // Route::get('pembelian', [LaporanController::class, 'showLaporanPembelian']);
-        // Route::get('penjualan', [LaporanController::class, 'showLaporanPenjualan']);
         // Route::get('laba-rugi', [LaporanController::class, 'showLabaRugiHome']);
         // Route::get('laba-rugi/tahun', [LaporanController::class, 'showLabaRugiTahunan']);
         // Route::get('laba-rugi/bulan', [LaporanController::class, 'showLabaRugiBulanan']);
@@ -326,8 +326,8 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('sell-piutang-list', [PenjualanController::class, 'printInvoicePiutang']);
         Route::get('laba-rugi-tahun/{year}', [LaporanController::class, 'printLabaRugiTahunan']);
         Route::get('laba-rugi-bulanan', [LaporanController::class, 'printLabaRugiBulanan']);
-        Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
-        Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
+        // Route::get('laporan-pembelian', [LaporanController::class, 'printLaporanPembelian']);
+        // Route::get('laporan-penjualan', [LaporanController::class, 'printLaporanPenjualan']);
         Route::get('product/tx', [LaporanController::class, 'printProductTx']);
         Route::get('surat-jalan', [SuratJalanController::class, 'printSuratJalan']);
         Route::get('rangkuman-laba-rugi', [LaporanController::class, 'printRangkumanLabaRugi']);
