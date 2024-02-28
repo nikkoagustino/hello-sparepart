@@ -13,15 +13,6 @@
 <div class="container-fluid p-3">
     <div class="row">
         <div class="col"><h3>LAPORAN</h3></div>
-        <div class="col-1">
-            Periode
-        </div>
-        <div class="col-3">
-            @include('shared.select-month')
-        </div>
-        <div class="col-2">
-            @include('shared.select-year')
-        </div>
     </div>
 
     @include('shared.tabs-laporan')
@@ -163,7 +154,7 @@
             var total_price = 0;
             $('tbody').html('').addClass('selectable');
             $.each(result, function(index, val) {
-                total_price = total_price + parseInt(val.total_invoice_price);
+                total_price = total_price + parseInt(val.total_invoice_price || 0);
                 var inv_date = new Date(val.invoice_date);
                 var exp_date = new Date(val.expiry_date);
                 var newRow = '<tr data-id="'+val.invoice_no+'">'+
