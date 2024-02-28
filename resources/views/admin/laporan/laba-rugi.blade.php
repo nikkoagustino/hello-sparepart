@@ -144,6 +144,7 @@
     });
 
     function refreshData() {
+        $('input').val(0);
         var month_start = $('select[name=month_start]').val();
         var month_end = $('select[name=month_end]').val();
         var year = $('select[name=year]').val();
@@ -167,8 +168,9 @@
                 $('input[name=modal_bersih]').val(result.data.modal_bersih);
                 $('input[name=total_komisi_sales]').val(result.data.komisi_sales);
                 $('input[name=total_beban_ops]').val(result.data.beban_ops);
+                $('input[name=total_beban_gaji]').val(result.data.gaji);
                 var laba_kotor = result.data.penjualan_kotor - result.data.modal_bersih;
-                var total_pengeluaran = result.data.komisi_sales + result.data.beban_ops;
+                var total_pengeluaran = result.data.komisi_sales + result.data.beban_ops + result.data.gaji;
                 $('input[name=laba_kotor]').val(laba_kotor);
                 $('input[name=total_pengeluaran]').val(total_pengeluaran);
                 var laba_bersih = laba_kotor - total_pengeluaran;
@@ -176,17 +178,17 @@
                 $('input').trigger('change');
 
                 // breakdown data
-                $('#komisiRow').html('');
+                $('#komisiWrapper').html('');
                 $.each(result.breakdown.komisi, function(index, val) {
                     var komisiRow = '<div class="row mt-2">'+
                             '<div class="col">'+val.sales_name+'</div>'+
                             '<div class="col-3">'+
-                                '<input type="text" data-type="number" name="beban_gaji[]" readonly="readonly" class="form-control" value="'+$.number(val.komisi, 0)+'">'+
+                                '<input type="text" data-type="number" name="komisi[]" readonly="readonly" class="form-control" value="'+$.number(val.komisi, 0)+'">'+
                             '</div><div class="col-5"></div></div>';
                     $('#komisiWrapper').append(komisiRow);
                 });
 
-                $('#gajiRow').html('');
+                $('#gajiWrapper').html('');
                 $.each(result.breakdown.gaji, function(index, val) {
                     var gajiRow = '<div class="row mt-2">'+
                             '<div class="col">'+val.sales_name+'</div>'+
