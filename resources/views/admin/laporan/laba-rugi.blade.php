@@ -207,7 +207,15 @@
     }
 
     $('#printButton').on('click', function(){
-        alert('Fitur belum tersedia');
+        var month_start = $('select[name=month_start]').val();
+        var month_end = $('select[name=month_end]').val();
+        var year = $('select[name=year]').val();
+        const params = new URLSearchParams({
+            year: year,
+            month_start: month_start,
+            month_end: month_end,
+        });
+        window.open('{{ url('admin/print/laporan-laba-rugi') }}?'+params, 'printWindow');
     });
 </script>
 @endsection

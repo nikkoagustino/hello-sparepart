@@ -332,6 +332,32 @@ class LaporanController extends Controller
         return response()->json($output, 200);
     }
 
+    function printLaporanLabaRugi(Request $request)
+    {
+        $data = [
+            'success' => true,
+            'data' => [
+                'penjualan_kotor' => (int) LaporanModel::getPenjualanKotor($request) ?? 0,
+                'modal_bersih' => (int) LaporanModel::getModalBersih($request) ?? 0,
+                'komisi_sales' => (int) LaporanModel::getKomisiSales($request) ?? 0,
+                'beban_ops' => (int) LaporanModel::getBebanOps($request) ?? 0,
+                'gaji' => (int) LaporanModel::getGajiSales($request) ?? 0,
+            ],
+            'breakdown' => [
+                'komisi' => LaporanModel::getKomisiSalesDetail($request),
+                'gaji' => LaporanModel::getGajiSalesDetail($request),
+                'beban_ops' => [
+                    'inventaris' => LaporanModel::getInventarisSum($request),
+                    'reimburse' => LaporanModel::getReimburseSum($request),
+                    'pulsa' => LaporanModel::getPulsaSum($request),
+                    'other' => LaporanModel::getBebanOpsOtherSum($request),
+                ],
+            ]
+        ];
+        $pdf = \PDF::loadView('admin/print/laporan-laba-rugi', $data);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
+
     function printRangkumanLabaRugi(Request $request)
     {
         $data = [
