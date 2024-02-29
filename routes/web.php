@@ -63,7 +63,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
             });
         });
 
-        Route::prefix('admin')->group(function(){
+        Route::prefix('admin')->middleware('master.admin')->group(function(){
             Route::get('/', [AccountController::class, 'showAccount']);
             Route::get('add', [AccountController::class, 'showAddAccountForm']);
             Route::post('add', [AccountController::class, 'createAccount']);
@@ -123,7 +123,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
 
         });
 
-        Route::get('laba-rugi', [LaporanController::class, 'showDashboardLabaRugi']);
+        Route::get('laba-rugi', [LaporanController::class, 'showDashboardLabaRugi'])->middleware('master.admin');
     });
 
     Route::prefix('master')->group(function(){
@@ -289,7 +289,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         });
     });
 
-    Route::prefix('laporan')->group(function() {
+    Route::prefix('laporan')->middleware('master.admin')->group(function() {
         Route::get('/', function(){ return redirect('admin/laporan/general'); });
         Route::get('general', [LaporanController::class, 'showLaporanHomepage']);
         Route::get('penjualan', [LaporanController::class, 'showLaporanPenjualan']);

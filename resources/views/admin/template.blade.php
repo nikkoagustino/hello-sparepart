@@ -345,10 +345,13 @@
                     {{-- <i class="fa-solid fa-store"></i> Pembelian --}}
                     <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}" alt=""> Pembelian
                 </a>
+
+                @if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser'))
                 <a href="{{ url('admin/laporan') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/laporan') ? 'active' : '') }}">
                     {{-- <i class="fa-solid fa-chart-bar"></i> Laporan --}}
                     <img src="{{ url('assets/img/svg/sidebar-laporan.svg') }}" alt=""> Laporan
                 </a>
+                @endif
                 <div class="mt-5"></div>
                 <a href="{{ url('admin/logout') }}" class="btn px-3 mt-5">
                     <center>
@@ -430,30 +433,6 @@
         </div>
     </div>
 </div>
-{{-- 
-<!-- Modal -->
-<div class="modal modal-sm fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body bg-danger text-light text-center">
-                <p class="py-2">DELETE ?</p>
-                <div class="row my-2">
-                    <div class="col">
-                        <a class="btn form-control btn-light" id="deleteAction">
-                            YA
-                        </a>
-                    </div>
-                    <div class="col">
-                        <button class="btn form-control btn-light" data-bs-dismiss="modal" aria-label="Close">
-                            CANCEL
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
- --}}
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
@@ -463,14 +442,6 @@
             alert('Copied to Clipboard')
         }
 
-        // var selected_row;
-
-        // $('.selectable').on('click', 'tbody tr', function() {
-        //     selected_row = $(this).data('id');
-        //     $('tr').removeClass('selected');
-        //     $('tr[data-id="'+selected_row+'"]').addClass('selected');
-        // });
-    
         $('button[type=back]').on('click', function(e) {
           e.preventDefault();
           
@@ -506,26 +477,6 @@
             });
             $(this).unbind('submit').submit();
         });
-
-        // $('#printButton').on('click', function(){
-        //     var tables = document.querySelectorAll('table.print');
-
-        //     // Create a new window for printing
-        //     var printWindow = window.open('', '', 'width=800,height=600');
-        //     // Set the CSS style for table width
-        //     var style = '<style>table { width: 100%; font-family:monospace; font-size:1.5rem; text-align:left; }</style>';
-        //     printWindow.document.write(style);
-
-        //     // Iterate through each table and append it to the print window
-        //     tables.forEach(function(table) {
-        //     printWindow.document.write(table.outerHTML);
-        //     printWindow.document.write('<br>');
-        //     });
-
-        //     // Print the contents of the print window
-        //     printWindow.print();
-        //     printWindow.close();
-        // });
 
         $('#spillPIN').on('mousedown', function(){
             $('input[name=pin]').prop('type', 'text');

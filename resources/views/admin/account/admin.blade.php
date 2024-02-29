@@ -28,18 +28,6 @@
                 <tr data-id="{{ $row->id }}">
                     <td>{{ $row->fullname }}</td>
                     <td>{{ $row->username }}</td>
-                    {{-- <td>
-                        @if ($row->two_fa_secret)
-                        <a class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hapus 2FA" href="{{ url('admin/account/2fa-remove') }}">
-                            <i class="fa-solid fa-key"></i>
-                        </a>
-                        @endif
-                        @if ($row->username != Session::get('userdata')->username)
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hapus Account" onclick='deleteAdmin("{{ $row->username }}")'>
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                        @endif
-                    </td> --}}
                 </tr>
                 @endforeach
             </tbody>
@@ -48,10 +36,6 @@
             <i class="fa-solid fa-plus"></i>
             Tambah
         </button>
-        {{-- <button id="detailButton" class="btn btn-danger btn-icon-lg">
-            <i class="fa-solid fa-arrow-pointer"></i>
-            Detail
-        </button> --}}
     </div>
 </div>
 @endsection

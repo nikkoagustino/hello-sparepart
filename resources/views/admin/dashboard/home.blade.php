@@ -52,6 +52,7 @@
                     Surat Jalan
                 </a>
             </div>
+            @if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser'))
             <div class="col-4">
                 <a href="{{ url('admin/dashboard/laba-rugi') }}" class="btn btn-selection btn-green">
                     <span class="display-1">
@@ -61,6 +62,7 @@
                     Laporan Laba Rugi
                 </a>
             </div>
+            @endif
             <div class="col"></div>
         </div>
     </div>

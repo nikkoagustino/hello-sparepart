@@ -22,6 +22,7 @@
                     Sales
                 </a>
             </div>
+            @if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser'))
             <div class="col-4">
                 <a href="{{ url('admin/account/admin') }}" class="btn btn-selection btn-purple">
                     <span class="display-1">
@@ -30,6 +31,7 @@
                     Admin
                 </a>
             </div>
+            @endif
             <div class="col-4">
                 <a href="{{ url('admin/account/absen') }}" class="btn btn-selection btn-blue">
                     <span class="display-1">

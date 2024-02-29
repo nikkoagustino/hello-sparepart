@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col">
             <button id="printButton" class="btn btn-danger btn-icon-lg">
                 <i class="fa-solid fa-print"></i>
