@@ -112,9 +112,8 @@ class LaporanController extends Controller
     }
 
     function getLaporanBulanan(Request $request) {
-        $current_date = $request->year.'-'.$request->month.'-01';
-        $monthly_expense = LaporanModel::getMonthlyExpense($current_date);
-        $monthly_income = LaporanModel::getMonthlyIncome($current_date);
+        $monthly_expense = LaporanModel::getMonthlyExpense($request);
+        $monthly_income = LaporanModel::getMonthlyIncome($request);
         $monthly_profit = $monthly_income->income - $monthly_expense->expense;
 
         $data = [

@@ -128,17 +128,17 @@ class LaporanModel extends Model
         return $result;
     }
 
-    static function getMonthlyExpense($current_date) {
+    static function getMonthlyExpense($request) {
         $result = DB::table('view_invoice_pembelian_detail')
-                    ->whereRaw('YEAR(invoice_date) = '.date('Y', strtotime($current_date)).' AND MONTH(invoice_date) = '.date('m', strtotime($current_date)))
+                    ->whereRaw('YEAR(invoice_date) = '.$request->year.' AND MONTH(invoice_date) = '.$request->month)
                     ->select(DB::raw('SUM(total_price) AS expense'))
                     ->first();
         return $result;
     }
 
-    static function getMonthlyIncome($current_date) {
+    static function getMonthlyIncome($request) {
         $result = DB::table('view_invoice_penjualan_detail')
-                    ->whereRaw('YEAR(invoice_date) = '.date('Y', strtotime($current_date)).' AND MONTH(invoice_date) = '.date('m', strtotime($current_date)))
+                    ->whereRaw('YEAR(invoice_date) = '.$request->year.' AND MONTH(invoice_date) = '.$request->month)
                     ->select(DB::raw('SUM(total_price) AS income'))
                     ->first();
         return $result;

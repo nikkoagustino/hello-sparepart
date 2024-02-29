@@ -129,7 +129,7 @@ $('input').on('change', function(){
 
 function refreshNumbers() {
     var month = $('select[name=month]').val();
-    var year = $('input[name=year]').val();
+    var year = $('select[name=year]').val();
     $.ajax({
         url: '{{ url('api/laporan-bulanan') }}',
         type: 'GET',
