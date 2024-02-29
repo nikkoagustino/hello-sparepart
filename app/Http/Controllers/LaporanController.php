@@ -370,4 +370,37 @@ class LaporanController extends Controller
         $pdf = \PDF::loadView('admin/print/rangkuman-laba-rugi', $data);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
+
+    function getRekapProduk(Request $request)
+    {
+        if ($request->kategori === 'penjualan') {
+            $data = LaporanModel::getRekapPenjualanProduk($request);
+        } else if ($request->kategori === 'pembelian') {
+            $data = LaporanModel::getRekapPembelianProduk($request);
+        } else {
+            $data = null;
+        }
+        $response = [
+            'success' => true,
+            'data' => $data
+        ];
+        return response()->json($response, 200);
+    }
+
+    function printLaporanProduk(Request $request)
+    {
+        if ($request->kategori === 'penjualan') {
+            $data = LaporanModel::getRekapPenjualanProduk($request);
+        } else if ($request->kategori === 'pembelian') {
+            $data = LaporanModel::getRekapPembelianProduk($request);
+        } else {
+            $data = null;
+        }
+        $response = [
+            'success' => true,
+            'data' => $data
+        ];
+        $pdf = \PDF::loadView('admin/print/laporan-produk', $response);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
 }

@@ -642,6 +642,13 @@
         $('select[name=returItemName]').on('change', function(){
             $('select[name=returItemCode]').val($(this).val());
         });
+
+        $('select[name=product_code_name]').on('change', function(){
+            $('select[name=product_code]').val($(this).val());
+        });
+        $('select[name=product_code]').on('change', function(){
+            $('select[name=product_code_name]').val($(this).val());
+        });
     </script>
     @yield('script')
 </body>

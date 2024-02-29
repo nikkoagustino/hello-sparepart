@@ -366,4 +366,44 @@ class LaporanModel extends Model
                     ->get();
         return $result;
     }
+
+    static function getRekapPenjualanProduk($request) {
+        DB::statement('SET SQL_MODE=""');
+        $query = DB::table('tb_penjualan_invoice_items AS itm')
+                    ->leftJoin('tb_penjualan_invoice_master AS inv', 'itm.invoice_no', '=', 'inv.invoice_no')
+                    ->leftJoin('tb_customer AS cust', 'inv.customer_code', '=', 'cust.customer_code')
+                    ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code');
+        if ($request->product_code) {
+            $query->where('itm.product_code', $request->product_code);
+        }
+        if ($request->date_start) {
+            $query->where('inv.invoice_date', '>=', $request->date_start);
+        }
+        if ($request->date_end) {
+            $query->where('inv.invoice_date', '<=', $request->date_end);
+        }
+        $result = $query->select('cust.customer_name', 'prd.price_capital AS modal', 'itm.discounted_price AS harga_jual', 'itm.qty')
+                        ->get();
+        return $result;
+    }
+
+    static function getRekapPembelianProduk($request) {
+        DB::statement('SET SQL_MODE=""');
+        $query = DB::table('tb_pembelian_invoice_items AS itm')
+                    ->leftJoin('tb_pembelian_invoice_master AS inv', 'itm.invoice_no', '=', 'inv.invoice_no')
+                    ->leftJoin('tb_supplier AS supp', 'inv.supplier_code', '=', 'supp.supplier_code')
+                    ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code');
+        if ($request->product_code) {
+            $query->where('itm.product_code', $request->product_code);
+        }
+        if ($request->date_start) {
+            $query->where('inv.invoice_date', '>=', $request->date_start);
+        }
+        if ($request->date_end) {
+            $query->where('inv.invoice_date', '<=', $request->date_end);
+        }
+        $result = $query->select('supp.supplier_name', 'itm.normal_price AS harga_normal', 'itm.discounted_price AS harga_beli', 'itm.discount_rate AS discount', 'itm.qty')
+                        ->get();
+        return $result;
+    }
 }
