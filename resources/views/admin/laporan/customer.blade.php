@@ -32,31 +32,21 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-3">Jenis Barang</div>
+                <div class="col-3">Nama Customer</div>
                 <div class="col-3">
-                    <select name="type_code" required="required" class="form-select form-control">
+                    <select name="customer_code" required="required" class="form-select form-control">
                         <option value="" selected="selected"></option>
-                        @foreach ($product_types as $row)
-                        <option value="{{ $row->type_code }}">{{ $row->type_code }}</option>
+                        @foreach ($customers as $row)
+                        <option value="{{ $row->customer_code }}">{{ $row->customer_code }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-6">
-                    <select name="type_code_name" required="required" class="form-select form-control">
+                    <select name="customer_code_name" required="required" class="form-select form-control">
                         <option value="" selected="selected"></option>
-                        @foreach ($product_types as $row)
-                        <option value="{{ $row->type_code }}">{{ $row->type_name }}</option>
+                        @foreach ($customers as $row)
+                        <option value="{{ $row->customer_code }}">{{ $row->customer_name }}</option>
                         @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-3">Kategori</div>
-                <div class="col-3">
-                    <select name="kategori" class="form-control form-select">
-                        <option value=""></option>
-                        <option value="pembelian">PEMBELIAN</option>
-                        <option value="penjualan">PENJUALAN</option>
                     </select>
                 </div>
             </div>
@@ -68,24 +58,68 @@
                 <thead>
                     <tr>
                         <th>Kode Barang</th>
+                        <th>Jenis Barang</th>
                         <th>Nama Barang</th>
-                        <th class="header_nama">Nama Supplier</th>
-                        <th>Harga</th>
                         <th>Qty</th>
+                        <th>Harga / pc</th>
+                        <th>Disc (%)</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="row mt-3">
+<div class="row px-3">
     <div class="col">
         <button id="printButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-print"></i>
             Print
         </button>
+    </div>
+    <div class="col-1">
+        Total
+    </div>
+    <div class="col-2 text-end">
+        <input type="text" name="total" class="form-control bg-khaki text-end" readonly="readonly">
     </div>
 </div>
 @endsection
@@ -102,39 +136,35 @@
     function refreshData() {
         var date_start = $('input[name=date_start]').val();
         var date_end = $('input[name=date_end]').val();
-        var type_code = $('select[name=type_code]').val();
-        var kategori = $('select[name=kategori]').val();
-        if (date_start && date_end && type_code && kategori) {
+        var customer_code = $('select[name=customer_code]').val();
+        if (date_start && date_end && customer_code) {
             $.ajax({
-                url: '{{ url('api/laporan/rekap-jenis-barang') }}',
+                url: '{{ url('api/laporan/rekap-customer') }}',
                 type: 'GET',
                 dataType: 'json',
                 data: {
                     date_start: date_start,
                     date_end: date_end,
-                    type_code: type_code,
-                    kategori: kategori,
+                    customer_code: customer_code,
                 },
             })
             .done(function(result) {
+                var total = 0;
                 $('tbody').html('');
                 $.each(result.data, function(index, val) {
+                    total = total + parseInt(val.subtotal_price);
                     var newRow = '<tr>'+
                                 '<td>'+val.product_code+'</td>'+
+                                '<td>'+val.type_code+'</td>'+
                                 '<td>'+val.product_name+'</td>'+
-                                '<td>'+val.nama+'</td>'+
-                                '<td>'+$.number((parseInt(val.harga) * parseInt(val.qty)), 0)+'</td>'+
                                 '<td>'+val.qty+'</td>'+
+                                '<td>'+$.number(val.normal_price, 0)+'</td>'+
+                                '<td>'+$.number(val.discount_rate, 2)+'</td>'+
+                                '<td>'+$.number(val.subtotal_price, 0)+'</td>'+
                                 '</tr>';
                     $('tbody').append(newRow);
                 });
-
-                var kategori = $('select[name=kategori]').val();
-                if (kategori === 'penjualan') {
-                    $('.header_nama').text('Nama Customer');
-                } else if (kategori === 'pembelian') {
-                    $('.header_nama').text('Nama Supplier');
-                }
+                $('input[name=total]').val($.number(total, 0));
             });
         }
     }
@@ -142,16 +172,14 @@
     $('#printButton').on('click', function(){
         var date_start = $('input[name=date_start]').val();
         var date_end = $('input[name=date_end]').val();
-        var type_code = $('select[name=type_code]').val();
-        var kategori = $('select[name=kategori]').val();
+        var customer_code = $('select[name=customer_code]').val();
         var query = new URLSearchParams({
             date_start: date_start,
             date_end: date_end,
-            type_code: type_code,
-            kategori: kategori,
+            customer_code: customer_code,
         });
-        if (date_start && date_end && type_code && kategori) {
-            window.open('{{ url('admin/print/laporan-jenis-barang') }}?'+query.toString(), 'printWindow');
+        if (date_start && date_end && customer_code) {
+            window.open('{{ url('admin/print/laporan-customer') }}?'+query.toString(), 'printWindow');
         } else {
             alert('Pilihan belum lengkap');
         }

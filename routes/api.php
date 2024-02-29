@@ -71,6 +71,7 @@ Route::get('laporan/product', [LaporanController::class, 'getLaporanProduct']);
 Route::get('laporan/product-type', [LaporanController::class, 'getLaporanProductType']);
 Route::get('laporan/rekap-produk', [LaporanController::class, 'getRekapProduk']);
 Route::get('laporan/rekap-jenis-barang', [LaporanController::class, 'getRekapJenisBarang']);
+Route::get('laporan/rekap-customer', [LaporanController::class, 'getRekapCustomer']);
 
 Route::get('dashboard-laba-rugi', [LaporanController::class, 'getDashboardLabaRugi']);
 // Route::get('data-laba-rugi', [LaporanController::class, 'getLabaRugi']);

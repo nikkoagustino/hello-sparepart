@@ -270,11 +270,19 @@ class LaporanController extends Controller
         ];
         return view('admin/laporan/produk')->with($data);
     }
+
     function showLaporanJenisBarang() {
         $data = [
             'product_types' => ProductTypeModel::getAll(),
         ];
         return view('admin/laporan/product-type')->with($data);
+    }
+
+    function showLaporanCustomer() {
+        $data = [
+            'customers' => CustomerModel::getAll(),
+        ];
+        return view('admin/laporan/customer')->with($data);
     }
 
     function getLaporanProduct(Request $request) {
@@ -434,6 +442,26 @@ class LaporanController extends Controller
             'data' => $data
         ];
         $pdf = \PDF::loadView('admin/print/laporan-jenis-barang', $response);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
+
+    function getRekapCustomer(Request $request)
+    {
+        $response = [
+            'success' => true,
+            'data' => LaporanModel::getRekapCustomer($request),
+        ];
+        return response()->json($response, 200);
+    }
+
+    function printLaporanCustomer(Request $request)
+    {
+        $response = [
+            'success' => true,
+            'customer' => CustomerModel::getById($request->customer_code),
+            'data' => LaporanModel::getRekapCustomer($request),
+        ];
+        $pdf = \PDF::loadView('admin/print/laporan-customer', $response);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
 }

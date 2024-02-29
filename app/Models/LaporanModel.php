@@ -446,4 +446,23 @@ class LaporanModel extends Model
                         ->get();
         return $result;
     }
+
+    static function getRekapCustomer($request) {
+        DB::statement('SET SQL_MODE=""');
+        $query = DB::table('tb_penjualan_invoice_items AS itm')
+                    ->leftJoin('tb_penjualan_invoice_master AS inv', 'itm.invoice_no', '=', 'inv.invoice_no')
+                    ->leftJoin('tb_product AS prd', 'itm.product_code', '=', 'prd.product_code');
+        if ($request->customer_code) {
+            $query->where('inv.customer_code', $request->customer_code);
+        }
+        if ($request->date_start) {
+            $query->where('inv.invoice_date', '>=', $request->date_start);
+        }
+        if ($request->date_end) {
+            $query->where('inv.invoice_date', '<=', $request->date_end);
+        }
+        $result = $query->select('itm.product_code', 'prd.type_code', 'prd.product_name', 'itm.qty', 'itm.normal_price', 'itm.discount_rate', 'itm.subtotal_price')
+                        ->get();
+        return $result;
+    }
 }
