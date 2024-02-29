@@ -30,7 +30,7 @@
         <div class="col-4 px-4">
             <div class="row laporan-head rounded">
                 <div class="col-12">
-                    <span id="monthly_profit" class="d-block fs-2">{{ number_format($monthly['profit'], 0) }}</span>
+                    <span id="monthly_profit" class="d-block fs-2 pt-2"></span>
                     <span>Keuntungan</span>
                 </div>
             </div>
@@ -38,7 +38,7 @@
         <div class="col-4 px-4">
             <div class="row laporan-head rounded">
                 <div class="col-12">
-                    <span id="monthly_income" class="d-block fs-2">{{ number_format($monthly['income'], 0) }}</span>
+                    <span id="monthly_income" class="d-block fs-2 pt-2"></span>
                     <span>Total Pemasukan</span>
                 </div>
             </div>
@@ -46,7 +46,7 @@
         <div class="col-4 px-4">
             <div class="row laporan-head rounded">
                 <div class="col-12">
-                    <span id="monthly_expense" class="d-block fs-2">{{ number_format($monthly['expense'], 0) }}</span>
+                    <span id="monthly_expense" class="d-block fs-2 pt-2"></span>
                     <span>Total Pengeluaran</span>
                 </div>
             </div>

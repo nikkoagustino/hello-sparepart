@@ -93,17 +93,7 @@ class LaporanController extends Controller
     }
 
     function showLaporanHomepage() {
-        $current_date = date('Y-m-d');
-        $monthly_expense = LaporanModel::getMonthlyExpense($current_date);
-        $monthly_income = LaporanModel::getMonthlyIncome($current_date);
-        $monthly_profit = $monthly_income->income - $monthly_expense->expense;
-
         $data = [
-            'monthly' => [
-                'expense' => (int) $monthly_expense->expense,
-                'income' => (int) $monthly_income->income,
-                'profit' => $monthly_profit,
-            ],
            'best_seller' => (array) LaporanModel::getBestSeller()->toArray(),
            'best_customer' => (array) LaporanModel::getBestCustomer()->toArray(),
         ];
