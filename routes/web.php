@@ -299,7 +299,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         // Route::get('laba-rugi/bulan', [LaporanController::class, 'showLabaRugiBulanan']);
         // // Route::post('laba-rugi', [LaporanController::class, 'saveLabaRugi']);
         Route::get('produk', [LaporanController::class, 'showLaporanProduk']);
-        // Route::get('jenis-barang', [LaporanController::class, 'showLaporanJenisBarang']);
+        Route::get('jenis-barang', [LaporanController::class, 'showLaporanJenisBarang']);
     });
 
     Route::prefix('print')->group(function(){
@@ -337,6 +337,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('piutang-detail', [PenjualanController::class, 'printDetailPiutang']);
         Route::get('transaksi-penjualan', [PenjualanController::class, 'printTransaksi']);
         Route::get('laporan-produk', [LaporanController::class, 'printLaporanProduk']);
+        Route::get('laporan-jenis-barang', [LaporanController::class, 'printLaporanJenisBarang']);
     });
 
     Route::get('backup', [BackupController::class, 'backupDatabase']);

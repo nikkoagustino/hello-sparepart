@@ -403,4 +403,37 @@ class LaporanController extends Controller
         $pdf = \PDF::loadView('admin/print/laporan-produk', $response);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
+
+    function getRekapJenisBarang(Request $request)
+    {
+        if ($request->kategori === 'penjualan') {
+            $data = LaporanModel::getRekapPenjualanJenisBarang($request);
+        } else if ($request->kategori === 'pembelian') {
+            $data = LaporanModel::getRekapPembelianJenisBarang($request);
+        } else {
+            $data = null;
+        }
+        $response = [
+            'success' => true,
+            'data' => $data
+        ];
+        return response()->json($response, 200);
+    }
+
+    function printLaporanJenisBarang(Request $request)
+    {
+        if ($request->kategori === 'penjualan') {
+            $data = LaporanModel::getRekapPenjualanJenisBarang($request);
+        } else if ($request->kategori === 'pembelian') {
+            $data = LaporanModel::getRekapPembelianJenisBarang($request);
+        } else {
+            $data = null;
+        }
+        $response = [
+            'success' => true,
+            'data' => $data
+        ];
+        $pdf = \PDF::loadView('admin/print/laporan-jenis-barang', $response);
+        return $pdf->setPaper('a4', 'landscape')->stream();
+    }
 }
