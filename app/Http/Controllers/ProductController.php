@@ -19,7 +19,7 @@ class ProductController extends Controller
 
     function insertProduct(Request $request) {
         $request->validate([
-            'product_code' => 'required|string',
+            'product_code' => 'required|string|unique:tb_product,product_code',
             'product_name' => 'required|string',
             'price_capital' => 'required|integer',
             'price_selling' => 'required|integer',

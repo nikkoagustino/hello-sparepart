@@ -19,6 +19,9 @@ class SessionCheck
         if (!Session::get('userdata')) {
             return redirect('admin/login');
         }
+        if (!Session::get('login_validated')) {
+            return redirect('admin/login');
+        }
         return $next($request);
     }
 }

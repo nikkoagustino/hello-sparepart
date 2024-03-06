@@ -13,7 +13,7 @@ class CustomerController extends Controller
 
     function insertCustomer(Request $request) {
         $request->validate([
-            'customer_code' => 'required|string',
+            'customer_code' => 'required|string|unique:tb_customer,customer_code',
             'customer_name' => 'required|string',
             'address' => 'nullable|string',
             'phone_number_1' => 'required|string',

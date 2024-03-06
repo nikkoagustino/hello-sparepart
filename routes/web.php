@@ -40,6 +40,11 @@ Route::prefix('admin')->group(function(){
         Route::get('otp', [AccountController::class, 'showOTPForm']);
         Route::post('otp', [AccountController::class, 'verifyOTP']);
     });
+
+    Route::prefix('account')->group(function(){
+        Route::get('2fa-setup', [AccountController::class, 'show2FASetup']);
+        Route::post('2fa-setup', [AccountController::class, 'submit2FASetup']);
+    });
 });
 
 Route::prefix('admin')->middleware('session.check')->group(function(){
@@ -75,8 +80,6 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('absen', [AbsensiController::class, 'getAbsen']);
         Route::post('absen', [AbsensiController::class, 'insertAbsen']);
 
-        Route::get('2fa-setup', [AccountController::class, 'show2FASetup']);
-        Route::post('2fa-setup', [AccountController::class, 'submit2FASetup']);
 
         Route::get('2fa-remove', [AccountController::class, 'remove2FA']);
     });

@@ -143,6 +143,7 @@ class AccountController extends Controller
         }
 
         if (AccountModel::save2FASecret($request->secret_key)) {
+            Session::put('login_validated', true);
             return redirect('admin/dashboard')->withSuccess('2FA berhasil disetting');
         } else {
             return back()->withErrors('Gagal setting 2FA');
@@ -163,6 +164,7 @@ class AccountController extends Controller
         if (!$verify) {
             return back()->withErrors('OTP Invalid');
         }
+        Session::put('login_validated', true);
         return redirect('admin/dashboard');
     }
 

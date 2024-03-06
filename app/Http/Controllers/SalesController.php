@@ -13,7 +13,7 @@ class SalesController extends Controller
 
     function insertSales(Request $request) {
         $request->validate([
-            'sales_code' => 'required|string',
+            'sales_code' => 'required|string|unique:tb_sales,sales_code',
             'sales_name' => 'required|string',
             'address' => 'nullable|string',
             'phone_number_1' => 'required|string',

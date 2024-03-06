@@ -13,7 +13,7 @@ class SupplierController extends Controller
 
     function insertSupplier(Request $request) {
         $request->validate([
-            'supplier_code' => 'required|string',
+            'supplier_code' => 'required|string|unique:tb_supplier,supplier_code',
             'supplier_name' => 'required|string',
             'address' => 'nullable|string',
             'phone_number_1' => 'required|string',
