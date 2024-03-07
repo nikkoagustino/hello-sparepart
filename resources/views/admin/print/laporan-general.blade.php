@@ -83,7 +83,7 @@
             </ol>
         </div>
         <div style="float: right; width: 59%;">
-            <b>LAPORAN TOP 10 BEST SELLER</b>
+            <b>LAPORAN TOP 10 BEST CUSTOMER</b>
             <ol>
                 @foreach ($best_customer as $row)
                 <li style="position: relative;">
