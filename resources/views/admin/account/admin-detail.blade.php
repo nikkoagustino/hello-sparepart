@@ -73,7 +73,7 @@
             <i class="fa-solid fa-pencil"></i>
             Edit
         </button>
-        <button id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger btn-icon-lg">
+        <button id="deleteButton" class="btn btn-danger btn-icon-lg">
             <i class="fa-solid fa-trash"></i>
             Delete
         </button>
@@ -92,6 +92,14 @@
     function enableEdit() {
         $('#deleteButton').hide();
         $('input').removeAttr('readonly');
+    }
+
+    $('#deleteButton').on('click', function(){
+        event.preventDefault();
+        $("#deleteModal").modal("show");
+    });
+    function enableDelete() {
+        window.location.href = '{{ url('admin/account/admin/delete/'.$admin->username) }}';
     }
 </script>
 @endsection
