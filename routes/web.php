@@ -343,6 +343,7 @@ Route::prefix('admin')->middleware('session.check')->group(function(){
         Route::get('laporan-produk', [LaporanController::class, 'printLaporanProduk']);
         Route::get('laporan-jenis-barang', [LaporanController::class, 'printLaporanJenisBarang']);
         Route::get('laporan-customer', [LaporanController::class, 'printLaporanCustomer']);
+        Route::get('laporan-general', [LaporanController::class, 'printLaporanGeneral']);
     });
 
     Route::get('backup', [BackupController::class, 'backupDatabase']);

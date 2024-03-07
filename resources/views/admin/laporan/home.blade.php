@@ -112,12 +112,14 @@
 <script>
 let chart = null;
 let chartInitialized = false;
+var chartRangeSelected;
 
 $(document).ready(function(){
     $('select[name=month]').val({{ date('m') }});
     $('select[name=year]').val({{ date('Y') }});
     refreshNumbers();
     refreshChart(3);
+    chartRangeSelected = 3;
 });
 
 $('select').on('change', function(){
@@ -143,11 +145,11 @@ function refreshNumbers() {
         $('#monthly_expense').text($.number(result.monthly.expense, 0));
         $('#monthly_income').text($.number(result.monthly.income, 0));
         $('#monthly_profit').text($.number(result.monthly.profit, 0));
-    });
-    
+    });   
 }
 
 function refreshChart(range) {
+    chartRangeSelected = range;
     $.ajax({
         url: '{{ url('api/laporan-tx') }}',
         type: 'GET',
@@ -220,7 +222,14 @@ function createApexChart(profit, expenses, labels) {
     }
 
 $('#printButton').on('click', function(){
-    alert('Fitur belum tersedia');
+    var month = $('select[name=month]').val();
+    var year = $('select[name=year]').val();
+    const params = new URLSearchParams({
+        year: year,
+        month: month,
+        chart_range: chartRangeSelected,
+    });
+    window.open('{{ url('admin/print/laporan-general') }}?'+params, 'printWindow');
 });
 </script>
 @endsection

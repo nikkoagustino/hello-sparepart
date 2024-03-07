@@ -453,4 +453,62 @@ class LaporanController extends Controller
         $pdf = \PDF::loadView('admin/print/laporan-customer', $response);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
+
+    function printLaporanGeneral(Request $request)
+    {
+        // monthly data
+        $monthly_expense = LaporanModel::getMonthlyExpense($request);
+        $monthly_income = LaporanModel::getMonthlyIncome($request);
+        $monthly_profit = $monthly_income->income - $monthly_expense->expense;
+
+        $monthly_data = [
+            'monthly' => [
+                'expense' => (int) $monthly_expense->expense,
+                'income' => (int) $monthly_income->income,
+                'profit' => (int) $monthly_profit,
+            ],
+        ];
+
+        // chart data
+        $range = $request->chart_range;
+        $income_data = [];
+        $expense_data = [];
+        $profit_data = [];
+        while ($range > 0) {
+            $start_date = Carbon::now()->subMonths($range - 1)->startOfMonth();
+            $year = date('Y', strtotime($start_date));
+            $month = date('m', strtotime($start_date));
+            $income_row = [
+                'month_name' => date('F', strtotime($start_date)),
+                'amount' => (int) LaporanModel::getIncomeByMonth($year, $month)->amount ?? 0,
+            ];
+            $expense_row = [
+                'month_name' => date('F', strtotime($start_date)),
+                'amount' => (int) LaporanModel::getExpenseByMonth($year, $month)->amount ?? 0,
+            ];
+            $profit_row = [
+                'month_name' => date('F', strtotime($start_date)),
+                'amount' => $income_row['amount'] - $expense_row['amount'],
+            ];
+            array_push($income_data, $income_row);
+            array_push($expense_data, $expense_row);
+            array_push($profit_data, $profit_row);
+
+            $range--;
+        }
+        $chart_data = [
+            'incomes' => $income_data,
+            'expenses' => $expense_data,
+            'profit' => $profit_data,
+        ];
+
+        $response = [
+            'monthly' => $monthly_data,
+            'chart' => $chart_data,
+           'best_seller' => (array) LaporanModel::getBestSeller()->toArray(),
+           'best_customer' => (array) LaporanModel::getBestCustomer()->toArray(),
+        ];
+        $pdf = \PDF::loadView('admin/print/laporan-general', $response);
+        return $pdf->setPaper('a4', 'portrait')->stream();
+    }
 }
