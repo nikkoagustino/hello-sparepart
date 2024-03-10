@@ -22,7 +22,7 @@
                     Sales
                 </a>
             </div>
-            @if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser'))
+            @if ((Session::get('userdata')->username === 'SuperAdminOlivia') || (Session::get('userdata')->username === 'superuser'))
             <div class="col-4">
                 <a href="{{ url('admin/account/admin') }}" class="btn btn-selection btn-purple">
                     <span class="display-1">

@@ -346,7 +346,7 @@
                     <img src="{{ url('assets/img/svg/sidebar-pembelian.svg') }}" alt=""> Pembelian
                 </a>
 
-                @if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser'))
+                @if ((Session::get('userdata')->username === 'SuperAdminOlivia') || (Session::get('userdata')->username === 'superuser'))
                 <a href="{{ url('admin/laporan') }}" class="btn form-control mt-3 {{ (Str::contains(Request::path(), 'admin/laporan') ? 'active' : '') }}">
                     {{-- <i class="fa-solid fa-chart-bar"></i> Laporan --}}
                     <img src="{{ url('assets/img/svg/sidebar-laporan.svg') }}" alt=""> Laporan

@@ -16,7 +16,7 @@ class MasterAdminCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser')) {
+        if ((Session::get('userdata')->username === 'SuperAdminOlivia') || (Session::get('userdata')->username === 'superuser')) {
             return $next($request);
         } else {
             return abort('403');

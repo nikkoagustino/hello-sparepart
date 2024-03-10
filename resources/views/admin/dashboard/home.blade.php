@@ -52,7 +52,7 @@
                     Surat Jalan
                 </a>
             </div>
-            @if ((Session::get('userdata')->username === 'administrator') || (Session::get('userdata')->username === 'superuser'))
+            @if ((Session::get('userdata')->username === 'SuperAdminOlivia') || (Session::get('userdata')->username === 'superuser'))
             <div class="col-4">
                 <a href="{{ url('admin/dashboard/laba-rugi') }}" class="btn btn-selection btn-green">
                     <span class="display-1">
