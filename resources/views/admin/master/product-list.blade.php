@@ -111,6 +111,10 @@
 
 @section('script')
 <script>
+    $(document).ready(function() {
+        searchProduct();
+    });
+
     $('#newButton').on('click', function(){
         window.location.href = '{{ url('admin/master/product/add') }}';
     });

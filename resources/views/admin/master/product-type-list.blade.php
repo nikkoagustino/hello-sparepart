@@ -83,6 +83,9 @@
 
 @section('script')
 <script>
+    $(document).ready(function() {
+        searchtype();
+    });
     $('#newButton').on('click', function(){
         window.location.href = '{{ url('admin/master/product-type/add') }}';
     });
