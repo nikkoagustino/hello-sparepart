@@ -89,6 +89,7 @@
                 <tr>
                     <th>No. Invoice</th>
                     <th>Tgl. Invoice</th>
+                    <th>Dibuat Oleh</th>
                     <th colspan="2">Nama Supplier</th>
                     <th>Jatuh Tempo</th>
                     <th>Qty Beli</th>
@@ -106,15 +107,6 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -126,6 +118,18 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -136,9 +140,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -191,9 +197,11 @@
                 total_price = total_price + parseInt(val.total_invoice_price || 0);
                 var inv_date = new Date(val.invoice_date);
                 var exp_date = new Date(val.expiry_date);
+                var createdBy = val.created_by !== null ? val.created_by : '';
                 var newRow = '<tr data-id="'+val.invoice_no+'">'+
                     '<td>'+val.invoice_no+'</td>'+
                     '<td>'+inv_date.toString('dd-MM-yyyy')+'</td>'+
+                    '<td>'+createdBy+'</td>'+
                     '<td>'+val.customer_code+'</td>'+
                     '<td>'+val.customer_name+'</td>'+
                     '<td>'+exp_date.toString('dd-MM-yyyy')+'</td>'+
