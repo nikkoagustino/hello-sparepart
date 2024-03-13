@@ -29,6 +29,12 @@
                 <input type="text" name="product_name" class="form-control">
             </div>
         </div>
+        <div class="row mt-2">
+            <div class="col-3">Jenis Barang</div>
+            <div class="col">
+                <input type="text" name="type_code" class="form-control">
+            </div>
+        </div>
     </div>
     <div class="col text-end">
         <button id="newButton" class="btn btn-danger btn-icon-lg">
@@ -131,6 +137,7 @@
             data: {
                 product_code: $('input[name=product_code]').val(),
                 product_name: $('input[name=product_name]').val(),
+                type_code: $('input[name=type_code]').val(),
             },
         })
         .done(function(result) {

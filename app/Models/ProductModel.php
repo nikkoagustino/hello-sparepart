@@ -83,6 +83,7 @@ class ProductModel extends Model
         $query = DB::table('tb_product')->groupBy('product_code');
         if ($request->product_code) $query->where('product_code', 'like', '%'.$request->product_code.'%');
         if ($request->product_name) $query->where('product_name', 'like', '%'.$request->product_name.'%');
+        if ($request->type_code) $query->where('type_code', 'like', '%'.$request->type_code.'%');
         return $query->get();
     }
 
