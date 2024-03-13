@@ -43,6 +43,7 @@ class PenjualanModel extends Model
                         'expiry_date' => date('Y-m-d', strtotime($request->invoice_date.' +'.$request->days_expire.' days')),
                         'description' => $request->description,
                         'payment_type' => $request->payment_type,
+                        'created_by' => \Session::get('userdata')->username,
                     ]);
         return $insert;
     }
@@ -59,6 +60,7 @@ class PenjualanModel extends Model
                         'qty' => $request->qty,
                         'subtotal_price' => ($request->qty * $discounted_price),
                     ]);
+        ProductModel::decrementProductQty($request->product_code, $request->qty);
         return $insert;
     }
 
@@ -249,6 +251,8 @@ class PenjualanModel extends Model
                         'discounted_price' => $result->discounted_price,
                         'subtotal_price' => $request->qty * $result->discounted_price,
                     ]);
+        ProductModel::incrementProductQty($request->product_code, $request->qty);
+
         return $insert;
     }
 
@@ -271,6 +275,20 @@ class PenjualanModel extends Model
 
     static function updateInvoiceItem($data) {
         $data = (array) $data;
+
+        $read = DB::table('tb_penjualan_invoice_items')
+                    ->where('invoice_no', $data['invoice_no'])
+                    ->where('product_code', $data['product_code'])
+                    ->first();
+        if ($data['qty'] < $read->qty) {
+            $diff = (int) $read->qty - (int) $data['qty'];
+            ProductModel::incrementProductQty($data['product_code'], $diff);
+        }
+        if ($data['qty'] > $read->qty) {
+            $diff = (int) $data['qty'] - (int) $read->qty;
+            ProductModel::decrementProductQty($data['product_code'], $diff);
+        }
+
         $update = DB::table('tb_penjualan_invoice_items')
                     ->where('invoice_no', $data['invoice_no'])
                     ->where('product_code', $data['product_code'])
@@ -288,6 +306,11 @@ class PenjualanModel extends Model
     }
 
     static function deleteReturByID($id) {
+        $read = DB::table('tb_retur_penjualan')
+                    ->where('id', $id)
+                    ->first();
+        ProductModel::decrementProductQty($read->product_code, $read->qty);
+
         $delete = DB::table('tb_retur_penjualan')
                     ->where('id', $id)
                     ->delete();
@@ -340,6 +363,20 @@ class PenjualanModel extends Model
                     ->where('invoice_no', $request->invoice_no)
                     ->where('product_code', $request->product_code)
                     ->first();
+
+
+        $read = DB::table('tb_retur_penjualan')
+                    ->where('invoice_no', $request->invoice_no)
+                    ->where('id', $request->id)
+                    ->first();
+        if ($request->qty < $read->qty) {
+            $diff = (int) $read->qty - (int) $request->qty;
+            ProductModel::incrementProductQty($request->product_code, $diff);
+        }
+        if ($request->qty > $read->qty) {
+            $diff = (int) $request->qty - (int) $read['qty'];
+            ProductModel::decrementProductQty($request->product_code, $diff);
+        }
 
         $update = DB::table('tb_retur_penjualan')
                     ->where('invoice_no', $request->invoice_no)

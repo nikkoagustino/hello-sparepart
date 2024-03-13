@@ -85,4 +85,18 @@ class ProductModel extends Model
         if ($request->product_name) $query->where('product_name', 'like', '%'.$request->product_name.'%');
         return $query->get();
     }
+
+    static function decrementProductQty($product_code, $qty = 1) {
+        $update = DB::table('tb_product')
+                    ->where('product_code', $product_code)
+                    ->decrement('qty_stok', $qty);
+        return $update;
+    }
+
+    static function incrementProductQty($product_code, $qty = 1) {
+        $update = DB::table('tb_product')
+                    ->where('product_code', $product_code)
+                    ->increment('qty_stok', $qty);
+        return $update;
+    }
 }
