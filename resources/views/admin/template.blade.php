@@ -315,10 +315,10 @@
 
         <div class="row no-print" style="border-bottom: 2px solid darkred;
     border-bottom-right-radius: 100px; background-color: white !important">
-            <div class="col-3">
-                <img src="{{ url('assets/img/logo.png') }}" style="height: 70px" alt="">
+            <div class="col-3 p-3">
+                <img src="{{ url('assets/img/logo.png') }}" style="height: 50px" alt="">
             </div>
-            <div class="col-9 pt-2 text-center">
+            <div class="col-9 pt-4 text-center">
                 <span class="fs-2">Welcome <b>{{ Session::get('userdata')->username ?? '' }}</b></span>
             </div>
         </div>
@@ -384,7 +384,7 @@
             <div class="modal-body bg-danger text-light text-center">
                 <p class="py-2">PIN</p>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" name="pin" placeholder="PIN" aria-label="PIN" aria-describedby="spillPIN">
+                    <input type="password" class="form-control" inputmode="numeric" minlength="6" maxlength="6" pattern="[0-9\s]{6}" name="pin" placeholder="PIN" aria-label="PIN" aria-describedby="spillPIN">
                     <button class="btn btn-danger" type="button" id="spillPIN">
                         <i class="fa-solid fa-eye"></i>
                     </button>
@@ -412,7 +412,7 @@
             <div class="modal-body bg-danger text-light text-center">
                 <p class="py-2">PIN</p>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" name="delete_pin" placeholder="PIN" aria-label="PIN" aria-describedby="spillPINDelete">
+                    <input type="password" class="form-control" inputmode="numeric" minlength="6" maxlength="6" pattern="[0-9\s]{6}" name="delete_pin" placeholder="PIN" aria-label="PIN" aria-describedby="spillPINDelete">
                     <button class="btn btn-danger" type="button" id="spillPINDelete">
                         <i class="fa-solid fa-eye"></i>
                     </button>
@@ -484,12 +484,22 @@
         $('#spillPIN').on('mouseup', function(){
             $('input[name=pin]').prop('type', 'password');
         });
+        $('input[name=pin]').keypress(function(event) {
+            if (event.which == 13) {
+                $('#submitPIN').trigger('click');
+            }
+        });
 
         $('#spillPINDelete').on('mousedown', function(){
             $('input[name=delete_pin]').prop('type', 'text');
         });
         $('#spillPINDelete').on('mouseup', function(){
             $('input[name=delete_pin]').prop('type', 'password');
+        });
+        $('input[name=delete_pin]').keypress(function(event) {
+            if (event.which == 13) {
+                $('#submitPINDelete').trigger('click');
+            }
         });
 
         $('#editButton').on('click', function(event){

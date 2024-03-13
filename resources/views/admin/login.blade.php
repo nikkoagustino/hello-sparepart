@@ -18,6 +18,7 @@
             background:#950101 !important;
             color: white !important;
             box-shadow: 0 0 5px grey;
+            border: 2px solid #950101 !important;
         }
         .btn-danger:hover {
             color: black;
@@ -25,7 +26,35 @@
             border: 2px solid #950101 !important;
         }
         body {
-            background-color: #f4f6f6;
+            background-color: #f5f5f3;
+        }
+        .form-control {
+            border-radius: 2px;
+        }
+        .login-wrapper {
+            background: white;
+            border: 2px solid #950101;
+        }
+        .input-group-text {
+            background: none;
+            border-right: none;
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+            color: #950101;
+        }
+        .input-group .form-control {
+            border-left: none;
+        }
+        .input-group .btn-danger {
+            background: none !important;
+            border: 1px solid #ced4da !important;
+            border-left: none !important;
+            border-radius: 2px !important;
+            color: black !important;
+            box-shadow: none !important;
+        }
+        .input-group input[type=password] {
+            border-right: none !important;
         }
     </style>
 </head>
@@ -57,27 +86,30 @@
     <div class="container">
         <div class="row">
             <div class="col"></div>
-            <div class="col-4 mt-5">
+            <div class="col-12 col-lg-4 mt-5">
                 <img src="{{ url('assets/img/logo.png') }}" style="max-width: 100%" alt="">
             </div>
             <div class="col"></div>
         </div>
         <div class="row">
             <div class="col"></div>
-            <div class="col-3">
+            <div class="col-8 col-lg-3 login-wrapper p-4 mt-5">
                 <form action="{{ url('admin/login') }}" method="POST">
                     @csrf
-                    <div class="input-group mt-5">
+                    <div class="input-group">
                         <span class="input-group-text">
                             <i class="fa-solid fa-user"></i>
                         </span>
                         <input type="text" name="username" placeholder="Username" class="form-control" minlength="6">
                     </div>
-                    <div class="input-group mt-2">
+                    <div class="input-group mt-3">
                         <span class="input-group-text">
                             <i class="fa-solid fa-lock"></i>
                         </span>
                         <input type="password" name="password" placeholder="Password" class="form-control" minlength="6">
+                        <button class="btn btn-danger" type="button" id="spillPass">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
                     </div>
                     <button class="btn btn-danger form-control mt-3">Login</button>
                 </form>
@@ -85,5 +117,13 @@
             <div class="col"></div>
         </div>
     </div>
+    <script>
+        $('#spillPass').on('mousedown', function(){
+            $('input[name=password]').prop('type', 'text');
+        });
+        $('#spillPass').on('mouseup', function(){
+            $('input[name=password]').prop('type', 'password');
+        });
+    </script>
 </body>
 </html>
