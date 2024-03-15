@@ -33,14 +33,23 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-selection btn-red">
+                <a href="{{ url('admin/pembelian/transaksi') }}" class="btn btn-selection btn-blue">
                     {{-- <span class="display-1">
-                        <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                        <i class="fa-solid fa-cash-register"></i>
                     </span> --}}
+                    <img src="{{ url('assets/img/svg/transaksi.svg') }}" class="icon-lg" alt="">
+                    Transaksi
+                </a>
+            </div>
+            {{-- <div class="col-4">
+                <a href="{{ url('admin/pembelian/pembayaran') }}" class="btn btn-selection btn-red">
+                    <span class="display-1">
+                        <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                    </span>
                     <img src="{{ url('assets/img/svg/pembayaran.svg') }}" class="icon-lg" alt="">
                     Pembayaran
                 </a>
-            </div>
+            </div> --}}
             {{-- <div class="col-4">
                 <a href="{{ url('admin/pembelian/lunas') }}" class="btn btn-selection btn-blue">
                     <span class="display-1">
@@ -51,15 +60,6 @@
             </div> --}}
         </div>
         <div class="row mb-5">
-            <div class="col-4">
-                <a href="{{ url('admin/pembelian/transaksi') }}" class="btn btn-selection btn-blue">
-                    {{-- <span class="display-1">
-                        <i class="fa-solid fa-cash-register"></i>
-                    </span> --}}
-                    <img src="{{ url('assets/img/svg/transaksi.svg') }}" class="icon-lg" alt="">
-                    Transaksi
-                </a>
-            </div>
             <div class="col-4">
                 <a href="{{ url('admin/pembelian/retur') }}" class="btn btn-selection btn-pink">
                     {{-- <span class="display-1">
