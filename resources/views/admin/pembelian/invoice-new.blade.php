@@ -126,6 +126,7 @@
                         <th>Harga/pc</th>
                         <th>Disc (%)</th>
                         <th>Total</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -137,14 +138,6 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -155,6 +148,17 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
@@ -164,9 +168,11 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -310,17 +316,19 @@
         var subtotal_price = $('input[name=subtotal_price]').val().replace(/,/g, '');
         total_price = parseInt(total_price) + parseInt(subtotal_price);
 
-        var newInput = '<input type="hidden" name="product_code['+row_counter+']" value="'+product_code+'">'+
+        var newInput = '<div id="input_'+row_counter+'">'+
+                       '<input type="hidden" name="product_code['+row_counter+']" value="'+product_code+'">'+
                        '<input type="hidden" name="product_name['+row_counter+']" value="'+product_name+'">'+
                        '<input type="hidden" name="type_code['+row_counter+']" value="'+type_code+'">'+
                        '<input type="hidden" name="normal_price['+row_counter+']" value="'+normal_price+'">'+
                        '<input type="hidden" name="discount_rate['+row_counter+']" value="'+discount_rate+'">'+
                        '<input type="hidden" name="discounted_price['+row_counter+']" value="'+discounted_price+'">'+
                        '<input type="hidden" name="qty['+row_counter+']" value="'+qty+'">'+
-                       '<input type="hidden" name="subtotal_price['+row_counter+']" value="'+subtotal_price+'">';
+                       '<input type="hidden" name="subtotal_price['+row_counter+']" value="'+subtotal_price+'">'+
+                       '</div>';
         $('.inputWrapper').append(newInput);
 
-        var newRow = '<tr>'+
+        var newRow = '<tr id="table_row_'+row_counter+'">'+
                     '<td>'+product_code+'</td>'+
                     '<td>'+type_code+'</td>'+
                     '<td>'+product_name+'</td>'+
@@ -328,12 +336,23 @@
                     '<td>'+$.number(normal_price, 0)+'</td>'+
                     '<td>'+$.number(discount_rate, 2)+'</td>'+
                     '<td>'+$.number(subtotal_price, 0)+'</td>'+
+                    '<td><i class="fa-solid fa-trash" style="cursor:pointer" onclick="deleteRow('+row_counter+')"></i></td>'+
                     '</tr>';
         $('tbody').append(newRow);
         resetAddItemModal();
         $('input[name=total_price]').val(total_price).change();
         row_counter++;
     });
+
+    function deleteRow(row_number)
+    {
+        var subtotal_price_deleted = $('input[name="subtotal_price['+row_number+']"').val();
+        total_price = parseInt(total_price) - parseInt(subtotal_price_deleted);
+        $('input[name=total_price]').val(total_price).change();
+
+        $('#input_'+row_number).remove();
+        $('#table_row_'+row_number).remove();
+    }
 
     function resetAddItemModal()
     {
